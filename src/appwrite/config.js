@@ -91,7 +91,7 @@ export class Service {
             return false;
         }
     };
-	
+	 
 	//delete   files aka images in storage aka bucket
     deleteFile = async (fileId) => {
         try {
