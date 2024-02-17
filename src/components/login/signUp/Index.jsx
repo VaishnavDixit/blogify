@@ -14,18 +14,33 @@ const Index = () => {
     return (
         <div className="signUpPage container">
             <Row>
-				<Col>
-				</Col>
-                <Col >
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        {/* register your input into the hook by invoking the "register" function */}
-                        <input type="email" defaultValue="test" {...register("example")} />
-                        {errors.example && <span>invalid</span>}
-                        {/* include validation with required or other standard HTML validation rules */}
-                        <input {...register("exampleRequired", {required: true})} />
-                        {errors.exampleRequired && <span>This field is required</span>}
-
-                        <input type="submit" />
+                <Col sm={12}>
+                    <p className="josefin-sans-bold desc">
+                        Sign up to write and view awesome blogs.
+                    </p>
+                </Col>
+                <Col sm={12}>
+                    <form onSubmit={handleSubmit(onSubmit)} className="container">
+                        <Row>
+                            <Col sm={12} className="mb-2">
+                                {/* register your input into the hook by invoking the "register" function */}
+                                <input placeholder="Name" {...register("name")} />
+                                {errors.example && <span>invalid</span>}
+                            </Col>
+                            <Col sm={12} className="mb-2">
+                                {/* register your input into the hook by invoking the "register" function */}
+                                <input placeholder="Email" {...register("email")} />
+                                {errors.example && <span>invalid</span>}
+                            </Col>
+                            <Col sm={12} className="mb-2">
+                                <input placeholder="Password" type="password" {...register("exampleRequired", {required: true})} />
+                                {errors.exampleRequired && <span>This field is required</span>}
+                            </Col>
+                            {/* include validation with required or other standard HTML validation rules */}
+                            <Col sm={12} className="mb-2">
+                                <input type="submit" />
+                            </Col>
+                        </Row>
                     </form>
                 </Col>
             </Row>
