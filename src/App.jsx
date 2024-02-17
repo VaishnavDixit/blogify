@@ -4,7 +4,9 @@ import {useDispatch} from "react-redux";
 import authService from "./appwrite/auth";
 import {login, logout} from "./store/authSlice";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import Login from "./components/login/landingPage/Index";
+import LandingPage from "./components/login/landingPage/Index";
+
+import routes from "../routes";;
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -24,7 +26,11 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Login />}></Route>
+                <Route key="-1" index element={<LandingPage />}></Route>
+                {routes.map((item, index) => (
+                    <Route key={index} path={item.path} element={item.element}></Route>
+                ))}
+                <Route key="-2" path={"*"} element={<>invalid url :/</>}></Route>
             </Routes>
         </BrowserRouter>
     );
