@@ -1,4 +1,4 @@
-import Page1 from "./src/components/views/page1/Index";
+import Page1 from "./src/components/views/dashboardDefault/Index";
 import Page2 from "./src/components/views/page2/Index";
 import Page3 from "./src/components/views/page3/Index";
 

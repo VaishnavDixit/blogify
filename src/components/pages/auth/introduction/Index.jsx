@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./style.scss";
-
 const Index = () => {
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (localStorage.getItem("status") == "true") navigate("/dashboard");
+    }, []);
+
     return (
         <div className="loginPage d-flex flex-column flex-md-row justify-content-between">
             <div className="d-flex flex-column justify-content-center">

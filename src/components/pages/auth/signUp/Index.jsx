@@ -21,7 +21,9 @@ const Index = () => {
         try {
             const session = await authService.createAccount(data);
             if (session) {
+                localStorage.setItem("status", true);
                 dispatch(login({email: data.email, password: data.password}));
+                //login into redux store
                 navigate("/dashboard");
                 console.log("Successfully signed up ;)");
             }
@@ -30,7 +32,7 @@ const Index = () => {
         }
     };
     return (
-        <div className="signUpPage container">
+        <div className="signUpPage d-flex align-items-center container">
             <Row>
                 <Col sm={12}>
                     <p className="josefin-sans-bold desc">

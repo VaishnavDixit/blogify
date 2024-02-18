@@ -6,23 +6,26 @@ const initialState = {
     userData: null,
 };
 
-const authSlice = createSlice({
+export const authSlice = createSlice({
     name: "auth",
     initialState: initialState,
     reducers: {
         login: (state, action) => {
-            // status  = initial state.
+            // state  = initialState accessible from here.
+            console.log(state);
+            console.log(action);
             state.status = true;
             state.userData = action.payload.userData;
+            //data passed as login(data) can be accessed as follows -> action.payload
+			
         },
         logout: (state, action) => {
             // status  = initial state.
             state.status = false;
             state.userData = null;
         },
-		// these will be exported
+        // these will be exported
     },
 });
-
-
-export const {login, logout} = authSlice.actions
+export const {login, logout} = authSlice.actions;
+export default authSlice.reducer;

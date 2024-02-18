@@ -20,9 +20,10 @@ const Index = () => {
         try {
             const session = await authService.login(data);
             if (session) {
+				localStorage.setItem('status', true);
                 const userData = await authService.getCurrentUser();
                 if (userData) {
-                    dispatch(reduxLogin(userData));
+                    dispatch(reduxLogin({userData}));
                     navigate("/dashboard");
                 }
             }
@@ -32,7 +33,7 @@ const Index = () => {
     };
 
     return (
-        <div className="signUpPage container">
+        <div className="signUpPage d-flex align-items-center container">
             <Row>
                 <Col sm={12}>
                     <p className="josefin-sans-bold desc">

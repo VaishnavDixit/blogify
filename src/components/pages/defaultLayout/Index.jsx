@@ -18,8 +18,8 @@ const Index = () => {
             </Link>
             <Routes>
                 <Route index element={<>def layout default</>} />
-                {routes.map((item) => (
-                    <Route path={item.path} element={item.element} />
+                {routes.map((item, index) => (
+                    <Route key={index+1} path={item.path} element={item.element} />
                 ))}
                 <Route path="*" element={<>err in def layout</>} />
             </Routes>
