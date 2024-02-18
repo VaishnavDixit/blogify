@@ -13,12 +13,15 @@ export class AuthService {
             .setProject(conf.appwriteProjectId);
         this.account = new Account(this.client);
     }
-
+    //65c53f61a610a794ea50
     createAccount = async ({email, password, name}) => {
+        console.log({email, password, name});
         try {
             const userAccount = await this.account.create(ID.unique(), email, password, name);
             if (userAccount) {
                 //will log in now
+                console.log("successfullt signed up");
+                return await this.login({email, password});
             } else return userAccount;
         } catch (error) {
             console.log(error);

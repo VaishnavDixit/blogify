@@ -24,7 +24,7 @@
 #root {
     // max-width: 1280px;
     // margin: 0 auto;
-    padding: 1rem;
+    // padding: 1rem;
     // text-align: center;
 }
 
@@ -47,4 +47,12 @@
     font-optical-sizing: auto;
     font-weight: 300;
     font-style: normal;
+}
+
+.form-control {
+    border: 1px solid grey !important;
+    &:focus {
+        border: 2px solid grey;
+        outline: none !important;
+    }
 }

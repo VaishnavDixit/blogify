@@ -1,11 +1,10 @@
-import React from "react";
-//routes
-import LandingPage from "./src/components/login/landingPage/Index";
-import SignInPage from "./src/components/login/signIn/Index";
-import SignUpPage from "./src/components/login/signUp/Index";
+import Page1 from "./src/components/views/page1/Index";
+import Page2 from "./src/components/views/page2/Index";
+import Page3 from "./src/components/views/page3/Index";
 
 const routes = [
-    {path: "/sign-in", name: "Sign In", element: <SignInPage />},
-    {path: "/sign-up", name: "SignUp", element: <SignUpPage />},
+    {path: "/page1", element: <Page1 />},
+    {path: "/page2", element: <Page2 />},
+    {path: "/page3", element: <Page3 />},
 ];
 export default routes;
