@@ -55,7 +55,7 @@ const Index = () => {
                             </Col>
                             <Col sm={12} className="mb-2">
                                 <input
-                                    className="form-control"
+                                    className="form-control form-color1"
                                     placeholder="Password"
                                     type="password"
                                     {...register("password", {required: true})}
@@ -64,7 +64,7 @@ const Index = () => {
                             </Col>
                             {/* include validation with required or other standard HTML validation rules */}
                             <Col sm={12} className="mb-2">
-                                <Button type="submit">Submit</Button>
+                                <Button type="submit" >Submit</Button>
                             </Col>
                         </Row>
                     </form>

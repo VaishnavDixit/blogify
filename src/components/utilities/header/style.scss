@@ -1,5 +1,12 @@
-.header {
-    background: yellow;
-	width: 100%;
-	font-size: 2em;
+@import "../../../custom.scss";
+
+.headerStyle {
+    width: 100%;
+
+    span {
+        font-size: 1.5em;
+    }
+    Button {
+        font-size: 1em;
+    }
 }

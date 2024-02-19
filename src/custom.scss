@@ -1,29 +1,25 @@
-$primary: pink;
-$secondary: #8f5325;
-$success: #3e8d63;
-$info: #7854e4;
-$warning: #b8c924;
-$danger: #d62518;
-$light: #f8f9fa;
-$dark: #343a40;
+@import "node_modules/bootstrap/scss/bootstrap.scss";
 
 //custom color to be mapped
-$accent: #da6d25;
+$webpinkred: #f72585;
+$webviolet: #7209b7;
+$webdarkblue: #3a0ca3;
+$webblue: #4361ee;
+$weblightblue: #4cc9f0;
 
-// this is used to map colors. change accordingly.
-$theme-colors: (
-    primary: $primary,
-    secondary: $secondary,
-    success: $success,
-    info: $info,
-    warning: $warning,
-    danger: $danger,
-    light: $light,
-    dark: $dark,
+$theme-colors: map-merge($theme-colors, (
+	// configure existing colors to whatever.
+    // "success": $success,
+    // "info": $info,
     // add any additional color below
-    accent: $accent,
+    //..
+    'webpinkred': $webpinkred,
+    'webviolet': $webviolet,
+    'webdarkblue': $webdarkblue,
+    'webblue': $webblue,
+    'weblightblue': $weblightblue,
     // now bg-accent,btn-accent,etc.. can be called
-);
+));
 
 // Import Bootstrap and its default variables
 @import "node_modules/bootstrap/scss/bootstrap.scss";

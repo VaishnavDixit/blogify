@@ -30,9 +30,9 @@ const Header = () => {
         }
     };
     return (
-        <div className="header d-flex align-items-center justify-content-between p-2">
-            <span className="josefin-sans-bolder">Header</span>
-            <Button onClick={signOut}>Sign out</Button>
+        <div className="headerStyle d-flex align-items-center justify-content-between p-2">
+            <span className="josefin-sans-bolder">Blogify</span>
+            <Button onClick={signOut} variant='orange'>Sign out</Button>
         </div>
     );
 };

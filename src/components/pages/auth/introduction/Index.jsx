@@ -19,7 +19,7 @@ const Index = () => {
             <div className="d-flex flex-row flex-md-column justify-content-center">
                 <span>
                     <Link to="sign-in">
-                        <Button className="m-1">Sign In</Button>
+                        <Button className="m-1" variant="warning">Sign In</Button>
                     </Link>
                     <Link to="sign-up">
                         <Button className="m-1">Sign Up</Button>

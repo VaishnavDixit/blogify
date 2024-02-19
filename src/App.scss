@@ -50,9 +50,8 @@
 }
 
 .form-control {
-    border: 1px solid grey !important;
+    border: 1px solid lightgrey !important;
     &:focus {
         border: 2px solid grey;
-        outline: none !important;
     }
 }
