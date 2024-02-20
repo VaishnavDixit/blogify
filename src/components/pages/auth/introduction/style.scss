@@ -1,10 +1,17 @@
-
-.loginPage {
-    padding: 35% 1rem 1rem 1rem;
+@import "../../../../custom.scss";
+.introductionPage {
+    padding: 35vh 1rem 1rem 1rem;
     .title {
-        font-size: 6em;
+        font-size: 7em;
     }
     .desc {
         font-size: 1.2em;
+    }
+    .btnColumn {
+        Button {
+            width: 75%;
+            background-color: $webblue;
+			opacity: .9;
+        }
     }
 }

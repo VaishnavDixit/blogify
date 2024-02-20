@@ -7,19 +7,24 @@ $webdarkblue: #3a0ca3;
 $webblue: #4361ee;
 $weblightblue: #4cc9f0;
 
-$theme-colors: map-merge($theme-colors, (
-	// configure existing colors to whatever.
-    // "success": $success,
-    // "info": $info,
-    // add any additional color below
-    //..
-    'webpinkred': $webpinkred,
-    'webviolet': $webviolet,
-    'webdarkblue': $webdarkblue,
-    'webblue': $webblue,
-    'weblightblue': $weblightblue,
-    // now bg-accent,btn-accent,etc.. can be called
-));
+$theme-colors: map-merge(
+    $theme-colors,
+    (
+        // configure existing colors to whatever color you like.
+        // ex:
+        // "success": $success,
+        // "info": $info,
+        "primary": $webblue,
+        // add any additional color below
+        //..
+        "webpinkred": $webpinkred,
+        "webviolet": $webviolet,
+        "webdarkblue": $webdarkblue,
+        "webblue": $webblue,
+        "weblightblue": $weblightblue,
+        // now bg-accent,btn-accent,etc.. can be called
+    )
+);
 
 // Import Bootstrap and its default variables
 @import "node_modules/bootstrap/scss/bootstrap.scss";

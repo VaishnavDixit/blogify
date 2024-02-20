@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { Button } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import React, {useEffect} from "react";
+import {Button, Container} from "react-bootstrap";
+import {Link, useNavigate} from "react-router-dom";
 import "./style.scss";
 const Index = () => {
     const navigate = useNavigate();
@@ -9,24 +9,24 @@ const Index = () => {
     }, []);
 
     return (
-        <div className="loginPage d-flex flex-column flex-md-row justify-content-between">
-            <div className="d-flex flex-column justify-content-center">
+		<Container>
+        <div className="introductionPage row">
+            <div className="d-flex flex-column justify-content-center col-sm-12 col-md-6">
                 <h4 className="josefin-sans-thin title text-md-start text-center">Blogify</h4>
                 <p className="cardo-regular desc text-md-start text-center">
                     "Discover a world of insights and inspiration on our vibrant blogging hub."
                 </p>
             </div>
-            <div className="d-flex flex-row flex-md-column justify-content-center">
-                <span>
-                    <Link to="sign-in">
-                        <Button className="m-1" variant="warning">Sign In</Button>
-                    </Link>
-                    <Link to="sign-up">
-                        <Button className="m-1">Sign Up</Button>
-                    </Link>
-                </span>
+            <div className="d-flex flex-column btnColumn align-items-center justify-content-center col-sm-12 col-md-6">
+                <Button className="m-1" onClick={()=>navigate('sign-in')}>
+                    Sign In
+                </Button>
+                <Button className="m-1" onClick={()=>navigate('sign-up')}>
+                    Sign Up
+                </Button>
             </div>
         </div>
+		</Container>
     );
 };
 

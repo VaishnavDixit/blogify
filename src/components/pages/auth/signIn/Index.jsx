@@ -1,6 +1,6 @@
 import React, {useDebugValue} from "react";
 import "./style.scss";
-import {Button, Col, Row} from "react-bootstrap";
+import {Button, Col, Container, Row} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 import authService from "../../../../appwrite/auth";
 import {useDispatch} from "react-redux";
@@ -20,7 +20,7 @@ const Index = () => {
         try {
             const session = await authService.login(data);
             if (session) {
-				localStorage.setItem('status', true);
+                localStorage.setItem("status", true);
                 const userData = await authService.getCurrentUser();
                 if (userData) {
                     dispatch(reduxLogin({userData}));
@@ -33,8 +33,8 @@ const Index = () => {
     };
 
     return (
-        <div className="signUpPage d-flex align-items-center container">
-            <Row>
+        <Container>
+            <div className="signUpPage d-flex flex-nowrap flex-column justify-content-center row">
                 <Col sm={12}>
                     <p className="josefin-sans-bold desc">
                         Sign in to Blogify to access your account.
@@ -64,13 +64,13 @@ const Index = () => {
                             </Col>
                             {/* include validation with required or other standard HTML validation rules */}
                             <Col sm={12} className="mb-2">
-                                <Button type="submit" >Submit</Button>
+                                <Button type="submit">Submit</Button>
                             </Col>
                         </Row>
                     </form>
                 </Col>
-            </Row>
-        </div>
+            </div>
+        </Container>
     );
 };
 
