@@ -31,22 +31,8 @@ const Header = () => {
         }
     };
     return (
-        <div className="headerStyle d-flex align-items-center justify-content-between p-3">
-            <h2 className="josefin-sans-bolder mb-0 me-auto">Blogify</h2>
-            <Button onClick={signOut} className="me-3" variant="webviolet">
-                Create Blog
-            </Button>
-            <Button
-                // onClick={signOut}
-                type="button" 
-				variant="webviolet"
-                className="btn btn-outline-webviolet accountLogo"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-            >
-                <PersonSharp />
-            </Button>
+        <div className="subHeaderStyle d-flex align-items-center justify-content-center p-3">
+            <h4 className="josefin-sans-thin">Welcome, Vaishnav</h4>
         </div>
     );
 };
