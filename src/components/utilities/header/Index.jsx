@@ -33,14 +33,14 @@ const Header = () => {
     return (
         <div className="headerStyle d-flex align-items-center justify-content-between p-3">
             <h2 className="josefin-sans-bolder mb-0 me-auto">Blogify</h2>
-            <Button onClick={signOut} className="me-3" variant="webviolet">
+            <Button onClick={signOut} className="me-3" variant="webdarkblue">
                 Create Blog
             </Button>
             <Button
                 // onClick={signOut}
                 type="button" 
 				variant="webviolet"
-                className="btn btn-outline-webviolet accountLogo"
+                className="btn btn-outline-webdarkblue accountLogo"
                 id="dropdownMenuButton1"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
