@@ -1,4 +1,3 @@
-import {trackForMutations} from "@reduxjs/toolkit/dist/immutableStateInvariantMiddleware";
 import conf from "../conf/conf";
 import {Client, Account, ID, Databases, Storage, Query} from "appwrite";
 
@@ -79,7 +78,9 @@ export class Service {
                 conf.appwriteCollectionId,
                 queries
             );
-        } catch (error) {}
+        } catch (error) {
+			console.log(error)
+		}
     };
 
     //upload files aka images in storage aka bucket

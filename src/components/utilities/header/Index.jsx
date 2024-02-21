@@ -30,10 +30,11 @@ const Header = () => {
             console.log(error);
         }
     };
+
     return (
         <div className="headerStyle d-flex align-items-center justify-content-between p-3">
             <h2 className="josefin-sans-bolder mb-0 me-auto">Blogify</h2>
-            <Button onClick={signOut} className="me-3" variant="webdarkblue">
+            <Button onClick={()=>navigate('create-blog')} className="me-3" variant="webdarkblue">
                 Create Blog
             </Button>
             <Button
@@ -44,6 +45,7 @@ const Header = () => {
                 id="dropdownMenuButton1"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
+				onClick={signOut} 
             >
                 <PersonSharp />
             </Button>

@@ -1,0 +1,13 @@
+@import "../../../custom.scss";
+
+.postsStyle {
+    // width: 100%;
+    height: 300px;
+    overflow: auto;
+    .post {
+        background: $weblightblue_tt;
+		position: relative;
+        &:hover {
+        }
+    }
+}

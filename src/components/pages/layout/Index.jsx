@@ -4,7 +4,7 @@ import routes from "../../../../routes";
 import Header from "../../utilities/header/Index";
 import SubHeader from "../../utilities/subHeader/Index";
 import FeaturesPanel from "../../utilities/featuresPanel/Index";
-import DashBoardDefaultLayout from "../../views/dashboardDefault/Index";
+import DashBoardDefaultLayout from "../../views/dashboardDefaultView/Index";
 import "./style.scss";
 import {Col, Container, Row} from "react-bootstrap";
 const Index = () => {
