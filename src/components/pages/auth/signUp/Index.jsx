@@ -34,8 +34,8 @@ const Index = () => {
         <div className="signUpPage d-flex align-items-center container">
             <Row>
                 <Col sm={12}>
-                    <p className="josefin-sans-bold desc">
-                        Sign up to write and view awesome blogs.
+                    <p className="cardo-bold desc">
+                        Join to create and explore amazing blogs!
                     </p>
                 </Col>
                 <Col sm={12}>

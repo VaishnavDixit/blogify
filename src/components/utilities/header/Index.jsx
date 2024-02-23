@@ -33,19 +33,21 @@ const Header = () => {
 
     return (
         <div className="headerStyle d-flex align-items-center justify-content-between p-3">
-            <h2 className="josefin-sans-bolder mb-0 me-auto">Blogify</h2>
-            <Button onClick={()=>navigate('create-blog')} className="me-3" variant="webdarkblue">
+            <h2 className="mainIcon josefin-sans-bolder mb-0 me-auto" onClick={() => navigate("/dashboard")}>
+                Blogify
+            </h2>
+            <Button onClick={() => navigate("create-blog")} className="me-3" variant="webdarkblue">
                 Create Blog
             </Button>
             <Button
                 // onClick={signOut}
-                type="button" 
-				variant="webviolet"
+                type="button"
+                variant="webviolet"
                 className="btn btn-outline-webdarkblue accountLogo"
                 id="dropdownMenuButton1"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
-				onClick={signOut} 
+                onClick={signOut}
             >
                 <PersonSharp />
             </Button>
