@@ -17,7 +17,6 @@ export const authSlice = createSlice({
             state.status = true;
             state.userData = action.payload.userData;
             //data passed as login(data) can be accessed as follows -> action.payload
-			
         },
         logout: (state, action) => {
             // status  = initial state.
