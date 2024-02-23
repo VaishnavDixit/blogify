@@ -17,7 +17,6 @@ const Index = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const signUp = async (data) => {
-        console.log(data);
         try {
             const session = await authService.createAccount(data);
             if (session) {

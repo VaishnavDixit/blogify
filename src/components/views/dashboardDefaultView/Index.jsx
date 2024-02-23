@@ -10,7 +10,6 @@ const Index = () => {
     const [posts, setPosts] = useState([]);
     useEffect(() => {
         service.getPosts([]).then((value) => {
-            console.log(value);
             setPosts(value.documents);
         });
     }, []);

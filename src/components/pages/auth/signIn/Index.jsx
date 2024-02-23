@@ -16,19 +16,19 @@ const Index = () => {
         formState: {errors},
     } = useForm();
     const login = async (data) => {
-        console.log(data);
         try {
             const session = await authService.login(data);
             if (session) {
+				const userData = await authService.getCurrentUser();
                 localStorage.setItem("status", true);
-                const userData = await authService.getCurrentUser();
+                localStorage.setItem("userData", JSON.stringify(userData));
                 if (userData) {
                     dispatch(reduxLogin({userData}));
                     navigate("/dashboard");
                 }
             }
         } catch (error) {
-            console.log(error.message);
+console.log(error.message);
         }
     };
 

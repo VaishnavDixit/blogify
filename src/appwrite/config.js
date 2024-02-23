@@ -20,7 +20,7 @@ export class Service {
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                slug,
+                slug, //slug is used as the the doc ID here.
                 {title, content, featuredImage, status, userId}
             );
         } catch (error) {
@@ -54,7 +54,7 @@ export class Service {
             return false;
         }
     };
-	
+
     //slug will be the document id
     getPost = async (slug) => {
         try {
@@ -69,7 +69,7 @@ export class Service {
         }
     };
 
-	//has query in this
+    //has query in this
     getPosts = async (queries = [Query.equal("status", "active")]) => {
         // we only want active blogs
         try {
@@ -79,21 +79,21 @@ export class Service {
                 queries
             );
         } catch (error) {
-			console.log(error)
-		}
+            console.log(error);
+        }
     };
 
     //upload files aka images in storage aka bucket
     uploadFile = async (file) => {
-		try {
-			return await this.bucket.createFile(conf.appwriteBucketId, ID.unique(), file);
+        try {
+            return await this.bucket.createFile(conf.appwriteBucketId, ID.unique(), file);
         } catch (error) {
-			console.log("error in uploading file ;/");
+            console.log("error in uploading file ;/");
             return false;
         }
     };
-	 
-	//delete   files aka images in storage aka bucket
+
+    //delete   files aka images in storage aka bucket
     deleteFile = async (fileId) => {
         try {
             return await this.bucket.deleteFile(conf.appwriteBucketId, fileId);
@@ -103,7 +103,10 @@ export class Service {
             return false;
         }
     };
-	//get file preview remaining 
+    //get file preview remaining (not an async function)
+    getImgPreview = (fileId) => {
+        return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
+    };
 }
 
 const service = new Service();

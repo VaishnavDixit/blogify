@@ -13,14 +13,12 @@ const Header = () => {
     const dispatch = useDispatch();
     const [name, setName] = useState("");
     useSelector((state) => {
-        console.log(state);
         if (state.status) {
         }
     });
     const signOut = async () => {
         try {
             const session = await authService.logout();
-            console.log(session);
             if (session) {
                 localStorage.setItem("status", false);
                 dispatch(logout());

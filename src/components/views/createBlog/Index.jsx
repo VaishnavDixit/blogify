@@ -2,29 +2,31 @@ import React, {useState} from "react";
 import SubHeader from "../../utilities/subHeader/Index";
 import ReactCrop from "react-image-crop";
 import {Editor} from "@tinymce/tinymce-react";
-import {Col, Container, Row, Tab, Tabs} from "react-bootstrap";
+import {Button, Col, Container, Row, Tab, Tabs} from "react-bootstrap";
 import "react-image-crop/src/ReactCrop.scss";
-import { Widgets } from "@mui/icons-material";
+import {AddAPhoto, Cancel, CancelOutlined, Widgets} from "@mui/icons-material";
+import "./style.scss";
+import {useForm} from "react-hook-form";
+import service from "../../../appwrite/config";
+import {json} from "react-router-dom";
+import {useSelector} from "react-redux";
 const Index = () => {
-    const [data, setData] = useState("");
-    const [crop, setCrop] = useState();
-    const [image, setImage] = useState();
+    const [content, setContent] = useState("");
+    const [finalImage, setFinalImage] = useState("");
+    const userData = useSelector((state) => state.userData);
     const onchange = (d) => {
-        console.log(d);
-        setData(d);
+        setContent(d);
     };
     const uploadImage = async (e) => {
         const file = e.target.files[0];
-        console.log(file);
         const imgsize = file.size / 1024 <= 500;
         const imgType = file.name.match(/\.(jpg|jpeg|png)$/);
         if (imgsize && imgType) {
             const base64 = await convertBase64(file);
-            setImage(base64);
-            console.log(image);
+            setFinalImage(base64);
         } else {
-            if (!imgsize) throw "The image size should be less than 500KB";
-            if (!imgType) throw "The File Type should be in jpg ,jpeg ,png";
+            if (!imgsize) alert("The image size should be less than 500KB");
+            if (!imgType) alert("The File Type should be in jpg ,jpeg ,png");
         }
     };
     const convertBase64 = (file) => {
@@ -40,47 +42,119 @@ const Index = () => {
             };
         });
     };
+    const handleOnClickCancelImage = (e) => {
+        e.preventDefault();
+        setFinalImage("");
+    };
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: {errors},
+    } = useForm();
+    const submitBlog = async ({title, featuredImage}) => {
+        if (!title || !featuredImage || content == "") {
+            alert("invalid submission");
+        }
+        const slug = title
+            .toLowerCase()
+            .replace(/ /g, "-")
+            .replace(/[^\w-]+/g, "");
+
+        const userId = JSON.parse(localStorage.getItem("userData")).$id;
+        const uploadedFile = await service.uploadFile(featuredImage[0]);
+        if (uploadedFile) {
+            const id = uploadedFile.$id;
+            const res = await service.createPost({
+                title,
+                slug,
+                featuredImage: id,
+                content,
+                "status": "active",
+                userId: userId,
+            });
+        } else {
+            console.log("not uploaded :/");
+        }
+    };
     return (
         <>
             <SubHeader text={"Create a blog"} />
-            <Container>
-                <Tabs>
-                    <Tab eventKey="edit" title="Edit" className="py-2 px-0">
-                        <Row>
-                            <Col sm={12} md={6} xs={12}>
-                                <Editor
-                                    apiKey="jntiw31132ao4jsbperypsg60i5yeaoqd7uimsnooxz7pbtd"
-                                    initialValue="default Value"
-                                    init={{
-                                        branding: false,
-                                        height: 500,
-                                        plugins: "lists",
-                                        nonbreaking_force_tab: true,
-                                        toolbar: "numlist bullist",
-                                    }}
-                                    onEditorChange={onchange}
-                                />
-                            </Col>
-                            <Col sm={12} md={6} xs={12}>
+            <Container className="createBlogPage">
+                {/* <Tabs>
+                    <Tab eventKey="edit" title="Edit" className="py-4 px-0"> */}
+                <form onSubmit={handleSubmit(submitBlog)}>
+                    <Row>
+                        <Col sm={12} xs={12} className="mb-3">
+                            <textarea
+                                className="form-control titleInput"
+                                type="text"
+                                placeholder="Enter Title"
+                                defaultValue="Untitled"
+                                rows={1}
+                                {...register("title", {required: true})}
+                            />
+                            {errors && errors.title}
+                        </Col>
+                        <Col sm={12} md={4} xs={12} className="mb-3">
+                            {JSON.stringify(finalImage)}
+                            <label className="imageInputLabel d-flex align-items-center justify-content-center">
+                                {finalImage ? (
+                                    <>
+                                        <img src={finalImage} />
+                                        <CancelOutlined
+                                            className="cancelIcon"
+                                            onClick={handleOnClickCancelImage}
+                                        />
+                                    </>
+                                ) : (
+                                    <p className="labelText josefin-sans-bold text-center mb-0">
+                                        <AddAPhoto className="mb-2 me-1 addPhotoIcon" />
+                                        Upload Photo
+                                    </p>
+                                )}
                                 <input
-                                    className="form-control"
+                                    className="form-control d-none"
                                     type="file"
-                                    onChange={(e) => {
-                                        uploadImage(e);
-                                    }}
+                                    {...register("featuredImage", {
+                                        onChange: (e) => {
+                                            uploadImage(e);
+                                        },
+                                    })}
                                 />
-                                <img src={image} style={{maxWidth:'100%',}}/>
-                                {/* <ReactCrop crop={crop} onChange={(c) => setCrop(c)}>
-                                        <img src={image} />
-                                    </ReactCrop>
-									{JSON.stringify(crop)} */}
-                            </Col>
-                        </Row>
-                    </Tab>
+                                {errors && errors.featuredImage}
+                            </label>
+                        </Col>
+                        <Col sm={12} md={8} xs={12} className="mb-3">
+                            <Editor
+                                apiKey="jntiw31132ao4jsbperypsg60i5yeaoqd7uimsnooxz7pbtd"
+                                initialValue=""
+                                init={{
+                                    branding: false,
+                                    height: 500,
+                                    plugins: "lists",
+                                    nonbreaking_force_tab: true,
+                                    toolbar: "numlist bullist",
+                                }}
+                                onEditorChange={onchange}
+                            />
+                        </Col>
+                        <Col className="d-flex justify-content-center">
+                            <Button variant="webdarkblue" type="submit">
+                                Submit Blog
+                            </Button>
+                            <Button className="btn btn-outlined ms-2" variant="webpinkred">
+                                Cancel
+                            </Button>
+                        </Col>
+                    </Row>
+                </form>
+
+                {/* </Tab>
                     <Tab eventKey="preview" title="Preview" className="p-2">
                         <Col sm={12} xs={12} dangerouslySetInnerHTML={{__html: data}}></Col>
                     </Tab>
-                </Tabs>
+                </Tabs> */}
             </Container>
         </>
     );
