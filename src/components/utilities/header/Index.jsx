@@ -7,51 +7,64 @@ import {PersonSharp} from "@mui/icons-material";
 import {logout} from "../../../store/authSlice";
 import {Button} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle";
+import Dropdown from "../dropdown/Index";
 
 const Header = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [name, setName] = useState("");
-    useSelector((state) => {
-        console.log(state);
-        if (state.status) {
-        }
-    });
     const signOut = async () => {
         try {
+            console.log("sign out started");
             const session = await authService.logout();
             console.log(session);
+            console.log("session founding...!");
+            navigate("/");
             if (session) {
-                localStorage.setItem("status", false);
-                localStorage.setItem("userData", false);
+                console.log("session found!");
+                localStorage.setItem("status", "");
+                localStorage.setItem("userData", "");
                 dispatch(logout());
-                navigate("/");
             }
         } catch (error) {
-            console.log(error);
+            console.log("err in sign out:", error);
         }
     };
 
     return (
         <div className="headerStyle d-flex align-items-center justify-content-between p-3">
-            <h2 className="mainIcon josefin-sans-bolder mb-0 me-auto" onClick={() => navigate("/dashboard")}>
+            <h2
+                className="mainIcon josefin-sans-bolder mb-0 me-auto"
+                onClick={() => navigate("/dashboard")}
+            >
                 Blogify
             </h2>
-            <Button onClick={() => navigate("create-blog")} className="me-3" variant="webdarkblue">
+            <Button
+                onClick={() => navigate("/dashboard/create-blog")}
+                className="me-3 rounded-pill"
+                variant="webdarkblue"
+            >
                 Create Blog
             </Button>
-            <Button
-                // onClick={signOut}
-                type="button"
-                variant="webviolet"
-                className="btn btn-outline-webdarkblue accountLogo"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                onClick={signOut}
-            >
-                <PersonSharp />
-            </Button>
+            <Dropdown
+                displayButton={
+                    <Button
+                        type="button"
+                        variant="webviolet"
+                        className="btn btn-outline-webdarkblue rounded-circle accountLogo "
+                        id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                        <PersonSharp />
+                    </Button>
+                }
+                options={[
+                    {name: "My Blogs", func: () => navigate("/dashboard/my-blogs")},
+                    {name: "Sign Out", func: signOut},
+                ]}
+            />
         </div>
     );
 };

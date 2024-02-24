@@ -38,6 +38,7 @@ export class AuthService {
 
     logout = async () => {
         try {
+			console.log('logging out... from end point')
             return await this.account.deleteSessions();
         } catch (error) {
             console.log("err logging out");
@@ -49,9 +50,13 @@ export class AuthService {
             return await this.account.get();
         } catch (error) {
             console.log("error while gettting current user :/");
+			return null;
         }
-        return null;
     };
+
+    // getUser = async (userId) =>{
+
+    // }
 }
 const authService = new AuthService();
 export default authService;

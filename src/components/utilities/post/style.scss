@@ -1,68 +1,118 @@
 @import "../../../custom.scss";
-
+* {
+    // outline: 1px solid lightgrey;
+}
+.info{  // class is picked in blog open page also.
+	span{
+		background: lightgrey;
+	}
+	p{
+		font-size: 1em;
+	}
+}
 .post {
-    position: relative;
-    // background: $weblightblue_tt;
-    height: 200px;
-    position: relative;
     overflow: hidden;
-    &:hover {
-        &::before {
-            opacity: 1;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.155);
+    .textContent {
+        width: 70%;
+        h3,
+        pre {
+            width: 100%;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+			cursor: pointer;
         }
-        .eyeIcon {
-            opacity: 1;
+        pre {
+			-webkit-line-clamp: 3;
+			p{
+				margin-bottom: 0;
+			}
         }
         h3 {
-            color: rgb(255, 255, 255);
+			-webkit-line-clamp: 2;
+            font-size: 1.3em;
         }
+    }
+    .imgContent {
+		width: 30%;
+		height: 110px;
         img {
-            width: 105%;
+			margin: auto;
+            display: block;
+            max-width: 60%;
+            max-height: 110px;
+            object-fit: contain;
+			cursor: pointer;
         }
-    }
-    &::before {
-        content: "";
-        position: absolute;
-        background-color: rgba(0, 0, 0, 0.253);
-        left: 0;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        opacity: 0;
-        transition: 0.2s ease;
-        z-index: 1;
-    }
-    img {
-        transition: 0.2s ease;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        object-fit: cover;
-        // height: 200px;
-        width: 100%;
-        z-index: -1;
-    }
-    h3 {
-        position: absolute;
-        transition: 0.2s ease;
-        font-size: 1.5em;
-        z-index: 99;
-		display: -webkit-box; 
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 4;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    .eyeIcon {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        opacity: 0;
-        transition: 0.2s ease;
-        color: white;
-        font-size: 2em;
-        z-index: 99;
     }
 }
+
+// .post {
+//     position: relative;
+//     // background: $weblightblue_tt;
+//     height: 200px;
+//     position: relative;
+//     overflow: hidden;
+//     &:hover {
+//         &::before {
+//             opacity: 1;
+//         }
+//         .eyeIcon {
+//             opacity: 1;
+//         }
+//         h3 {
+//             color: rgb(255, 255, 255);
+//         }
+//         img {
+//             width: 105%;
+//         }
+//     }
+//     &::before {
+//         content: "";
+//         position: absolute;
+//         background-color: rgba(0, 0, 0, 0.253);
+//         left: 0;
+//         top: 0;
+//         bottom: 0;
+//         right: 0;
+//         opacity: 0;
+//         transition: 0.2s ease;
+//         z-index: 1;
+//     }
+//     img {
+//         transition: 0.2s ease;
+//         position: absolute;
+//         left: 50%;
+//         top: 50%;
+//         transform: translate(-50%, -50%);
+//         object-fit: cover;
+//         // height: 200px;
+//         width: 100%;
+//         z-index: -1;
+//     }
+//     h3 {
+//         position: absolute;
+//         transition: 0.2s ease;
+//         font-size: 1.5em;
+//         z-index: 99;
+// 		display: -webkit-box;
+//         -webkit-box-orient: vertical;
+//         -webkit-line-clamp: 2;
+//         overflow: hidden;
+//         text-overflow: ellipsis;
+//     }
+//     .eyeIcon {
+//         position: absolute;
+//         left: 50%;
+//         top: 50%;
+//         transform: translate(-50%, -50%);
+//         opacity: 0;
+//         transition: 0.2s ease;
+//         color: white;
+//         font-size: 2em;
+//         z-index: 99;
+//     }
+// }

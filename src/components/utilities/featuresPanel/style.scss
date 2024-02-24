@@ -2,8 +2,12 @@
 
 .featuresPanelStyle {
     width:100%;
-	height: 200px;
-	background: $weblightblue_tt;
+	height: 250px;
+	background: white;
 	border-radius: 4px;
 	overflow: auto;
+	Button{
+		background: none;
+		border: 1px solid grey;
+	}
 }

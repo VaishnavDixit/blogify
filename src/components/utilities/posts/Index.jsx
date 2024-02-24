@@ -6,19 +6,21 @@ import {Col, Row} from "react-bootstrap";
 import {RemoveRedEye, ViewComfy} from "@mui/icons-material";
 import Post from "../post/Index";
 
-const Posts = () => {
+const Posts = ({queries}) => {
     const [posts, setPosts] = useState([]);
+    console.log(queries);
     useEffect(() => {
-        service.getPosts([]).then((value) => {
+        service.getPosts(queries).then((value) => {
             setPosts(value.documents);
         });
     }, []);
     return (
-        <div className="postsStyle container-fluid">
-            <Row className="g-3">
+        <div className="postsStyle ps-md-4 ps-sm-0 border-start border-sm-start-0 container-fluid">
+            <Row>
                 {posts &&
                     posts.map((post) => (
                         <Post
+                            id={post.$id}
                             title={post.title}
                             content={post?.content}
                             featuredImage={post.featuredImage}

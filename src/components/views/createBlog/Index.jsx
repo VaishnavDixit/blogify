@@ -11,6 +11,7 @@ import service from "../../../appwrite/config";
 import {json} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {enqueueSnackbar} from "notistack";
+import { useNavigate } from "react-router-dom";
 const Index = () => {
     const [content, setContent] = useState("");
     const [finalImage, setFinalImage] = useState("");
@@ -18,6 +19,7 @@ const Index = () => {
     const onchange = (d) => {
         setContent(d);
     };
+	const navigate = useNavigate();
     const uploadImage = async (e) => {
         const file = e.target.files[0];
         const imgsize = file.size / 1024 <= 500;
@@ -51,6 +53,7 @@ const Index = () => {
         register,
         handleSubmit,
         watch,
+        reset,
         formState: {errors},
     } = useForm();
     const submitBlog = async ({title, featuredImage}) => {
@@ -61,7 +64,7 @@ const Index = () => {
             .toLowerCase()
             .replace(/ /g, "-")
             .replace(/[^\w-]+/g, "")
-            .substring(0, 8);
+            .substring(0, 16);
 
         const userId = JSON.parse(localStorage.getItem("userData")).$id;
         const uploadedFile = await service.uploadFile(featuredImage[0]);
@@ -76,18 +79,23 @@ const Index = () => {
                     "status": "active",
                     userId: userId,
                 })
-                .then((res) =>
+                .then((res) => {
+                    reset({title: ""});
+                    setFinalImage("");
+                    setContent("");
                     enqueueSnackbar("Successfully Uploaded.", {
                         variant: "success",
                         anchorOrigin: {
                             horizontal: "right",
                             vertical: "top",
                         },
-						style: {
-							background: 'pink'
-						}
-                    })
-                );
+                        style: {
+                            background: "pink",
+                        },
+                    });
+					navigate(`/dashboard/view/${slug}`)
+					
+                });
         } else {
             console.log("not uploaded :/");
         }
@@ -148,8 +156,9 @@ const Index = () => {
                                     height: 500,
                                     plugins: "lists",
                                     nonbreaking_force_tab: true,
-                                    toolbar: "numlist bullist",
+                                    // toolbar: "numlist bullist",
                                 }}
+                                value={content}
                                 onEditorChange={onchange}
                             />
                         </Col>

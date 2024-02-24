@@ -1,8 +1,10 @@
 import CreateBlog from "./src/components/views/createBlog/Index";
-import Page3 from "./src/components/views/page3/Index";
+import ViewBlog from './src/components/views/viewBlog/Index'
+import MyBlogs from './src/components/views/myBlogs/Index'
 
 const routes = [
     {path: "/create-blog", element: <CreateBlog />},
-    {path: "/page3", element: <Page3 />},
+    {path: "/view/:slug", element: <ViewBlog />},
+    {path: "/my-blogs", element: <MyBlogs />},
 ];
 export default routes;

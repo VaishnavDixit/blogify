@@ -1,8 +1,11 @@
 @import "../../../custom.scss";
-
+*{
+	// outline: 1px solid lightgrey;
+}
 .headerStyle {
     width: 100%;
-    background: linear-gradient(to right, $webblue, $weblightblue);
+    // background: linear-gradient(to right, $webblue, $weblightblue);
+    background: $webblue;
 	h2{
 		color: white;
 		font-size: 2em;
@@ -12,7 +15,6 @@
         font-size: 1em;
     }
     .accountLogo {
-        border-radius: 50%;
         width: 39px;
         height: 39px;
         padding: 0;

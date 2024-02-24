@@ -4,7 +4,9 @@
 ::-webkit-scrollbar {
     width: 6px;
 }
-
+*{
+	// outline: 1px solid lightgrey;
+}
 /* Track */
 ::-webkit-scrollbar-track {
     background: none;
@@ -23,13 +25,16 @@
 
 * {
     // outline: 1px solid lightgrey;
-    font-family: "Cardo", serif;
+    font-family: "Josefin Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 300;
     font-style: normal;
 }
+Button{
+
+}
 .addShadow {
-    box-shadow: 1px 1px 5px 1px grey;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 5px 16px 0px;
 }
 .cardo-regular {
     font-family: "Cardo", serif;
@@ -53,8 +58,9 @@
 .josefin-sans-bolder {
     font-family: "Josefin Sans", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 700;
+    font-weight: 600;
     font-style: normal;
+	letter-spacing: -1px;
 }
 
 .josefin-sans-bold {
@@ -64,8 +70,14 @@
     font-style: normal;
 }
 
+.josefin-sans {
+    font-family: "Josefin Sans", sans-serif !important;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
 .josefin-sans-thin {
-    font-family: "Josefin Sans", sans-serif;
+    font-family: "Josefin Sans", sans-serif !important;
     font-optical-sizing: auto;
     font-weight: 300;
     font-style: normal;
