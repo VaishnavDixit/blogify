@@ -10,6 +10,7 @@ import {useForm} from "react-hook-form";
 import service from "../../../appwrite/config";
 import {json} from "react-router-dom";
 import {useSelector} from "react-redux";
+import {enqueueSnackbar} from "notistack";
 const Index = () => {
     const [content, setContent] = useState("");
     const [finalImage, setFinalImage] = useState("");
@@ -59,20 +60,34 @@ const Index = () => {
         const slug = title
             .toLowerCase()
             .replace(/ /g, "-")
-            .replace(/[^\w-]+/g, "");
+            .replace(/[^\w-]+/g, "")
+            .substring(0, 8);
 
         const userId = JSON.parse(localStorage.getItem("userData")).$id;
         const uploadedFile = await service.uploadFile(featuredImage[0]);
         if (uploadedFile) {
             const id = uploadedFile.$id;
-            const res = await service.createPost({
-                title,
-                slug,
-                featuredImage: id,
-                content,
-                "status": "active",
-                userId: userId,
-            });
+            service
+                .createPost({
+                    title,
+                    slug,
+                    featuredImage: id,
+                    content,
+                    "status": "active",
+                    userId: userId,
+                })
+                .then((res) =>
+                    enqueueSnackbar("Successfully Uploaded.", {
+                        variant: "success",
+                        anchorOrigin: {
+                            horizontal: "right",
+                            vertical: "top",
+                        },
+						style: {
+							background: 'pink'
+						}
+                    })
+                );
         } else {
             console.log("not uploaded :/");
         }
@@ -97,7 +112,6 @@ const Index = () => {
                             {errors && errors.title}
                         </Col>
                         <Col sm={12} md={4} xs={12} className="mb-3">
-                            {JSON.stringify(finalImage)}
                             <label className="imageInputLabel d-flex align-items-center justify-content-center">
                                 {finalImage ? (
                                     <>

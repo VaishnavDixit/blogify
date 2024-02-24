@@ -8,7 +8,7 @@ import {logout} from "../../../store/authSlice";
 import {Button} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const Header = () => {
+const FeaturesPanel = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [name, setName] = useState("");
@@ -29,7 +29,7 @@ const Header = () => {
         }
     };
     return (
-        <div className="featuresPanelStyle p-2">
+        <div className="featuresPanelStyle addShadow p-2">
             <p className="josefin-sans-bold mb-0">Topics:</p>
 			<ul>
 				<li>asdf </li>
@@ -43,4 +43,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default FeaturesPanel;

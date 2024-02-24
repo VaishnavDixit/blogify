@@ -6,12 +6,14 @@ import LandingPage from "./components/pages/auth/introduction/Index";
 import SignInPage from "./components/pages/auth/signIn/Index";
 import SignUpPage from "./components/pages/auth/signUp/Index";
 import DefaultLayout from "./components/pages/layout/Index";
-import { Container } from "react-bootstrap";
+import {Container} from "react-bootstrap";
+import {SnackbarProvider} from "notistack";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
     return (
-		<BrowserRouter>
+        <SnackbarProvider>
+            <BrowserRouter>
                 <Routes>
                     <Route index element={<LandingPage />} />
                     <Route path="/sign-in" element={<SignInPage />} />
@@ -20,6 +22,7 @@ function App() {
                     <Route path={"*"} element={<>ERR: INVALID URL (:/)</>} />
                 </Routes>
             </BrowserRouter>
+        </SnackbarProvider>
     );
 }
 

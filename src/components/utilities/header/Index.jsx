@@ -23,6 +23,7 @@ const Header = () => {
             console.log(session);
             if (session) {
                 localStorage.setItem("status", false);
+                localStorage.setItem("userData", false);
                 dispatch(logout());
                 navigate("/");
             }

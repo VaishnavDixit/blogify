@@ -23,7 +23,22 @@ const Index = () => {
             <Container>
                 <Row>
                     <Col md={4} className="d-none d-md-inline-block">
-                        <FeaturesPanel />
+                        <Container fluid>
+                            <Row>
+                                <Col sm={12} className="mb-4">
+                                    {" "}
+                                    <FeaturesPanel />
+                                </Col>
+                                <Col sm={12} className="mb-4">
+                                    {" "}
+                                    <FeaturesPanel />
+                                </Col>
+                                <Col sm={12} className="mb-4">
+                                    {" "}
+                                    <FeaturesPanel />
+                                </Col>
+                            </Row>
+                        </Container>
                     </Col>
                     <Col md={8} sm={6}>
                         <Posts />

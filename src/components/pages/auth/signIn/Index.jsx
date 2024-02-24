@@ -36,7 +36,7 @@ console.log(error.message);
         <Container>
             <div className="signUpPage d-flex flex-nowrap flex-column justify-content-center row">
                 <Col sm={12}>
-                    <p className="josefin-sans-bold desc">
+                    <p className="josefin-sans-bold desc text-center">
                         Sign in to Blogify to access your account.
                     </p>
                 </Col>
@@ -63,7 +63,7 @@ console.log(error.message);
                                 {errors.password && <span>This field is required</span>}
                             </Col>
                             {/* include validation with required or other standard HTML validation rules */}
-                            <Col sm={12} className="mb-2">
+                            <Col sm={12} className="mb-2 d-flex justify-content-center">
                                 <Button type="submit">Submit</Button>
                             </Col>
                         </Row>

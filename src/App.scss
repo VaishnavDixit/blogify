@@ -1,14 +1,36 @@
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Quicksand:wght@500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Quicksand:wght@500;600;700&display=swap");
 @import "custom";
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #555555b3;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555555c3;
+}
+
 * {
     // outline: 1px solid lightgrey;
-    font-family: "Josefin Sans", sans-serif;
+    font-family: "Cardo", serif;
     font-optical-sizing: auto;
     font-weight: 300;
     font-style: normal;
 }
-
+.addShadow {
+    box-shadow: 1px 1px 5px 1px grey;
+}
 .cardo-regular {
     font-family: "Cardo", serif;
     font-weight: 400;
@@ -31,7 +53,7 @@
 .josefin-sans-bolder {
     font-family: "Josefin Sans", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 500;
+    font-weight: 700;
     font-style: normal;
 }
 
@@ -55,6 +77,6 @@
         border: 2px solid grey;
     }
 }
-.btn{
-	border-radius: 0px;
+.btn {
+    border-radius: 0px;
 }

@@ -3,6 +3,8 @@ import React, {useEffect, useState} from "react";
 import "./style.scss";
 import service from "../../../appwrite/config";
 import {Col, Row} from "react-bootstrap";
+import {RemoveRedEye, ViewComfy} from "@mui/icons-material";
+import Post from "../post/Index";
 
 const Posts = () => {
     const [posts, setPosts] = useState([]);
@@ -13,17 +15,15 @@ const Posts = () => {
     }, []);
     return (
         <div className="postsStyle container-fluid">
-            <Row>
-                <Col sm={12} xs={12}>
-                    {posts &&
-                        [...posts, ...posts, ...posts, ...posts, ...posts, ...posts].map((post) => (
-                            <div className="post p-2 mb-3">
-                                <p className="josefin-sans-bold">{post.title}</p>
-                                <p className="cardo-regular">{post.content}</p>
-                                <img src={service.getImgPreview(post?.featuredImage)}></img>
-                            </div>
-                        ))}
-                </Col>
+            <Row className="g-3">
+                {posts &&
+                    posts.map((post) => (
+                        <Post
+                            title={post.title}
+                            content={post?.content}
+                            featuredImage={post.featuredImage}
+                        />
+                    ))}
             </Row>
         </div>
     );
