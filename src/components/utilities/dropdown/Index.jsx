@@ -9,7 +9,11 @@ const Dropdown = ({displayButton, options}) => {
             {displayButton}
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 {options.map(({name, func}) => (
-                    <li onClick={func}>{name}</li>
+                    <li className="cardo-regular">
+                        <button className="dropdown-item" onClick={func}>
+                            {name}
+                        </button>
+                    </li>
                 ))}
             </ul>
         </div>

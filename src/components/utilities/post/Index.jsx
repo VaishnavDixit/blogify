@@ -1,23 +1,12 @@
-import {
-	Lens,
-    MenuTwoTone,
-    MoreHorizRounded,
-    MoreOutlined,
-    Person,
-    Person2Outlined,
-    Person2Rounded,
-    PersonPinCircleOutlined,
-    RemoveRedEye,
-	TripOrigin,
-} from "@mui/icons-material";
+import {Lens, MoreHorizRounded, Person} from "@mui/icons-material";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, {useEffect} from "react";
 import {Col} from "react-bootstrap";
-import service from "../../../appwrite/config";
-import "./style.scss";
 import {useNavigate} from "react-router-dom";
 import authService from "../../../appwrite/auth";
-import {Menu} from "@mui/material";
+import service from "../../../appwrite/config";
+import "./style.scss";
+import Dropdown from "../dropdown/Index";
 const Post = ({title, content, featuredImage, id}) => {
     const navigate = useNavigate();
     const handleOnClickPost = () => {
@@ -33,9 +22,20 @@ const Post = ({title, content, featuredImage, id}) => {
                     <div className="info pb-2 d-flex justify-content-between align-items-center">
                         <p className="mb-0 josefin-sans-thin">
                             <Person className="mb-1" style={{fontSize: "2em"}} />
-                            Vaishnav<Lens className='mx-1 mb-1' style={{fontSize: ".3em"}}/>13 Dec, 2019
+                            Vaishnav
+                            <Lens className="mx-1 mb-1" style={{fontSize: ".3em"}} />
+                            13 Dec, 2019
                         </p>
-                        <MoreHorizRounded />
+                        <Dropdown
+                            displayButton={
+                                <MoreHorizRounded
+                                    id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                />
+                            }
+                            options={[{name: "Report", func: () => alert("reported")}]}
+                        />
                     </div>
                     <h3 className="josefin-sans-bolder" onClick={handleOnClickPost}>
                         {title}

@@ -38,7 +38,7 @@ const Index = () => {
                         <MoreHorizRounded />
                     </div>
                     {image ? <img src={service.getImgPreview(image) || ""} className="mt-3" /> : ""}
-                    <div className="mt-3" dangerouslySetInnerHTML={{__html: post?.content}}></div>
+                    <div className="mt-3 content" dangerouslySetInnerHTML={{__html: post?.content}}></div>
                 </Row>
             </Container>
         </>
