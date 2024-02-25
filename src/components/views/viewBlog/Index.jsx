@@ -1,14 +1,16 @@
-import React, {useEffect, useState} from "react";
-import {Container, Row} from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Container, Row } from "react-bootstrap";
 import "react-image-crop/src/ReactCrop.scss";
-import "./style.scss";
-import {useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import service from "../../../appwrite/config";
-import { Lens, MoreHorizRounded, Person } from "@mui/icons-material";
+import BlogToolbar from "../../utilities/blogToolbar/Index";
+import "./style.scss";
+
 const Index = () => {
     const params = useParams();
     const [post, setPost] = useState({});
     const [image, setImage] = useState("");
+    const navigate = useNavigate();
     useEffect(() => {
         console.log(post);
         service.getPost(params?.slug).then((p) => {
@@ -17,6 +19,13 @@ const Index = () => {
             setImage(p.featuredImage);
         });
     }, []);
+    const handleDeleteBlog = async () => {
+        service.deletePost(params?.slug).then((res) => {
+            console.log(res);
+            console.log("deletion done");
+            navigate("/dashboard/my-blogs");
+        });
+    };
     return (
         <>
             <Container className="viewBlogPage">
@@ -28,17 +37,17 @@ const Index = () => {
                         {post?.title}
                         {post?.title}
                     </h2>
-                    <div className="info pb-2 d-flex justify-content-between align-items-center">
-                        <p className="mb-0 josefin-sans-thin">
-                            <Person className="mb-1" style={{fontSize: "2em"}} />
-                            Vaishnav
-                            <Lens className="mx-1 mb-1" style={{fontSize: ".3em"}} />
-                            13 Dec, 2019
-                        </p>
-                        <MoreHorizRounded />
-                    </div>
+                    <BlogToolbar
+                        options={[
+                            {name: "delete", func: () => handleDeleteBlog()},
+                            {name: "etst", func: () => alert("test 123 ;)!")},
+                        ]}
+                    />
                     {image ? <img src={service.getImgPreview(image) || ""} className="mt-3" /> : ""}
-                    <div className="mt-3 content" dangerouslySetInnerHTML={{__html: post?.content}}></div>
+                    <div
+                        className="mt-3 content"
+                        dangerouslySetInnerHTML={{__html: post?.content}}
+                    ></div>
                 </Row>
             </Container>
         </>

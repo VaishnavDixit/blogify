@@ -11,15 +11,15 @@ import service from "../../../appwrite/config";
 import {json} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {enqueueSnackbar} from "notistack";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 const Index = () => {
     const [content, setContent] = useState("");
     const [finalImage, setFinalImage] = useState("");
-    const userData = useSelector((state) => state.userData);
+    // const userData = useSelector((state) => state.userData);
     const onchange = (d) => {
         setContent(d);
     };
-	const navigate = useNavigate();
+    const navigate = useNavigate();
     const uploadImage = async (e) => {
         const file = e.target.files[0];
         const imgsize = file.size / 1024 <= 500;
@@ -56,6 +56,7 @@ const Index = () => {
         reset,
         formState: {errors},
     } = useForm();
+	
     const submitBlog = async ({title, featuredImage}) => {
         if (!title || !featuredImage || content == "") {
             alert("invalid submission");
@@ -93,8 +94,7 @@ const Index = () => {
                             background: "pink",
                         },
                     });
-					navigate(`/dashboard/view/${slug}`)
-					
+                    navigate(`/dashboard/view/${slug}`);
                 });
         } else {
             console.log("not uploaded :/");

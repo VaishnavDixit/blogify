@@ -2,11 +2,20 @@ import React, {useEffect} from "react";
 import {Button, Container} from "react-bootstrap";
 import {Link, useNavigate} from "react-router-dom";
 import "./style.scss";
+import authService from "../../../../appwrite/auth";
 const Index = () => {
     const navigate = useNavigate();
     useEffect(() => {
         console.log(localStorage.getItem("status"));
-        // if (localStorage.getItem("status") === "true") navigate("/dashboard");
+        if (localStorage.getItem("status") === "true") navigate("/dashboard");
+        authService.getCurrentUser().then((res) => {
+            console.log(res);
+            if (res) {
+                localStorage.setItem("status", "true");
+                localStorage.setItem("userData", JSON.stringify(res));
+                navigate("/dashboard");
+            }
+        });
     }, []);
 
     return (
@@ -22,6 +31,10 @@ const Index = () => {
                     <Button className="m-2 p-2" onClick={() => navigate("sign-in")}>
                         Sign In
                     </Button>
+                    <Button className="m-2 p-2" onClick={() => authService.createGoogleSession()}>
+                        Sign In With Google
+                    </Button>
+
                     <Button className="m-2 p-2" onClick={() => navigate("sign-up")}>
                         Sign Up
                     </Button>

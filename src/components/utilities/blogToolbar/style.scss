@@ -1,0 +1,11 @@
+@import "../../../custom.scss";
+
+.info {
+    // class is picked in blog open page also.
+    span {
+        background: lightgrey;
+    }
+    p {
+        font-size: 1em;
+    }
+}

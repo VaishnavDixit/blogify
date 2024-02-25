@@ -1,16 +1,20 @@
-import {Query} from "appwrite";
-import React from "react";
-import {Container} from "react-bootstrap";
+import { Query } from "appwrite";
+import React, { useEffect, useState } from "react";
+import { Container } from "react-bootstrap";
 import authService from "../../../appwrite/auth";
 import Posts from "../../utilities/posts/Index";
 import SubHeader from "../../utilities/subHeader/Index";
 const Index = () => {
-    console.log(JSON.parse(localStorage.userData).$id)
+    // console.log(JSON.parse(localStorage.userData).$id)
+    const [userId, setUserId] = useState("");
+    useEffect(() => {
+        authService.getCurrentUser().then((res) => setUserId(res.$id));
+    }, []);
     return (
         <>
             <SubHeader text={`My Blogs`} />
             <Container>
-                <Posts queries={[Query.equal("userId", JSON.parse(localStorage.userData).$id)]} />
+                {userId && <Posts queries={[Query.equal("userId", userId)]} />}
                 {/* <Row>
                     <Col md={4} className="d-none d-md-inline-block">
                         <Container fluid>

@@ -27,7 +27,13 @@ export class AuthService {
             console.log(error);
         }
     };
-
+    createGoogleSession = () => {
+        try {
+            this.account.createOAuth2Session("google", "http://localhost:5173/");
+        } catch (err) {
+            console.log(err);
+        }
+    };
     login = async ({email, password}) => {
         try {
             return await this.account.createEmailSession(email, password);
@@ -38,7 +44,7 @@ export class AuthService {
 
     logout = async () => {
         try {
-			console.log('logging out... from end point')
+            console.log("logging out... from end point");
             return await this.account.deleteSessions();
         } catch (error) {
             console.log("err logging out");
@@ -50,7 +56,7 @@ export class AuthService {
             return await this.account.get();
         } catch (error) {
             console.log("error while gettting current user :/");
-			return null;
+            return null;
         }
     };
 
