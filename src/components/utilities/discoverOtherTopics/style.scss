@@ -1,0 +1,33 @@
+@import "../../../custom.scss";
+* {
+    // outline: 1px solid lightgrey;
+}
+.discoverOthersStyle {
+    width: 100%;
+    background: white;
+    border-radius: 4px;
+    overflow: auto;
+    .blog {
+        .title {
+            font-size: 1em;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            cursor: pointer;
+			-webkit-line-clamp: 3;
+        }
+        img {
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            min-height: 20px;
+        }
+    }
+    .publisher {
+        .name {
+            font-size: 12px;
+        }
+    }
+}

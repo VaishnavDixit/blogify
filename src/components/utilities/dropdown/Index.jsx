@@ -5,7 +5,7 @@ import "./style.scss";
 
 const Dropdown = ({displayButton, options}) => {
     return (
-        <div className="dropdown">
+        <div className="dropend">
             {displayButton}
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 {options.map(({name, func}) => (

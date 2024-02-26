@@ -1,11 +1,18 @@
 @import "../../../custom.scss";
-
+*{
+	// outline: 1px solid lightgrey;
+}
 .info {
     // class is picked in blog open page also.
     span {
         background: lightgrey;
     }
     p {
-        font-size: 1em;
+        font-size: 0.8em;
+    }
+    .menuIcon,
+    .saveIcon {
+        color: rgb(59, 59, 59);
+        font-size: 18px;
     }
 }

@@ -1,16 +1,20 @@
 @import "../../../custom.scss";
-*{
-	// outline: 1px solid lightgrey;
+* {
+    // outline: 1px solid lightgrey;
 }
 .headerStyle {
     width: 100%;
+    position: sticky;
+    top: 0;
+    bottom: calc(100vh - 72px);
+    z-index: 9999;
     // background: linear-gradient(to right, $webblue, $weblightblue);
     background: $webblue;
-	h2{
-		color: white;
-		font-size: 2em;
-		cursor: pointer;
-	}
+    h2 {
+        color: white;
+        font-size: 2em;
+        cursor: pointer;
+    }
     Button {
         font-size: 1em;
     }

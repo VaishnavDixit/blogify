@@ -1,4 +1,4 @@
-import { Lens, MoreHorizRounded, Person } from "@mui/icons-material";
+import {Bookmark, BookmarkAddOutlined, BookmarkBorderOutlined, BookmarkBorderSharp, BookmarkOutlined, Lens, MoreHorizRounded, Person, PersonOutlineRounded, PersonOutlined, PersonPinCircle} from "@mui/icons-material";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import Dropdown from "../dropdown/Index";
@@ -13,16 +13,20 @@ const BlogToolbar = ({options, publisherName, date}) => {
                 <Lens className="mx-1 mb-1" style={{fontSize: ".3em"}} />
                 {date}
             </p>
-            <Dropdown
-                displayButton={
-                    <MoreHorizRounded
-                        id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                    />
-                }
-                options={options}
-            />
+            <div className="d-flex justify-content-end align-items-center">
+                <BookmarkBorderSharp className="saveIcon d-inline" />
+                <Dropdown
+                    displayButton={
+                        <MoreHorizRounded
+                            id="dropdownMenuButton1"
+                            className="menuIcon"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        />
+                    }
+                    options={options}
+                />
+            </div>
         </div>
     );
 };

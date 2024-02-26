@@ -6,8 +6,8 @@ import authService from "../../../../appwrite/auth";
 const Index = () => {
     const navigate = useNavigate();
     useEffect(() => {
-        console.log(localStorage.getItem("status"));
-        if (localStorage.getItem("status") === "true") navigate("/dashboard");
+        // console.log(localStorage.getItem("status"));
+        // if (localStorage.getItem("status") === "true") navigate("/dashboard");
         authService.getCurrentUser().then((res) => {
             console.log(res);
             if (res) {

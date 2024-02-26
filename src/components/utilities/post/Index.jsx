@@ -14,14 +14,6 @@ const Post = ({title, content, featuredImage, id}) => {
         <Col sm={12} xs={12} className="px-4">
             <div className="py-3 d-flex justify-content-between post">
                 <div className="textContent">
-                    <BlogToolbar
-                        publisherName="Vaishnav"
-                        date="12 Dec,1997"
-                        options={[
-                            {name: "report", func: () => alert("reported!")},
-                            {name: "test", func: () => alert("test 123 ;)!")},
-                        ]}
-                    />
                     <h3 className="josefin-sans-bolder" onClick={handleOnClickPost}>
                         {title}
                         {title}
@@ -30,11 +22,19 @@ const Post = ({title, content, featuredImage, id}) => {
                     </h3>
                     <pre
                         onClick={handleOnClickPost}
-                        className="cardo-regular contentSection mb-0 me-3"
+                        className="cardo-regular contentSection mb-3 me-3"
                         dangerouslySetInnerHTML={{__html: content}}
                     ></pre>
+                    <BlogToolbar
+                        publisherName="Vaishnav"
+                        date="12 Dec,1997"
+                        options={[
+                            {name: "report", func: () => alert("reported!")},
+                            {name: "test", func: () => alert("test 123 ;)!")},
+                        ]}
+                    />
                 </div>
-                <div className="imgContent d-flex align-items-center">
+                <div className="imgContent d-flex align-items-start justify-content-end">
                     <img
                         onClick={handleOnClickPost}
                         src={service.getImgPreview(featuredImage)}
