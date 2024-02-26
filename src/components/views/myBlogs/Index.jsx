@@ -1,6 +1,6 @@
 import {Query} from "appwrite";
 import React, {useEffect, useState} from "react";
-import {Container} from "react-bootstrap";
+import {Container, Row} from "react-bootstrap";
 import authService from "../../../appwrite/auth";
 import Posts from "../../utilities/posts/Index";
 import SubHeader from "../../utilities/subHeader/Index";
@@ -18,6 +18,7 @@ const Index = () => {
             navigate("/dashboard/my-blogs");
         });
     };
+	
     return (
         <>
             <SubHeader text={`My Blogs`} />

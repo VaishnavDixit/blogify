@@ -33,9 +33,9 @@
 		height: 110px;
         img {
             display: block;
-            max-width: 80%;
+            width: 80%;
             max-height: 110px;
-            object-fit: contain;
+            object-fit: cover;
 			cursor: pointer;
         }
     }

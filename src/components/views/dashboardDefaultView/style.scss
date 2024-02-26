@@ -1,3 +1,14 @@
-.leftCol{
-
+.leftCol {
+    .searchBar {
+        input {
+            border: none !important;
+            background: none;
+			width: 70%;
+            &:focus {
+                border: none;
+                outline: none;
+            }
+            color: black;
+        }
+    }
 }
