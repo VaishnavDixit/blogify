@@ -4,10 +4,9 @@
 }
 .headerStyle {
     width: 100%;
-    position: sticky;
-    top: 0;
-    bottom: calc(100vh - 72px);
-    z-index: 9999;
+	position: sticky;
+	top:0;
+	z-index: 9999;
     // background: linear-gradient(to right, $webblue, $weblightblue);
     background: $webblue;
     h2 {

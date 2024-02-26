@@ -31,7 +31,7 @@ const Header = () => {
             console.log("err in sign out:", error);
         }
     };
-
+	
     return (
         <div className="headerStyle d-flex align-items-center justify-content-between p-3">
             <h2
