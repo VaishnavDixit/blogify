@@ -34,7 +34,6 @@ const Index = () => {
                     <Button className="m-2 p-2" onClick={() => authService.createGoogleSession()}>
                         Sign In With Google
                     </Button>
-
                     <Button className="m-2 p-2" onClick={() => navigate("sign-up")}>
                         Sign Up
                     </Button>

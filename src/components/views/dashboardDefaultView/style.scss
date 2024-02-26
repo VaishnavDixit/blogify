@@ -1,9 +1,8 @@
-.signUpPage {
-    margin: 40% 0;
-    .title {
-        font-size: 6em;
-    }
-    .desc {
-        font-size: 1.2em;
-    }
+.dashboardContainer{
+	// height: calc(100vh - 200px);
+	overflow: auto;
+	.leftPanel {
+		position: sticky;
+		top: 0;
+	}
 }

@@ -4,7 +4,7 @@ import authService from "../../../appwrite/auth";
 import FeaturesPanel from "../../utilities/featuresPanel/Index";
 import Posts from "../../utilities/posts/Index";
 import SubHeader from "../../utilities/subHeader/Index";
-
+import './style.scss'
 const Index = () => {
     const [name, setName] = useState("");
 
@@ -16,8 +16,8 @@ const Index = () => {
         <>
             <SubHeader text={`Welcome, ${name}`} />
             <Container>
-                <Row>
-                    <Col md={4} className="d-none d-md-inline-block pe-4">
+                <Row className="dashboardContainer">
+                    <Col md={4} className="leftPanel d-none d-md-inline-block pe-4">
                         <Container fluid>
                             <Row>
                                 <Col sm={12} className="mb-4">

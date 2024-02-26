@@ -10,7 +10,7 @@ import {Col, Container, Row} from "react-bootstrap";
 const Index = () => {
     return (
         <div className="defaultlayout">
-            <Header />
+				<Header />
             <Routes>
                 <Route index element={<DashBoardDefaultLayout />} />
                 {routes.map((item, index) => (
@@ -18,7 +18,6 @@ const Index = () => {
                 ))}
                 <Route path="*" element={<>err in def layout</>} />
             </Routes>
-
             {/* <Link to="page1">
                 <button>go to page1</button>
             </Link>
