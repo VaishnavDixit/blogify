@@ -19,7 +19,7 @@ const Index = () => {
             <SubHeader text={`Welcome, ${name}`} />
             <Container>
                 <Row>
-                    <Col md={4} className="d-none d-md-inline-block pe-4 leftCol">
+                    <Col md={4} className="d-none d-md-inline-block pe-0 leftCol">
                         <Container fluid>
                             <Row>
                                 <Col sm={12} className="mb-4">
@@ -28,7 +28,7 @@ const Index = () => {
                                         <input type="text" className="me-3" />
                                     </div>
                                 </Col>
-                                <Col sm={12} className="mb-4">
+                                <Col sm={12} className="mb-3">
                                     <FeaturesPanel />
                                 </Col>
                                 <Col sm={12} className="mb-4">

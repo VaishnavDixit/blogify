@@ -15,15 +15,12 @@ const Posts = ({queries}) => {
         });
     }, []);
     return (
-        <div className="postsStyle ps-md-4 ps-sm-0 container-fluid">
+        <div className="postsStyle ps-md-0 ps-sm-0 container-fluid">
             <Row>
                 {posts &&
                     posts.map((post) => (
                         <Post
-                            id={post.$id}
-                            title={post.title}
-                            content={post?.content}
-                            featuredImage={post.featuredImage}
+                            post={post}
                         />
                     ))}
             </Row>

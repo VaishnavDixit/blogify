@@ -63,7 +63,7 @@ button {
     font-optical-sizing: auto;
     font-weight: 700;
     font-style: normal;
-    letter-spacing: -1px;
+    // letter-spacing: -1px;
 }
 
 .josefin-sans-bold {
@@ -92,4 +92,20 @@ button {
     &:focus {
         border: 2px solid grey;
     }
+}
+.line-wrap3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    -webkit-line-clamp: 3;
+}
+.line-wrap2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    -webkit-line-clamp: 2;
 }

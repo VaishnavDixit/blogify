@@ -10,13 +10,13 @@
     .blog {
         .title {
             font-size: 1em;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            word-wrap: break-word;
+            // display: -webkit-box;
+            // -webkit-box-orient: vertical;
+            // overflow: hidden;
+            // text-overflow: ellipsis;
+            // word-wrap: break-word;
+			// -webkit-line-clamp: 3;
             cursor: pointer;
-			-webkit-line-clamp: 3;
         }
         img {
             width: 20px;

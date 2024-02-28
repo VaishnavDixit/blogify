@@ -7,7 +7,6 @@ import {PersonSharp} from "@mui/icons-material";
 import {logout} from "../../../store/authSlice";
 import {Button} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle";
 import Dropdown from "../dropdown/Index";
 
 const Header = () => {

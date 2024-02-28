@@ -19,7 +19,7 @@ export class Service {
         try {
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
-                conf.appwriteCollectionId,
+                conf.appwriteCollectionBlogsId,
                 slug, //slug is used as the the doc ID here.
                 {title, content, featuredImage, status, userId}
             );
@@ -32,7 +32,7 @@ export class Service {
         try {
             return await this.databases.updateDocument(
                 conf.appwriteDatabaseId,
-                conf.appwriteCollectionId,
+                conf.appwriteCollectionBlogsId,
                 slug,
                 {title, content, featuredImage, status}
             );
@@ -45,7 +45,7 @@ export class Service {
         try {
             await this.databases.deleteDocument(
                 conf.appwriteDatabaseId,
-                conf.appwriteCollectionId,
+                conf.appwriteCollectionBlogsId,
                 slug
             );
             return true;
@@ -60,7 +60,7 @@ export class Service {
         try {
             return await this.databases.getDocument(
                 conf.appwriteDatabaseId,
-                conf.appwriteCollectionId,
+                conf.appwriteCollectionBlogsId,
                 slug
             );
         } catch (error) {
@@ -75,7 +75,7 @@ export class Service {
         try {
             return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
-                conf.appwriteCollectionId,
+                conf.appwriteCollectionBlogsId,
                 queries
             );
         } catch (error) {
@@ -107,6 +107,7 @@ export class Service {
     getImgPreview = (fileId) => {
         return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
     };
+
 }
 
 const service = new Service();

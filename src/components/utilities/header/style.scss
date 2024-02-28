@@ -4,11 +4,11 @@
 }
 .headerStyle {
     width: 100%;
-	position: sticky;
-	top:0;
-	z-index: 9999;
-    // background: linear-gradient(to right, $webblue, $weblightblue);
-    background: $webblue;
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    background: linear-gradient(to right, $webblue, $weblightblue);
+    // background: $webblue;
     h2 {
         color: white;
         font-size: 2em;

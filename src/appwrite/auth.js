@@ -3,10 +3,13 @@
 */
 import conf from "../conf/conf";
 import {Client, Account, ID} from "appwrite";
+import userDataService from "./userData";
+import {current} from "@reduxjs/toolkit";
 
 export class AuthService {
     client;
     account;
+    session;
     constructor() {
         this.client = new Client()
             .setEndpoint(conf.appwriteUrl) // Your API Endpoint
@@ -27,9 +30,11 @@ export class AuthService {
             console.log(error);
         }
     };
-    createGoogleSession = () => {
+    createGoogleSession = async () => {
         try {
             this.account.createOAuth2Session("google", "http://localhost:5173/");
+            // const session = await this.account.getSession("current");
+            // if(session){
         } catch (err) {
             console.log(err);
         }

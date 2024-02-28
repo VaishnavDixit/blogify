@@ -3,17 +3,19 @@ import {Button, Container} from "react-bootstrap";
 import {Link, useNavigate} from "react-router-dom";
 import "./style.scss";
 import authService from "../../../../appwrite/auth";
+import userDataService from "../../../../appwrite/userData";
 const Index = () => {
     const navigate = useNavigate();
     useEffect(() => {
-        // console.log(localStorage.getItem("status"));
-        // if (localStorage.getItem("status") === "true") navigate("/dashboard");
         authService.getCurrentUser().then((res) => {
             console.log(res);
+			localStorage.setItem('userData', JSON.stringify(res))
+			localStorage.setItem('status', 'true')
             if (res) {
-                localStorage.setItem("status", "true");
-                localStorage.setItem("userData", JSON.stringify(res));
-                navigate("/dashboard");
+                userDataService.createUser().then((res) => {
+                    console.log(res);
+                    navigate("/dashboard");
+                });
             }
         });
     }, []);

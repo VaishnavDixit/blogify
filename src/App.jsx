@@ -2,6 +2,7 @@ import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import "./App.scss";
+import "bootstrap/dist/js/bootstrap.bundle";
 import LandingPage from "./components/pages/auth/introduction/Index";
 import SignInPage from "./components/pages/auth/signIn/Index";
 import SignUpPage from "./components/pages/auth/signUp/Index";

@@ -32,17 +32,8 @@ const Index = () => {
                 <Row className="pt-3">
                     <h2 className="josefin-sans-bolder mt-3">
                         {post?.title}
-                        {post?.title}
-                        {post?.title}
-                        {post?.title}
-                        {post?.title}
                     </h2>
-                    <BlogToolbar
-                        options={[
-                            {name: "delete", func: () => handleDeleteBlog()},
-                            {name: "etst", func: () => alert("test 123 ;)!")},
-                        ]}
-                    />
+                    
                     {image ? <img src={service.getImgPreview(image) || ""} className="mt-3" /> : ""}
                     <div
                         className="mt-3 content"
