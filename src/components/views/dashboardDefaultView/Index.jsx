@@ -38,7 +38,7 @@ const Index = () => {
                         </Container>
                     </Col>
                     <Col md={8} sm={12} xs={12}>
-                        <Posts query={[]} />
+                        <Posts queries={[]} />
                     </Col>
                 </Row>
             </Container>

@@ -1,24 +1,52 @@
+import {
+    BookmarkBorderSharp,
+    BookmarkRemoveSharp,
+    Lens,
+    MoreHorizRounded,
+    Person,
+} from "@mui/icons-material";
 import "bootstrap/dist/css/bootstrap.min.css";
+import moment from "moment";
 import React, {useEffect, useState} from "react";
 import {Col} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
+import authService from "../../../appwrite/auth";
 import service from "../../../appwrite/config";
-import BlogToolbar from "../blogToolbar/Index";
-import "./style.scss";
 import userDataService from "../../../appwrite/userData";
-import moment from "moment";
-import {BookmarkBorderSharp, Lens, MoreHorizRounded, Person} from "@mui/icons-material";
 import Dropdown from "../dropdown/Index";
+import "./style.scss";
+import {snackbar} from "../../../utilityFunctions/utilities";
 const Post = ({post}) => {
-    const {title, content, featuredImage, userId, $id} = post;
+    const {title, content, featuredImage, userId, $id, $createdAt} = post;
+    const [saved, setSaved] = useState(false);
+
     const [userInfo, setUserInfo] = useState({});
     useEffect(() => {
-        userDataService.getUserData(userId).then((res) => setUserInfo(res));
         // console.log(userInfo)
+        (async () => {
+            userDataService.getUserData(userId).then((res) => setUserInfo(res));
+            const res = await authService.getCurrentUser();
+            const user = await userDataService.getUserData(res.$id);
+            setUserInfo(user);
+            user.savedBlogs.map((blogId) => {
+                if (blogId == $id) {
+                    setSaved(true);
+                }
+            });
+        })();
     }, []);
+    // useEffect(() => {
+    // }, []);
     const navigate = useNavigate();
     const handleOnClickPost = () => {
         navigate(`/dashboard/view/${$id}`);
+    };
+    const handleSaveBlog = async () => {
+        const res = await userDataService.bookmarkBlog(userInfo?.$id, $id, !saved);
+        if (res) {
+            snackbar("success", !saved ? "Added to bookmarks" : "removed from bookmarks");
+            setSaved((p) => !p);
+        }
     };
     return (
         <Col sm={12} xs={12} className="px-4">
@@ -40,13 +68,20 @@ const Post = ({post}) => {
                             <Person className="mb-1" style={{fontSize: "1.8em"}} />
                             {userInfo && userInfo.name}
                             <Lens className="mx-1 mb-1" style={{fontSize: ".3em"}} />
-                            {moment(userInfo && userInfo.$createdAt)
-                                .local()
-                                .utc()
-                                .format("YYYY-MMM-DD h:mm A")}
+                            {moment($createdAt).calendar()}
                         </p>
                         <div className="d-flex justify-content-end align-items-center">
-                            <BookmarkBorderSharp className="saveIcon d-inline" />
+                            {saved ? (
+                                <BookmarkRemoveSharp
+                                    onClick={handleSaveBlog}
+                                    className="saveIcon d-inline"
+                                />
+                            ) : (
+                                <BookmarkBorderSharp
+                                    onClick={handleSaveBlog}
+                                    className="saveIcon d-inline"
+                                />
+                            )}
                             <Dropdown
                                 displayButton={
                                     <MoreHorizRounded

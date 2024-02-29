@@ -11,7 +11,6 @@ import Dropdown from "../../utilities/dropdown/Index";
 import "bootstrap/dist/js/bootstrap.bundle";
 import {useNavigate} from "react-router-dom";
 import moment from "moment";
-import {snackbar} from "../../../utilityFunctions/utilities";
 const Index = () => {
     // console.log(JSON.parse(localStorage.userData).$id)
     const [userId, setUserId] = useState("");
@@ -27,7 +26,8 @@ const Index = () => {
     }, []);
     const handleDeleteBlog = async (slug) => {
         service.deletePost(slug).then((res) => {
-            snackbar("success", "Successfully deleted");
+            console.log(res);
+            console.log("deletion done");
             service.getPosts([Query.equal("userId", userId)]).then((value) => {
                 setPosts(value.documents);
                 console.log(value.documents);
@@ -38,13 +38,10 @@ const Index = () => {
         console.log(slug);
         navigate(`/dashboard/view/${slug}`);
     };
-    // const [showBanner, setShowBanner] = useState(true);
-    // const hideBannerHandler = () => setShowBanner(false);
-    // const showBannerHandler = () => setShowBanner(true);
     return (
         <>
-            <SubHeader text={`My Blogs`} />
-            <Container className="myBlogs">
+            <SubHeader text={`Saved Blogs`} />
+            <Container className="savedBlogs">
                 {posts &&
                     posts.map((post, index) => (
                         <div
@@ -84,10 +81,7 @@ const Index = () => {
                                     }
                                     options={[
                                         {name: "edit", func: () => alert("edit")},
-                                        {
-                                            name: "Delete",
-                                            func: () => handleDeleteBlog(post.$id),
-                                        },
+                                        {name: "Delete", func: () => handleDeleteBlog(post.$id)},
                                     ]}
                                 />
                             </span>

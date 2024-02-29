@@ -10,9 +10,10 @@ const Posts = ({queries}) => {
     const [posts, setPosts] = useState([]);
     console.log(queries);
     useEffect(() => {
-        service.getPosts(queries).then((value) => {
+        service.getPosts(queries||[]).then((value) => {
+			console.log(value)
             setPosts(value.documents);
-        });
+        }).catch(err=>console.log(err));
     }, []);
     return (
         <div className="postsStyle ps-md-0 ps-sm-0 container-fluid">

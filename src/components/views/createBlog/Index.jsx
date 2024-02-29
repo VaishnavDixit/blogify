@@ -12,6 +12,7 @@ import {json} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {enqueueSnackbar} from "notistack";
 import {useNavigate} from "react-router-dom";
+import { snackbar } from "../../../utilityFunctions/utilities";
 const Index = () => {
     const [content, setContent] = useState("");
     const [finalImage, setFinalImage] = useState("");
@@ -56,7 +57,7 @@ const Index = () => {
         reset,
         formState: {errors},
     } = useForm();
-	
+
     const submitBlog = async ({title, featuredImage}) => {
         if (!title || !featuredImage || content == "") {
             alert("invalid submission");
@@ -84,22 +85,14 @@ const Index = () => {
                     reset({title: ""});
                     setFinalImage("");
                     setContent("");
-                    enqueueSnackbar("Successfully Uploaded.", {
-                        variant: "success",
-                        anchorOrigin: {
-                            horizontal: "right",
-                            vertical: "top",
-                        },
-                        style: {
-                            background: "pink",
-                        },
-                    });
+                    snackbar('success', 'Successfully Created')
                     navigate(`/dashboard/view/${slug}`);
                 });
         } else {
             console.log("not uploaded :/");
         }
     };
+
     return (
         <>
             <SubHeader text={"Create a blog"} />

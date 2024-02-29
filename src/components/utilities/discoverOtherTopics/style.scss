@@ -15,19 +15,19 @@
             // overflow: hidden;
             // text-overflow: ellipsis;
             // word-wrap: break-word;
-			// -webkit-line-clamp: 3;
+            // -webkit-line-clamp: 3;
             cursor: pointer;
         }
-        img {
-            width: 20px;
-            height: 20px;
-            min-width: 20px;
-            min-height: 20px;
-        }
-    }
-    .publisher {
-        .name {
-            font-size: 12px;
+        .publisher {
+            img {
+                width: 20px;
+                height: 20px;
+                min-width: 20px;
+                min-height: 20px;
+            }
+            .name {
+                font-size: 12px;
+            }
         }
     }
 }

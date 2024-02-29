@@ -108,6 +108,17 @@ export class Service {
         return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
     };
 
+    getTags = async () => {
+        try {
+            return await this.databases.listDocuments(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionTagsId,
+				[]
+            );
+        } catch (error) {
+            console.log(error);
+        }
+    };
 }
 
 const service = new Service();

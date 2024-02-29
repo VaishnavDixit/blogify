@@ -48,12 +48,12 @@ export class UserDataService {
         }
     };
 
-    getUserData = async (id) => {
+    getUserData = async (userId) => {
         try {
             return await this.databases.getDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionUsersId,
-                id
+                userId
             );
         } catch (error) {
             console.log("error:/");
@@ -61,22 +61,28 @@ export class UserDataService {
         }
     };
 
-    bookmarkBlog = async (userId, blogId) => {
-        // blog id is a slug
-    };
-
-    updatePost = async (slug, {title, featuredImage, content, status}) => {
+    bookmarkBlog = async (userId, blogId, toSave) => {
         try {
+            const userData = await this.databases.getDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionUsersId,
+                userId
+            );
             return await this.databases.updateDocument(
                 conf.appwriteDatabaseId,
-                conf.appwriteCollectionBlogsId,
-                slug,
-                {title, content, featuredImage, status}
+                conf.appwriteCollectionUsersId,
+                userId,
+                {
+                    "savedBlogs": toSave
+                        ? [...userData.savedBlogs, blogId]
+                        : [...userData.savedBlogs.filter((i) => i != blogId)],
+                }
             );
         } catch (error) {
             console.log(error);
         }
     };
+
 }
 
 const userDataService = new UserDataService();

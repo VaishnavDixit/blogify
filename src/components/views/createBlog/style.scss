@@ -4,32 +4,29 @@
     // outline: 1px solid limegreen;
 }
 .createBlogPage {
-	.titleInput{
-        border: 2px solid #EEEEEE !important;
-		border-radius: 8px;
-	}
+    .titleInput {
+        border: 2px solid #eeeeee !important;
+        border-radius: 8px;
+    }
     .imageInputLabel {
         position: relative;
-        border: 2px solid #EEEEEE;
+        border: 2px solid #eeeeee;
         width: 100%;
         height: 30vh;
         min-height: 200px;
-		border-radius: 8px;
-		button{
-			
-		}
+        border-radius: 8px;
         .cancelIcon {
             position: absolute;
             top: 5px;
             right: 5px;
             font-size: 2em;
             color: darkgray;
-			z-index: 10;
-			cursor: pointer;
+            z-index: 10;
+            cursor: pointer;
         }
-		.addPhotoIcon{
-			color: grey;
-		}
+        .addPhotoIcon {
+            color: grey;
+        }
         .labelText {
             text-align: center;
         }

@@ -13,7 +13,7 @@ import {SnackbarProvider} from "notistack";
 
 function App() {
     return (
-        <SnackbarProvider>
+        <SnackbarProvider dense={true} autoHideDuration={2000}>
             <BrowserRouter>
                 <Routes>
                     <Route index element={<LandingPage />} />
