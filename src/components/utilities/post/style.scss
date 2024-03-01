@@ -5,6 +5,12 @@
 .post {
     overflow: hidden;
     border-bottom: 1px solid rgba(128, 128, 128, 0.155);
+    .tagsSection {
+        .tag {
+            font-size: 12px;
+            background-color: rgba(189, 189, 189, 0.397);
+        }
+    }
     .textContent {
         width: 80%;
         h3,

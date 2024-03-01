@@ -1,25 +1,25 @@
 import {
-	BookmarkBorderSharp,
-	BookmarkRemoveSharp,
-	Lens,
-	MoreHorizRounded,
-	Person,
+    BookmarkBorderSharp,
+    BookmarkRemoveSharp,
+    Lens,
+    MoreHorizRounded,
+    Person,
 } from "@mui/icons-material";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
-import { Col } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Col} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 import authService from "../../../appwrite/auth";
 import service from "../../../appwrite/config";
 import userDataService from "../../../appwrite/userData";
 import Dropdown from "../dropdown/Index";
 import "./style.scss";
 
-import { snackbar } from "../../../utilityFunctions/utilities";
+import {snackbar} from "../../../utilityFunctions/utilities";
 const Post = ({post}) => {
-    const {title, content, featuredImage, userId, $id, $createdAt} = post;
+    const {title, content, featuredImage, userId, $id, $createdAt, tags} = post;
     const [saved, setSaved] = useState(false);
 
     const [userInfo, setUserInfo] = useState({});
@@ -60,9 +60,14 @@ const Post = ({post}) => {
                     </h3>
                     <div
                         onClick={handleOnClickPost}
-                        className="cardo-regular line-wrap2 contentSection mb-3 me-3"
+                        className="cardo-regular line-wrap2 contentSection mb-0 me-3"
                         dangerouslySetInnerHTML={{__html: content}}
                     ></div>
+                    <div className="d-flex flex-wrap tagsSection">
+                        {tags?.map((tag) => (
+                            <div className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans">{tag}</div>
+                        ))}
+                    </div>
                     <div className="info pb-2 d-flex justify-content-between align-items-center">
                         <p className="mb-0 josefin-sans-thin text-truncate ">
                             <Person

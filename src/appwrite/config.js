@@ -14,14 +14,14 @@ export class Service {
         this.bucket = new Storage(this.client);
     }
 
-    createPost = async ({title, slug, featuredImage, content, status, userId}) => {
+    createPost = async ({title, slug, featuredImage, content, status, userId, tags}) => {
         //featured Image is an ID. actual image is stored in bucket aka storage
         try {
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionBlogsId,
                 slug, //slug is used as the the doc ID here.
-                {title, content, featuredImage, status, userId}
+                {title, content, featuredImage, status, userId, tags}
             );
         } catch (error) {
             console.log(error);

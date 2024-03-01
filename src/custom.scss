@@ -44,8 +44,8 @@ $theme-colors: map-merge(
     (
         // configure existing colors to whatever color you like.
         // ex:
-        // "success": $success,
-        // "info": $info,
+        "success": $success,
+        "info": $info,
         "primary": $webblue,
         // add any additional color below
         //..

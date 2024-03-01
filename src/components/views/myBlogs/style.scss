@@ -3,23 +3,27 @@
 }
 .myBlogs {
     .myBlog {
-		.index{
-			width:15px;
-		}
+        .index {
+            width: 15px;
+        }
         img {
-            min-width: 12%;
+            width: 20%;
+            min-width: 20%;
+            max-width: 20%;
             height: 80px;
             object-fit: cover;
         }
-		.titleAndInfo{
-			.titleBlog {
-				cursor: pointer;
-			}
-			.blogInfo{
-				.likeIcon{
-					color: darkmagenta;
-				}
-			}
-		}
+        .titleAndInfo {
+			width: calc(100% - 20% - 15px);
+            .titleBlog {
+                cursor: pointer;
+				
+            }
+            .blogInfo {
+                .likeIcon {
+                    color: darkmagenta;
+                }
+            }
+        }
     }
 }

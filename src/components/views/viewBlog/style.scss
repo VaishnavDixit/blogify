@@ -10,6 +10,12 @@
 
         object-fit: contain;
     }
+	.tagsSection {
+        .tag {
+            font-size: 12px;
+            background-color: rgba(189, 189, 189, 0.397);
+        }
+    }
     .infoRow {
         .menuIcon,
         .saveIcon,
