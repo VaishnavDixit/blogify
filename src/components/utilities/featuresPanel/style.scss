@@ -5,10 +5,11 @@
     background: white;
     border-radius: 4px;
     overflow: auto;
-    .showText {
+    .showText,
+    .clearText {
         &:hover {
             text-decoration: underline;
-			cursor: pointer;
+            cursor: pointer;
         }
     }
 }

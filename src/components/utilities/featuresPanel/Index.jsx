@@ -7,7 +7,7 @@ import {logout} from "../../../store/authSlice";
 import "./style.scss";
 import {Button} from "react-bootstrap";
 import service from "../../../appwrite/config";
-import {ArrowRightAltSharp, ChevronRight} from "@mui/icons-material";
+import {ArrowRightAltSharp, ChevronRight, Close, CloseOutlined} from "@mui/icons-material";
 
 const FeaturesPanel = () => {
     const [tags, setTags] = useState([]);
@@ -44,9 +44,12 @@ const FeaturesPanel = () => {
                     {tag.name}
                 </Button>
             ))}
-            {selectedTags.length!==0 && (
-                <div className="text-end mt-3 mb-1 showText">
-                    Show results <ChevronRight className="mb-1" />
+            {selectedTags.length !== 0 && (
+                <div className=" mt-3 mb-1 d-flex">
+                    <p className="mb-0 me-auto clearText josefin-sans-bold rounded-pill border ps-2 pt-1 pe-1" onClick={()=>setSelectedTags([])}>Clear <Close className="mb-1"/></p>
+                    <p className="mb-0 showText josefin-sans-bold rounded-pill border ps-2 pt-1 pe-1">
+                        Show results <ChevronRight className="mb-1" />
+                    </p>
                 </div>
             )}
         </div>
