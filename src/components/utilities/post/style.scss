@@ -21,11 +21,18 @@
             font-size: 20px;
         }
         .info {
-			
+            p {
+                .name {
+                    cursor: pointer;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
             .saveIcon {
                 font-size: 20px;
-				cursor: pointer;
-				z-index: 9999;
+                cursor: pointer;
+                z-index: 9999;
             }
         }
     }

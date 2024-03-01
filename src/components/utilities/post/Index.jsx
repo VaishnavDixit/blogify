@@ -1,23 +1,23 @@
 import {
-    BookmarkBorderSharp,
-    BookmarkRemoveSharp,
-    Lens,
-    MoreHorizRounded,
-    Person,
+	BookmarkBorderSharp,
+	BookmarkRemoveSharp,
+	Lens,
+	MoreHorizRounded,
+	Person,
 } from "@mui/icons-material";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle";
 import moment from "moment";
-import React, {useEffect, useState} from "react";
-import {Col} from "react-bootstrap";
-import {useNavigate} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import authService from "../../../appwrite/auth";
 import service from "../../../appwrite/config";
 import userDataService from "../../../appwrite/userData";
 import Dropdown from "../dropdown/Index";
 import "./style.scss";
-import "bootstrap/dist/js/bootstrap.bundle";
 
-import {snackbar} from "../../../utilityFunctions/utilities";
+import { snackbar } from "../../../utilityFunctions/utilities";
 const Post = ({post}) => {
     const {title, content, featuredImage, userId, $id, $createdAt} = post;
     const [saved, setSaved] = useState(false);
@@ -40,6 +40,10 @@ const Post = ({post}) => {
     const handleOnClickPost = () => {
         navigate(`/dashboard/view/${$id}`);
     };
+    const handleOnClickName = () => {
+        navigate(`/dashboard/profile/${userInfo && userInfo.name}`, {state: {userId: userId}});
+    };
+
     const handleSaveBlog = async () => {
         const res = await userDataService.bookmarkBlog(userInfo?.$id, $id, !saved);
         if (res) {
@@ -61,17 +65,25 @@ const Post = ({post}) => {
                     ></div>
                     <div className="info pb-2 d-flex justify-content-between align-items-center">
                         <p className="mb-0 josefin-sans-thin text-truncate ">
-                            <Person className="mb-1" style={{fontSize: "1.8em"}} />
-                            {userInfo && userInfo.name}
+                            <Person
+                                onClick={handleOnClickName}
+                                className="mb-1"
+                                style={{fontSize: "1.8em"}}
+                            />
+                            <span className=" josefin-sans-thin name" onClick={handleOnClickName}>
+                                {userInfo && userInfo.name}
+                            </span>
                             <Lens className="mx-1 mb-1" style={{fontSize: ".3em"}} />
-                            {moment($createdAt).calendar({
-                                sameDay: "[Today], h:mm a",
-                                nextDay: "[Tomorrow], h:mm a",
-                                nextWeek: "dddd, hh:mm a",
-                                lastDay: "[Yesterday], h:mm a",
-                                lastWeek: "[Last] ddd, h:mm a",
-                                sameElse: "DD MMM YYYY",
-                            })}
+                            <span className=" josefin-sans-thin">
+                                {moment($createdAt).calendar({
+                                    sameDay: "[Today], h:mm a",
+                                    nextDay: "[Tomorrow], h:mm a",
+                                    nextWeek: "dddd, hh:mm a",
+                                    lastDay: "[Yesterday], h:mm a",
+                                    lastWeek: "[Last] ddd, h:mm a",
+                                    sameElse: "DD MMM YYYY",
+                                })}
+                            </span>
                         </p>
                         <div className="d-flex justify-content-end align-items-center">
                             {saved ? (

@@ -83,6 +83,46 @@ export class UserDataService {
         }
     };
 
+    likeBlog = async (blogId, userId, toLike) => {
+        //blogId is slug
+        try {
+            const userData = await this.databases.getDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionUsersId,
+                userId
+            );
+            const blogInfo = await this.databases.getDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionBlogsId,
+                blogId
+            );
+            if (blogInfo) {
+                const user = await this.databases.updateDocument(
+                    conf.appwriteDatabaseId,
+                    conf.appwriteCollectionUsersId,
+                    userId,
+                    {
+                        "likedPosts": toLike
+                            ? [...userData?.likedPosts, blogId]
+                            : userData?.likedPosts.filter((i) => i != blogId),
+                    }
+                );
+                if (user) {
+                    return await this.databases.updateDocument(
+                        conf.appwriteDatabaseId,
+                        conf.appwriteCollectionBlogsId,
+                        blogId,
+                        {
+                            "likes": blogInfo.likes + (toLike ? 1 : -1),
+                        }
+                    );
+                } else throw "err2";
+            } else throw "err";
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    };
 }
 
 const userDataService = new UserDataService();

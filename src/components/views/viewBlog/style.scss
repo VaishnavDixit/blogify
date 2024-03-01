@@ -12,10 +12,17 @@
     }
     .infoRow {
         .menuIcon,
-        .saveIcon {
+        .saveIcon,
+        .likeIcon {
             // color: rgb(59, 59, 59);
             font-size: 24px;
-			cursor: pointer;
+            cursor: pointer;
+        }
+        .menuIcon {
+            font-size: 20px;
+        }
+        .likeIcon {
+            color: rgb(136, 57, 82);
         }
         .publisher {
             img {

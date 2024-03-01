@@ -1,17 +1,16 @@
-import {Query} from "appwrite";
-import React, {useEffect, useState} from "react";
-import {Button, Container, Row} from "react-bootstrap";
-import authService from "../../../appwrite/auth";
-import Posts from "../../utilities/posts/Index";
-import SubHeader from "../../utilities/subHeader/Index";
-import service from "../../../appwrite/config";
-import "./style.scss";
-import {MoreHoriz} from "@mui/icons-material";
-import Dropdown from "../../utilities/dropdown/Index";
+import { Favorite, MoreHoriz } from "@mui/icons-material";
+import { Query } from "appwrite";
 import "bootstrap/dist/js/bootstrap.bundle";
-import {useNavigate} from "react-router-dom";
 import moment from "moment";
-import {snackbar} from "../../../utilityFunctions/utilities";
+import React, { useEffect, useState } from "react";
+import { Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import authService from "../../../appwrite/auth";
+import service from "../../../appwrite/config";
+import { snackbar } from "../../../utilityFunctions/utilities";
+import Dropdown from "../../utilities/dropdown/Index";
+import SubHeader from "../../utilities/subHeader/Index";
+import "./style.scss";
 const Index = () => {
     // console.log(JSON.parse(localStorage.userData).$id)
     const [userId, setUserId] = useState("");
@@ -57,7 +56,7 @@ const Index = () => {
                                 src={service.getImgPreview(post?.featuredImage)}
                                 alt="image"
                             />
-                            <div className="titleAndName me-auto">
+                            <div className="titleAndInfo">
                                 <h4
                                     className="titleBlog line-wrap3 josefin-sans-bold mb-1"
                                     onClick={() => handleOnClickPost(post.$id)}
@@ -69,28 +68,32 @@ const Index = () => {
                                     molestias tempore voluptatibus necessitatibus odit, consequatur
                                     blanditiis.
                                 </h4>
-                                <p className="mb-0 josefin-sans-thin dateInfo">
-                                    {moment(post.$createdAt).calendar()}
+                                <p className="mb-0 d-flex blogInfo">
+                                    <span className="josefin-sans-thin text-truncate me-auto">
+                                        {moment(post.$createdAt).calendar()}
+                                    </span>
+                                    <span className="d-flex">
+                                        <Favorite className="likeIcon me-1"/>
+										<span className="me-2">{post.likes||0}</span>
+                                        <Dropdown
+                                            displayButton={
+                                                <MoreHoriz
+                                                    id="dropdownMenuButton1"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-expanded="false"
+                                                />
+                                            }
+                                            options={[
+                                                {name: "edit", func: () => alert("edit")},
+                                                {
+                                                    name: "Delete",
+                                                    func: () => handleDeleteBlog(post.$id),
+                                                },
+                                            ]}
+                                        />
+                                    </span>
                                 </p>
                             </div>
-                            <span>
-                                <Dropdown
-                                    displayButton={
-                                        <MoreHoriz
-                                            id="dropdownMenuButton1"
-                                            data-bs-toggle="dropdown"
-                                            aria-expanded="false"
-                                        />
-                                    }
-                                    options={[
-                                        {name: "edit", func: () => alert("edit")},
-                                        {
-                                            name: "Delete",
-                                            func: () => handleDeleteBlog(post.$id),
-                                        },
-                                    ]}
-                                />
-                            </span>
                         </div>
                     ))}
             </Container>
