@@ -15,6 +15,8 @@ import service from "../../../appwrite/config";
 import userDataService from "../../../appwrite/userData";
 import Dropdown from "../dropdown/Index";
 import "./style.scss";
+import "bootstrap/dist/js/bootstrap.bundle";
+
 import {snackbar} from "../../../utilityFunctions/utilities";
 const Post = ({post}) => {
     const {title, content, featuredImage, userId, $id, $createdAt} = post;
@@ -29,14 +31,11 @@ const Post = ({post}) => {
             const user = await userDataService.getUserData(res.$id);
             setUserInfo(user);
             user.savedBlogs.map((blogId) => {
-                if (blogId == $id) {
-                    setSaved(true);
-                }
+                if (blogId == $id) setSaved(true);
             });
         })();
     }, []);
-    // useEffect(() => {
-    // }, []);
+
     const navigate = useNavigate();
     const handleOnClickPost = () => {
         navigate(`/dashboard/view/${$id}`);
@@ -58,23 +57,27 @@ const Post = ({post}) => {
                     <div
                         onClick={handleOnClickPost}
                         className="cardo-regular line-wrap2 contentSection mb-3 me-3"
-                        // dangerouslySetInnerHTML={{__html: content}}
-                    >
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae esse
-                        quo omnis perferendis doloribus officiis!
-                    </div>
+                        dangerouslySetInnerHTML={{__html: content}}
+                    ></div>
                     <div className="info pb-2 d-flex justify-content-between align-items-center">
                         <p className="mb-0 josefin-sans-thin text-truncate ">
                             <Person className="mb-1" style={{fontSize: "1.8em"}} />
                             {userInfo && userInfo.name}
                             <Lens className="mx-1 mb-1" style={{fontSize: ".3em"}} />
-                            {moment($createdAt).calendar()}
+                            {moment($createdAt).calendar({
+                                sameDay: "[Today], h:mm a",
+                                nextDay: "[Tomorrow], h:mm a",
+                                nextWeek: "dddd, hh:mm a",
+                                lastDay: "[Yesterday], h:mm a",
+                                lastWeek: "[Last] ddd, h:mm a",
+                                sameElse: "DD MMM YYYY",
+                            })}
                         </p>
                         <div className="d-flex justify-content-end align-items-center">
                             {saved ? (
                                 <BookmarkRemoveSharp
                                     onClick={handleSaveBlog}
-                                    className="saveIcon d-inline"
+                                    className="saveIcon d-block "
                                 />
                             ) : (
                                 <BookmarkBorderSharp
@@ -106,12 +109,6 @@ const Post = ({post}) => {
                     ></img>
                 </div>
             </div>
-            {/* <div className="post p-2" onClick={handleOnClickPost}>
-                <h3 className="josefin-sans-bold">{title}</h3>
-                <RemoveRedEye className="eyeIcon" />
-                {/* <img src={service.getImgPreview(featuredImage)}></img> */}
-            {/* <img src={'https://www.shutterstock.com/shutterstock/photos/526005658/display_1500/stock-photo-abstract-d-rendering-of-chaotic-structure-plexus-background-with-lines-and-polygonal-spheres-in-526005658.jpg'}></img> */}
-            {/* </div> */}
         </Col>
     );
 };

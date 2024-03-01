@@ -16,7 +16,12 @@ import {
     BookmarkTwoTone,
     CollectionsBookmarkSharp,
     Lens,
+    MoreHoriz,
+    MoreHorizOutlined,
     MoreHorizRounded,
+    MoreHorizSharp,
+    MoreHorizTwoTone,
+    MoreTimeRounded,
     Person,
 } from "@mui/icons-material";
 import Dropdown from "../../utilities/dropdown/Index";

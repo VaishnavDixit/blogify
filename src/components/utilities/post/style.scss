@@ -20,6 +20,14 @@
         h3 {
             font-size: 20px;
         }
+        .info {
+			
+            .saveIcon {
+                font-size: 20px;
+				cursor: pointer;
+				z-index: 9999;
+            }
+        }
     }
     .imgContent {
         width: 20%;
@@ -33,70 +41,3 @@
         }
     }
 }
-
-// .post {
-//     position: relative;
-//     // background: $weblightblue_tt;
-//     height: 200px;
-//     position: relative;
-//     overflow: hidden;
-//     &:hover {
-//         &::before {
-//             opacity: 1;
-//         }
-//         .eyeIcon {
-//             opacity: 1;
-//         }
-//         h3 {
-//             color: rgb(255, 255, 255);
-//         }
-//         img {
-//             width: 105%;
-//         }
-//     }
-//     &::before {
-//         content: "";
-//         position: absolute;
-//         background-color: rgba(0, 0, 0, 0.253);
-//         left: 0;
-//         top: 0;
-//         bottom: 0;
-//         right: 0;
-//         opacity: 0;
-//         transition: 0.2s ease;
-//         z-index: 1;
-//     }
-//     img {
-//         transition: 0.2s ease;
-//         position: absolute;
-//         left: 50%;
-//         top: 50%;
-//         transform: translate(-50%, -50%);
-//         object-fit: cover;
-//         // height: 200px;
-//         width: 100%;
-//         z-index: -1;
-//     }
-//     h3 {
-//         position: absolute;
-//         transition: 0.2s ease;
-//         font-size: 1.5em;
-//         z-index: 99;
-// 		display: -webkit-box;
-//         -webkit-box-orient: vertical;
-//         -webkit-line-clamp: 2;
-//         overflow: hidden;
-//         text-overflow: ellipsis;
-//     }
-//     .eyeIcon {
-//         position: absolute;
-//         left: 50%;
-//         top: 50%;
-//         transform: translate(-50%, -50%);
-//         opacity: 0;
-//         transition: 0.2s ease;
-//         color: white;
-//         font-size: 2em;
-//         z-index: 99;
-//     }
-// }
