@@ -123,6 +123,10 @@ export class UserDataService {
             return false;
         }
     };
+
+    followUser = async (requesterId, accepterId, toFollow) => {
+        //todo
+    };
 }
 
 const userDataService = new UserDataService();

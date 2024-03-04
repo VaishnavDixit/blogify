@@ -1,9 +1,9 @@
-import React, {useEffect} from "react";
-import {Button, Container} from "react-bootstrap";
-import {Link, useNavigate} from "react-router-dom";
-import "./style.scss";
+import React, { useEffect } from "react";
+import { Button, Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import authService from "../../../../appwrite/auth";
 import userDataService from "../../../../appwrite/userData";
+import "./style.scss";
 const Index = () => {
     const navigate = useNavigate();
     useEffect(() => {

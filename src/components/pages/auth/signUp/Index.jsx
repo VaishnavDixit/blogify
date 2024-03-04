@@ -1,12 +1,12 @@
 import React from "react";
 import "./style.scss";
 
-import {Container, Row, Col, Button} from "react-bootstrap";
-import {useForm} from "react-hook-form";
-import {useDispatch} from "react-redux";
+import { Button, Col, Row } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import authService from "../../../../appwrite/auth";
-import {login} from "../../../../store/authSlice";
-import {useNavigate} from "react-router-dom";
+import { login } from "../../../../store/authSlice";
 const Index = () => {
     const {
         register,

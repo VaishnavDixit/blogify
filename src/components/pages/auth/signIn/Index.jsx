@@ -1,11 +1,11 @@
-import React, {useDebugValue} from "react";
-import "./style.scss";
-import {Button, Col, Container, Row} from "react-bootstrap";
-import {useForm} from "react-hook-form";
+import React from "react";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import authService from "../../../../appwrite/auth";
-import {useDispatch} from "react-redux";
-import {useNavigate} from "react-router-dom";
-import {login as reduxLogin} from "../../../../store/authSlice";
+import { login as reduxLogin } from "../../../../store/authSlice";
+import "./style.scss";
 const Index = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();

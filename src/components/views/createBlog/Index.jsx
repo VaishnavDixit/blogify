@@ -1,20 +1,16 @@
-import React, {useEffect, useState} from "react";
-import SubHeader from "../../utilities/subHeader/Index";
-import ReactCrop from "react-image-crop";
-import {Editor} from "@tinymce/tinymce-react";
-import {Button, Col, Container, Row, Tab, Tabs} from "react-bootstrap";
-import "react-image-crop/src/ReactCrop.scss";
-import {AddAPhoto, Cancel, CancelOutlined, Widgets} from "@mui/icons-material";
-import "./style.scss";
-import {useForm} from "react-hook-form";
-import service from "../../../appwrite/config";
-import {json} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {enqueueSnackbar} from "notistack";
-import {useNavigate} from "react-router-dom";
-import {snackbar} from "../../../utilityFunctions/utilities";
-import "bootstrap/dist/js/bootstrap.bundle";
+import { AddAPhoto, CancelOutlined } from "@mui/icons-material";
+import { Editor } from "@tinymce/tinymce-react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle";
+import React, { useEffect, useState } from "react";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import "react-image-crop/src/ReactCrop.scss";
+import { useNavigate } from "react-router-dom";
+import service from "../../../appwrite/config";
+import { snackbar } from "../../../utilityFunctions/utilities";
+import SubHeader from "../../utilities/subHeader/Index";
+import "./style.scss";
 
 const Index = () => {
     const [content, setContent] = useState("");

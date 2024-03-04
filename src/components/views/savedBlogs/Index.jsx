@@ -1,16 +1,15 @@
-import {Query} from "appwrite";
-import React, {useEffect, useState} from "react";
-import {Button, Container, Row} from "react-bootstrap";
-import authService from "../../../appwrite/auth";
-import Posts from "../../utilities/posts/Index";
-import SubHeader from "../../utilities/subHeader/Index";
-import service from "../../../appwrite/config";
-import "./style.scss";
-import {MoreHoriz} from "@mui/icons-material";
-import Dropdown from "../../utilities/dropdown/Index";
+import { MoreHoriz } from "@mui/icons-material";
+import { Query } from "appwrite";
 import "bootstrap/dist/js/bootstrap.bundle";
-import {useNavigate} from "react-router-dom";
 import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import authService from "../../../appwrite/auth";
+import service from "../../../appwrite/config";
+import Dropdown from "../../utilities/dropdown/Index";
+import SubHeader from "../../utilities/subHeader/Index";
+import "./style.scss";
 const Index = () => {
     // console.log(JSON.parse(localStorage.userData).$id)
     const [userId, setUserId] = useState("");
