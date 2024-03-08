@@ -2,11 +2,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import authService from "../../../appwrite/auth";
-import {logout} from "../../../store/authSlice";
+import authService from "../../../appwrite/auth.js";
+import {logout} from "../../../store/authSlice.js";
 import "./style.scss";
 import {Button} from "react-bootstrap";
-import service from "../../../appwrite/config";
+import service from "../../../appwrite/config.js";
 import {ArrowRightAltSharp, ChevronRight, Close, CloseOutlined} from "@mui/icons-material";
 
 const FeaturesPanel = () => {

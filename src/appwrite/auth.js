@@ -1,9 +1,9 @@
 /*
 	file related to logging in/ out of appwrite. 
 */
-import conf from "../conf/conf";
+import conf from "../conf/conf.js";
 import {Client, Account, ID} from "appwrite";
-import userDataService from "./userData";
+import userDataService from "./userData.js";
 import {current} from "@reduxjs/toolkit";
 
 export class AuthService {

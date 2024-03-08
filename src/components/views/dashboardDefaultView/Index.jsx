@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import {Col, Container, Row} from "react-bootstrap";
-import authService from "../../../appwrite/auth";
-import FeaturesPanel from "../../utilities/featuresPanel/Index";
-import Posts from "../../utilities/posts/Index";
-import SubHeader from "../../utilities/subHeader/Index";
+import authService from "../../../appwrite/auth.js";
+import FeaturesPanel from "../../utilities/featuresPanel/Index.jsx";
+import Posts from "../../utilities/posts/Index.jsx";
+import SubHeader from "../../utilities/subHeader/Index.jsx";
 import "./style.scss";
-import DiscoverOtherTopics from "../../utilities/discoverOtherTopics/Index";
+import DiscoverOtherTopics from "../../utilities/discoverOtherTopics/Index.jsx";
 import {Search} from "@mui/icons-material";
 const Index = () => {
     const [name, setName] = useState("");

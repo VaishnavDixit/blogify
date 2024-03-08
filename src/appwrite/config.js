@@ -1,4 +1,4 @@
-import conf from "../conf/conf";
+import conf from "../conf/conf.js";
 import {Client, Account, ID, Databases, Storage, Query} from "appwrite";
 
 //it's just database service
@@ -113,7 +113,7 @@ export class Service {
             return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionTagsId,
-				[]
+                []
             );
         } catch (error) {
             console.log(error);

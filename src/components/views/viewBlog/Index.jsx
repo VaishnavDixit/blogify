@@ -1,22 +1,22 @@
 import {
-	BookmarkBorderSharp,
-	BookmarkRemoveSharp,
-	Favorite,
-	FavoriteBorderSharp,
-	Lens,
-	MoreHorizRounded,
-	Person,
+    BookmarkBorderSharp,
+    BookmarkRemoveSharp,
+    Favorite,
+    FavoriteBorderSharp,
+    Lens,
+    MoreHorizRounded,
+    Person,
 } from "@mui/icons-material";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
-import { Container, Row } from "react-bootstrap";
+import React, {useEffect, useState} from "react";
+import {Container, Row} from "react-bootstrap";
 import "react-image-crop/src/ReactCrop.scss";
-import { useNavigate, useParams } from "react-router-dom";
-import authService from "../../../appwrite/auth";
-import service from "../../../appwrite/config";
-import userDataService from "../../../appwrite/userData";
-import { snackbar } from "../../../utilityFunctions/utilities";
-import Dropdown from "../../utilities/dropdown/Index";
+import {useNavigate, useParams} from "react-router-dom";
+import authService from "../../../appwrite/auth.js";
+import service from "../../../appwrite/config.js";
+import userDataService from "../../../appwrite/userData.js";
+import {snackbar} from "../../../utilityFunctions/utilities.js";
+import Dropdown from "../../utilities/dropdown/Index.jsx";
 import "./style.scss";
 
 const Index = () => {
@@ -119,9 +119,11 @@ const Index = () => {
                         </div>
                     </div>
                     {image ? <img src={service.getImgPreview(image) || ""} className="mt-3" /> : ""}
-					<div className="d-flex flex-wrap tagsSection my-3">
+                    <div className="d-flex flex-wrap tagsSection my-3">
                         {post?.tags?.map((tag) => (
-                            <div className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans">{tag}</div>
+                            <div className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans">
+                                {tag}
+                            </div>
                         ))}
                     </div>
                     <div

@@ -11,13 +11,13 @@ import moment from "moment";
 import React, {useEffect, useState} from "react";
 import {Col} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
-import authService from "../../../appwrite/auth";
-import service from "../../../appwrite/config";
-import userDataService from "../../../appwrite/userData";
-import Dropdown from "../dropdown/Index";
+import authService from "../../../appwrite/auth.js";
+import service from "../../../appwrite/config.js";
+import userDataService from "../../../appwrite/userData.js";
+import Dropdown from "../dropdown/Index.jsx";
 import "./style.scss";
 
-import {snackbar} from "../../../utilityFunctions/utilities";
+import {snackbar} from "../../../utilityFunctions/utilities.js";
 const Post = ({post}) => {
     const {title, content, featuredImage, userId, $id, $createdAt, tags} = post;
     const [saved, setSaved] = useState(false);
@@ -65,7 +65,7 @@ const Post = ({post}) => {
                     ></div>
                     <div className="d-flex flex-wrap tagsSection">
                         {tags?.map((tag) => (
-                            <div className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans">{tag}</div>
+                            <div className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans">{tag.name}</div>
                         ))}
                     </div>
                     <div className="info pb-2 d-flex justify-content-between align-items-center">

@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 import "./style.scss";
-import authService from "../../../appwrite/auth";
+import authService from "../../../appwrite/auth.js";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {PersonSharp} from "@mui/icons-material";
-import {logout} from "../../../store/authSlice";
+import {logout} from "../../../store/authSlice.js";
 import {Button} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Dropdown from "../dropdown/Index";
+import Dropdown from "../dropdown/Index.jsx";
 
 const Header = () => {
     const navigate = useNavigate();
@@ -30,7 +30,7 @@ const Header = () => {
             console.log("err in sign out:", error);
         }
     };
-	
+
     return (
         <div className="headerStyle d-flex align-items-center justify-content-between p-3">
             <h2
@@ -43,7 +43,6 @@ const Header = () => {
                 onClick={() => navigate("/dashboard/create-blog")}
                 className="me-3 rounded-pill"
                 variant="webdarkblue"
-				
             >
                 Create Blog
             </Button>

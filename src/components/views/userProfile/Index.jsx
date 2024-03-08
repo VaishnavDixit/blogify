@@ -1,9 +1,9 @@
-import { Container } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import authService from "../../../appwrite/auth";
-import userDataService from "../../../appwrite/userData";
-import SubHeader from "../../utilities/subHeader/Index";
+import {Container} from "@mui/material";
+import React, {useEffect, useState} from "react";
+import {useLocation} from "react-router-dom";
+import authService from "../../../appwrite/auth.js";
+import userDataService from "../../../appwrite/userData.js";
+import SubHeader from "../../utilities/subHeader/Index.jsx";
 const Index = () => {
     const location = useLocation();
     console.log(location);
@@ -30,9 +30,7 @@ const Index = () => {
             }
         })();
     }, []);
-    const handleClickFollow = async () => {
-		
-	};
+    const handleClickFollow = async () => {};
     return (
         <>
             <SubHeader text={`Profile`} />

@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
-import { Button, Container } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import authService from "../../../../appwrite/auth";
-import userDataService from "../../../../appwrite/userData";
+import React, {useEffect} from "react";
+import {Button, Container} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
+import authService from "../../../../appwrite/auth.js";
+import userDataService from "../../../../appwrite/userData.js";
 import "./style.scss";
 const Index = () => {
     const navigate = useNavigate();
     useEffect(() => {
         authService.getCurrentUser().then((res) => {
             console.log(res);
-			localStorage.setItem('userData', JSON.stringify(res))
-			localStorage.setItem('status', 'true')
+            localStorage.setItem("userData", JSON.stringify(res));
+            localStorage.setItem("status", "true");
             if (res) {
                 userDataService.createUser().then((res) => {
                     console.log(res);

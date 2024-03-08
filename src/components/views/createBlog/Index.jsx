@@ -1,15 +1,15 @@
-import { AddAPhoto, CancelOutlined } from "@mui/icons-material";
-import { Editor } from "@tinymce/tinymce-react";
+import {AddAPhoto, CancelOutlined} from "@mui/icons-material";
+import {Editor} from "@tinymce/tinymce-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
-import React, { useEffect, useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
-import { useForm } from "react-hook-form";
+import React, {useEffect, useState} from "react";
+import {Button, Col, Container, Row} from "react-bootstrap";
+import {useForm} from "react-hook-form";
 import "react-image-crop/src/ReactCrop.scss";
-import { useNavigate } from "react-router-dom";
-import service from "../../../appwrite/config";
-import { snackbar } from "../../../utilityFunctions/utilities";
-import SubHeader from "../../utilities/subHeader/Index";
+import {useNavigate} from "react-router-dom";
+import service from "../../../appwrite/config.js";
+import {snackbar} from "../../../utilityFunctions/utilities.js";
+import SubHeader from "../../utilities/subHeader/Index.jsx";
 import "./style.scss";
 
 const Index = () => {

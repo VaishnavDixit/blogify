@@ -1,14 +1,14 @@
-import { MoreHoriz } from "@mui/icons-material";
-import { Query } from "appwrite";
+import {MoreHoriz} from "@mui/icons-material";
+import {Query} from "appwrite";
 import "bootstrap/dist/js/bootstrap.bundle";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import authService from "../../../appwrite/auth";
-import service from "../../../appwrite/config";
-import Dropdown from "../../utilities/dropdown/Index";
-import SubHeader from "../../utilities/subHeader/Index";
+import React, {useEffect, useState} from "react";
+import {Container} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
+import authService from "../../../appwrite/auth.js";
+import service from "../../../appwrite/config.js";
+import Dropdown from "../../utilities/dropdown/Index.jsx";
+import SubHeader from "../../utilities/subHeader/Index.jsx";
 import "./style.scss";
 const Index = () => {
     // console.log(JSON.parse(localStorage.userData).$id)

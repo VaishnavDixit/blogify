@@ -1,10 +1,10 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, {useEffect, useState} from "react";
 import "./style.scss";
-import service from "../../../appwrite/config";
+import service from "../../../appwrite/config.js";
 import {Col, Row} from "react-bootstrap";
 import {RemoveRedEye, ViewComfy} from "@mui/icons-material";
-import Post from "../post/Index";
+import Post from "../post/Index.jsx";
 
 const Posts = ({queries}) => {
     const [posts, setPosts] = useState([]);

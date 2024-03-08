@@ -1,12 +1,12 @@
 import React from "react";
 import "./style.scss";
 
-import { Button, Col, Row } from "react-bootstrap";
-import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import authService from "../../../../appwrite/auth";
-import { login } from "../../../../store/authSlice";
+import {Button, Col, Row} from "react-bootstrap";
+import {useForm} from "react-hook-form";
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import authService from "../../../../appwrite/auth.js";
+import {login} from "../../../../store/authSlice.js";
 const Index = () => {
     const {
         register,
@@ -34,9 +34,7 @@ const Index = () => {
         <div className="signUpPage d-flex align-items-center container">
             <Row>
                 <Col sm={12}>
-                    <p className="cardo-bold desc">
-                        Join to create and explore amazing blogs!
-                    </p>
+                    <p className="cardo-bold desc">Join to create and explore amazing blogs!</p>
                 </Col>
                 <Col sm={12}>
                     <form onSubmit={handleSubmit(signUp)} className="container">

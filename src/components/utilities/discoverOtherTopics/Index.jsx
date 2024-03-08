@@ -1,11 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
-import authService from "../../../appwrite/auth";
-import {logout} from "../../../store/authSlice";
+import React from "react";
 import "./style.scss";
-import {Button} from "react-bootstrap";
 
 const DiscoverOtherTopics = () => {
     return (

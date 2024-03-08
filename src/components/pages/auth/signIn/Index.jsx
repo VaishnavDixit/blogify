@@ -1,10 +1,10 @@
 import React from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
-import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import authService from "../../../../appwrite/auth";
-import { login as reduxLogin } from "../../../../store/authSlice";
+import {Button, Col, Container, Row} from "react-bootstrap";
+import {useForm} from "react-hook-form";
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import authService from "../../../../appwrite/auth.js";
+import {login as reduxLogin} from "../../../../store/authSlice.js";
 import "./style.scss";
 const Index = () => {
     const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const Index = () => {
         try {
             const session = await authService.login(data);
             if (session) {
-				const userData = await authService.getCurrentUser();
+                const userData = await authService.getCurrentUser();
                 localStorage.setItem("status", true);
                 localStorage.setItem("userData", JSON.stringify(userData));
                 if (userData) {
@@ -28,7 +28,7 @@ const Index = () => {
                 }
             }
         } catch (error) {
-console.log(error.message);
+            console.log(error.message);
         }
     };
 
@@ -64,7 +64,9 @@ console.log(error.message);
                             </Col>
                             {/* include validation with required or other standard HTML validation rules */}
                             <Col sm={12} className="d-flex justify-content-center">
-                                <Button type="submit" className="px-3 py-2">Submit</Button>
+                                <Button type="submit" className="px-3 py-2">
+                                    Submit
+                                </Button>
                             </Col>
                         </Row>
                     </form>

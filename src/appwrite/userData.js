@@ -1,6 +1,6 @@
-import conf from "../conf/conf";
+import conf from "../conf/conf.js";
 import {Client, Account, ID, Databases, Storage, Query} from "appwrite";
-import authService from "./auth";
+import authService from "./auth.js";
 
 //it's just database service
 export class UserDataService {
