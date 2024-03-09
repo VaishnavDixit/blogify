@@ -93,7 +93,6 @@ const Index = () => {
                     slug,
                     featuredImage: id,
                     content,
-                    "status": "active",
                     userId: userId,
                     tags: selectedTags,
                 })
