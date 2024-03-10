@@ -83,7 +83,7 @@ const Index = () => {
             .replace(/[^\w-]+/g, "")
             .substring(0, 16);
 
-        const userId = JSON.parse(localStorage.getItem("userData")).$id;
+        const publisher = JSON.parse(localStorage.getItem("userData")).$id;
         const uploadedFile = await service.uploadFile(featuredImage[0]);
         if (uploadedFile) {
             const id = uploadedFile.$id;
@@ -93,7 +93,7 @@ const Index = () => {
                     slug,
                     featuredImage: id,
                     content,
-                    userId: userId,
+                    publisher,
                     tags: selectedTags,
                 })
                 .then((res) => {

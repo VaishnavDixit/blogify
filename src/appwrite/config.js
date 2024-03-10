@@ -14,21 +14,63 @@ export class Service {
         this.bucket = new Storage(this.client);
     }
 
-    createPost = async ({title, slug, featuredImage, content, status, userId: users, tags}) => {
+    createPost = async ({title, slug, featuredImage, content, status, publisher, tags}) => {
         //featured Image is an ID. actual image is stored in bucket aka storage
-        console.log({title, slug, featuredImage, content, status, userId: users, tags});
+        console.log({title, slug, featuredImage, content, status, publisher, tags});
         try {
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionBlogsId,
                 slug, //slug is used as the the doc ID here.
-                {title, content, featuredImage, users, tags}
+                {title, content, featuredImage, tags, publisher}
             );
         } catch (error) {
             console.log(error);
         }
     };
 
+
+	/*
+	
+	name
+	String
+	-
+	followers
+	String []
+	-
+	following
+	String []
+	-
+	email
+	String
+	-
+	articles
+	Relationship with articles
+	-
+	savedArticles
+	Relationship with savedArticles
+	-
+	likedArticles
+	Relationship with likedArticles
+-title
+String
+-
+content
+String
+-
+featuredImage
+String
+-
+tags
+Relationship with tags
+-
+publisher
+Relationship with publisher
+-
+savedBy
+Relationship with savedBy
+
+	*/
     updatePost = async (slug, {title, featuredImage, content, status}) => {
         try {
             return await this.databases.updateDocument(

@@ -40,7 +40,7 @@ const Index = () => {
     return (
         <>
             <SubHeader text={`Saved Blogs`} />
-            <Container className="savedBlogs">
+            <Container className="savedArticles">
                 {posts &&
                     posts.map((post, index) => (
                         <div

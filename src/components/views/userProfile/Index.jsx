@@ -40,7 +40,7 @@ const Index = () => {
                 <p>email: {userData?.email}</p>
                 <p>followers: {(userData?.followers && userData?.followers.length) || 0}</p>
                 <p>following: {(userData?.following && userData?.following.length) || 0}</p>
-                <p>Saved Blogs: {JSON.stringify(userData?.savedBlogs)}</p>
+                <p>Saved Blogs: {JSON.stringify(userData?.savedArticles)}</p>
                 <button>follow</button>
             </Container>
         </>

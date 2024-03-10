@@ -30,16 +30,18 @@ const Post = ({post}) => {
             const res = await authService.getCurrentUser();
             const user = await userDataService.getUserData(res.$id);
             setUserInfo(user);
-            user.savedBlogs.map((blogId) => {
+            user.savedArticles.map((blogId) => {
                 if (blogId == $id) setSaved(true);
             });
         })();
     }, []);
 
     const navigate = useNavigate();
-    const handleOnClickPost = () => {
+    
+	const handleOnClickPost = () => {
         navigate(`/dashboard/view/${$id}`);
     };
+
     const handleOnClickName = () => {
         navigate(`/dashboard/profile/${userInfo && userInfo.name}`, {state: {userId: userId}});
     };
@@ -51,6 +53,7 @@ const Post = ({post}) => {
             setSaved((p) => !p);
         }
     };
+
     return (
         <Col sm={12} xs={12} className="px-4">
             <div className="py-3 d-flex justify-content-between post">

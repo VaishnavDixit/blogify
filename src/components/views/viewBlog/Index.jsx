@@ -29,23 +29,30 @@ const Index = () => {
     const navigate = useNavigate();
     useEffect(() => {
         (async () => {
-            const p = await service.getPost(params?.slug);
-            setPost(p);
-            setImage(p.featuredImage);
-            const res = await authService.getCurrentUser();
-            const user = await userDataService.getUserData(res.$id);
-            console.log(user);
-            setUserInfo(user);
-            user.savedBlogs.map((blogId) => {
-                if (blogId == params?.slug) {
-                    setSaved(true);
-                }
-            });
-            user.likedPosts?.map((blogId) => {
-                if (blogId == params?.slug) {
-                    setLiked(true);
-                }
-            });
+            try {
+                const p = await service.getPost(params?.slug);
+                console.log(p);
+                setPost(p);
+                setImage(p.featuredImage);
+                // const res = await authService.getCurrentUser();
+                const user = p.publisher;
+                console.log(user);
+                setUserInfo(user);
+                user &&
+                    user.savedArticles?.map((blogId) => {
+                        if (blogId == params?.slug) setSaved(true);
+                    });
+                console.log("test1");
+                user &&
+                    user.likedPosts?.map((blogId) => {
+                        if (blogId == params?.slug) {
+                            setLiked(true);
+                        }
+                    });
+                console.log("test2");
+            } catch (error) {
+                alert(error);
+            }
         })();
     }, [liked]);
     const handleDeleteBlog = async () => {
@@ -122,7 +129,7 @@ const Index = () => {
                     <div className="d-flex flex-wrap tagsSection my-3">
                         {post?.tags?.map((tag) => (
                             <div className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans">
-                                {tag}
+                                {tag.name}
                             </div>
                         ))}
                     </div>

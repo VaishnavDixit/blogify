@@ -35,10 +35,7 @@ export class UserDataService {
                         id,
                         {
                             name: userData?.name,
-                            followers: [],
-                            following: [],
                             email: userData?.email,
-                            savedBlogs: [],
                         }
                     );
                 }
@@ -73,9 +70,9 @@ export class UserDataService {
                 conf.appwriteCollectionUsersId,
                 userId,
                 {
-                    "savedBlogs": toSave
-                        ? [...userData.savedBlogs, blogId]
-                        : [...userData.savedBlogs.filter((i) => i != blogId)],
+                    "savedArticles": toSave
+                        ? [...userData.savedArticles, blogId]
+                        : [...userData.savedArticles.filter((i) => i != blogId)],
                 }
             );
         } catch (error) {
