@@ -60,6 +60,7 @@ const Header = () => {
                     </Button>
                 }
                 options={[
+                    {name: "Profile", func: () => navigate("/dashboard/my-blogs")},
                     {name: "My Blogs", func: () => navigate("/dashboard/my-blogs")},
                     {name: "Sign Out", func: signOut},
                 ]}

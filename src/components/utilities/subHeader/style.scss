@@ -2,5 +2,12 @@
 
 .subHeaderStyle {
     width: 100%;
-	
+    position: relative;
+    .backBtn {
+        position: absolute;
+        left: 0;
+    }
+    .arrowIcon {
+        font-size: 20px;
+    }
 }

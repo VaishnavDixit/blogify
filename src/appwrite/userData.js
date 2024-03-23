@@ -1,6 +1,7 @@
 import conf from "../conf/conf.js";
 import {Client, Account, ID, Databases, Storage, Query} from "appwrite";
 import authService from "./auth.js";
+import {ToastContainer} from "react-bootstrap";
 
 //it's just database service
 export class UserDataService {
@@ -65,14 +66,17 @@ export class UserDataService {
                 conf.appwriteCollectionUsersId,
                 userId
             );
+            console.log("save: ", toSave);
+            console.log([...userData.savedArticles.filter((i) => i != blogId)]);
+            console.log([...userData.savedArticles, blogId]);
             return await this.databases.updateDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionUsersId,
                 userId,
                 {
                     "savedArticles": toSave
-                        ? [...userData.savedArticles, blogId]
-                        : [...userData.savedArticles.filter((i) => i != blogId)],
+                        ? [...userData.savedArticles.map((i) => i.$id), blogId]
+                        : [...userData.savedArticles.map((i) => i.$id).filter((i) => i != blogId)],
                 }
             );
         } catch (error) {
@@ -82,38 +86,27 @@ export class UserDataService {
 
     likeBlog = async (blogId, userId, toLike) => {
         //blogId is slug
+        console.log(blogId, userId, toLike);
         try {
-            const userData = await this.databases.getDocument(
-                conf.appwriteDatabaseId,
-                conf.appwriteCollectionUsersId,
-                userId
-            );
             const blogInfo = await this.databases.getDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionBlogsId,
                 blogId
             );
             if (blogInfo) {
-                const user = await this.databases.updateDocument(
+                console.log(blogInfo);
+				console.log([...blogInfo?.likedBy.map((i) => i.$id) || [], userId])
+				console.log([...blogInfo?.likedBy.map((i) => i.$id).filter((i) => i != userId)])
+                return await this.databases.updateDocument(
                     conf.appwriteDatabaseId,
-                    conf.appwriteCollectionUsersId,
-                    userId,
+                    conf.appwriteCollectionBlogsId,
+                    blogId,
                     {
-                        "likedPosts": toLike
-                            ? [...userData?.likedPosts, blogId]
-                            : userData?.likedPosts.filter((i) => i != blogId),
+                        "likedBy": toLike
+                            ? [...blogInfo?.likedBy.map((i) => i.$id) || [], userId]
+                            : [...blogInfo?.likedBy.map((i) => i.$id).filter((i) => i != userId)],
                     }
                 );
-                if (user) {
-                    return await this.databases.updateDocument(
-                        conf.appwriteDatabaseId,
-                        conf.appwriteCollectionBlogsId,
-                        blogId,
-                        {
-                            "likes": blogInfo.likes + (toLike ? 1 : -1),
-                        }
-                    );
-                } else throw "err2";
             } else throw "err";
         } catch (error) {
             console.log(error);

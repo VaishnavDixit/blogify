@@ -14,7 +14,7 @@ import "react-image-crop/src/ReactCrop.scss";
 import {useNavigate, useParams} from "react-router-dom";
 import authService from "../../../appwrite/auth.js";
 import service from "../../../appwrite/config.js";
-import userDataService from "../../../appwrite/userData.js";
+import userDataService, {UserDataService} from "../../../appwrite/userData.js";
 import {snackbar} from "../../../utilityFunctions/utilities.js";
 import Dropdown from "../../utilities/dropdown/Index.jsx";
 import "./style.scss";
@@ -25,34 +25,43 @@ const Index = () => {
     const [userInfo, setUserInfo] = useState({});
     const [saved, setSaved] = useState(false);
     const [liked, setLiked] = useState(false);
+    const [likeCount, setLikeCount] = useState(false);
     const [image, setImage] = useState("");
     const navigate = useNavigate();
+	const handleOnClickName = () => {
+        navigate(`/dashboard/profile/${userInfo && userInfo.name}`, {
+            state: {userId: userInfo?.$id},
+        });
+    };
     useEffect(() => {
         (async () => {
             try {
                 const p = await service.getPost(params?.slug);
-                console.log(p);
+                if (!p) throw "cant find publiser id";
                 setPost(p);
                 setImage(p.featuredImage);
-                // const res = await authService.getCurrentUser();
                 const user = p.publisher;
-                console.log(user);
                 setUserInfo(user);
-                user &&
-                    user.savedArticles?.map((blogId) => {
-                        if (blogId == params?.slug) setSaved(true);
+                const curUser = await authService.getCurrentUser();
+                console.log(curUser);
+                p &&
+                    p.savedBy?.map(({$id}) => {
+                        if ($id == curUser.$id) setSaved(true);
                     });
-                console.log("test1");
-                user &&
-                    user.likedPosts?.map((blogId) => {
-                        if (blogId == params?.slug) {
-                            setLiked(true);
-                        }
+                p &&
+                    p.likedBy?.map((likingUser) => {
+                        if (likingUser.$id == curUser.$id) setLiked(true);
                     });
-                console.log("test2");
+                setLikeCount(p && p.likedBy.length);
             } catch (error) {
                 alert(error);
             }
+        })();
+    }, []);
+    useEffect(() => {
+        (async () => {
+            const p = await service.getPost(params?.slug);
+            setLikeCount(p && p.likedBy.length);
         })();
     }, [liked]);
     const handleDeleteBlog = async () => {
@@ -82,9 +91,9 @@ const Index = () => {
                 <Row className="pt-3">
                     <h2 className="josefin-sans-bolder mt-3">{post?.title}</h2>
                     <div className="infoRow pb-2 d-flex justify-content-between align-items-center">
-                        <p className="mb-0 josefin-sans-thin text-truncate ">
+                        <p className="mb-0 josefin-sans-thin text-truncate " onClick={handleOnClickName}>
                             <Person className="mb-2 me-1" style={{fontSize: "2em"}} />
-                            {userInfo?.name}
+                            <span className="hover-underline">{userInfo?.name}</span>
                             <Lens className="mx-1 mb-1" style={{fontSize: ".3em"}} />
                             {moment(post.$createdAt).calendar()}
                         </p>
@@ -97,7 +106,7 @@ const Index = () => {
                                     onClick={handleLikePost}
                                 />
                             )}
-                            <p className="mb-0 ps-1 pe-3">{post.likes || 0}</p>
+                            <p className="mb-0 ps-1 pe-3">{likeCount || 0}</p>
                             {saved ? (
                                 <BookmarkRemoveSharp
                                     onClick={handleSaveBlog}

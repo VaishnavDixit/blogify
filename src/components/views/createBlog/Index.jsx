@@ -78,10 +78,11 @@ const Index = () => {
             alert("invalid submission");
         }
         const slug = title
-            .toLowerCase()
-            .replace(/ /g, "-")
-            .replace(/[^\w-]+/g, "")
-            .substring(0, 16);
+		.toLowerCase()
+		.replace(/ /g, "-")
+		.replace(/[^\w-]+/g, "")
+		.substring(0, 16)
+		.trim()
 
         const publisher = JSON.parse(localStorage.getItem("userData")).$id;
         const uploadedFile = await service.uploadFile(featuredImage[0]);

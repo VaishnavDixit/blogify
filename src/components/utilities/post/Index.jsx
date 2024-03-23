@@ -19,35 +19,35 @@ import "./style.scss";
 
 import {snackbar} from "../../../utilityFunctions/utilities.js";
 const Post = ({post}) => {
-    const {title, content, featuredImage, userId, $id, $createdAt, tags} = post;
+    const {title, content, featuredImage, publisher, $id, $createdAt, tags, savedBy} = post;
     const [saved, setSaved] = useState(false);
 
-    const [userInfo, setUserInfo] = useState({});
     useEffect(() => {
-        // console.log(userInfo)
         (async () => {
-            userDataService.getUserData(userId).then((res) => setUserInfo(res));
-            const res = await authService.getCurrentUser();
-            const user = await userDataService.getUserData(res.$id);
-            setUserInfo(user);
-            user.savedArticles.map((blogId) => {
-                if (blogId == $id) setSaved(true);
+            const curUser = await authService.getCurrentUser();
+			console.log('title ', title)
+			console.log(savedBy)
+			console.log(curUser)
+            savedBy?.map(({$id}) => {
+                if ($id == curUser.$id) setSaved(true);
             });
         })();
     }, []);
 
     const navigate = useNavigate();
-    
-	const handleOnClickPost = () => {
+
+    const handleOnClickPost = () => {
         navigate(`/dashboard/view/${$id}`);
     };
 
     const handleOnClickName = () => {
-        navigate(`/dashboard/profile/${userInfo && userInfo.name}`, {state: {userId: userId}});
+        navigate(`/dashboard/profile/${publisher && publisher.name}`, {
+            state: {userId: publisher?.$id},
+        });
     };
 
     const handleSaveBlog = async () => {
-        const res = await userDataService.bookmarkBlog(userInfo?.$id, $id, !saved);
+        const res = await userDataService.bookmarkBlog(publisher?.$id, $id, !saved);
         if (res) {
             snackbar("success", !saved ? "Added to bookmarks" : "removed from bookmarks");
             setSaved((p) => !p);
@@ -68,7 +68,9 @@ const Post = ({post}) => {
                     ></div>
                     <div className="d-flex flex-wrap tagsSection">
                         {tags?.map((tag) => (
-                            <div className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans">{tag.name}</div>
+                            <div className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans">
+                                {tag.name}
+                            </div>
                         ))}
                     </div>
                     <div className="info pb-2 d-flex justify-content-between align-items-center">
@@ -78,8 +80,8 @@ const Post = ({post}) => {
                                 className="mb-1"
                                 style={{fontSize: "1.8em"}}
                             />
-                            <span className=" josefin-sans-thin name" onClick={handleOnClickName}>
-                                {userInfo && userInfo.name}
+                            <span className=" josefin-sans-thin hover-underline" onClick={handleOnClickName}>
+                                {publisher && publisher.name}
                             </span>
                             <Lens className="mx-1 mb-1" style={{fontSize: ".3em"}} />
                             <span className=" josefin-sans-thin">

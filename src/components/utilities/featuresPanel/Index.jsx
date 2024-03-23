@@ -31,14 +31,14 @@ const FeaturesPanel = () => {
     return (
         <div className="featuresPanelStyle py-4 border-bottom">
             <h5 className="josefin-sans-bold text-center mb-3">Recommended Topics</h5>
-            {tags?.map((tag) => (
+			{tags?.map((tag) => (
                 <Button
                     variant={
                         selectedTags.length && selectedTags.findIndex((i) => i == tag.$id) != -1
                             ? "primary"
                             : "outline-primary"
                     }
-                    className="me-2 my-1 py-1 rounded-pill"
+                    className="me-2 mb-2 pb-1 rounded-pill josefin-sans-thin"
                     onClick={() => handleClickTag(tag?.$id)}
                 >
                     {tag.name}
@@ -46,10 +46,24 @@ const FeaturesPanel = () => {
             ))}
             {selectedTags.length !== 0 && (
                 <div className=" mt-3 mb-1 d-flex">
-                    <p className="mb-0 me-auto clearText josefin-sans-bold rounded-pill border ps-2 pt-1 pe-1" onClick={()=>setSelectedTags([])}>Clear <Close className="mb-1"/></p>
-                    <p className="mb-0 showText josefin-sans-bold rounded-pill border ps-2 pt-1 pe-1">
+                    <Button
+                        variant="outline-webpinkred"
+                        className="me-2 my-1 pt-1 pb-0 px-3 rounded-pill"
+                        onClick={() => setSelectedTags([])}
+                    >
+                        Clear <Close className="mb-1" />
+                    </Button>
+                    <Button
+                        variant="outline-primary"
+                        className="me-2 my-1 pt-1 pb-0 px-3 rounded-pill"
+                        onClick={() => setSelectedTags([])}
+                    >
                         Show results <ChevronRight className="mb-1" />
-                    </p>
+                    </Button>
+                    {/* <p className="mb-0 me-auto clearText josefin-sans-bold rounded-pill border ps-2 pt-1 pe-1" onClick={()=>setSelectedTags([])}>Clear <Close className=""/></p> */}
+                    {/* <p className="mb-0 showText josefin-sans-bold rounded-pill border ps-2 pt-1 pe-1">
+                        Show results <ChevronRight className="mb-1" />
+                    </p> */}
                 </div>
             )}
         </div>

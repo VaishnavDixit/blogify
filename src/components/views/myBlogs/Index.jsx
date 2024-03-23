@@ -19,9 +19,10 @@ const Index = () => {
     useEffect(() => {
         authService.getCurrentUser().then((res) => {
             setUserId(res.$id);
-            service.getPosts([Query.equal("userId", res.$id)]).then((value) => {
+            service.getPosts([Query.equal("publisher", res.$id)]).then((value) => {
+				console.log(value)
                 setPosts(value.documents);
-            });
+            }).catch(err=>console.log(err));
         });
     }, []);
     const handleDeleteBlog = async (slug) => {
