@@ -73,7 +73,7 @@ const Post = ({post}) => {
                             </div>
                         ))}
                     </div>
-                    <div className="info pb-2 d-flex justify-content-between align-items-center">
+                    <div className="info mt-2 pb-2 d-flex justify-content-between align-items-center">
                         <p className="mb-0 josefin-sans-thin text-truncate ">
                             <Person
                                 onClick={handleOnClickName}
@@ -91,7 +91,7 @@ const Post = ({post}) => {
                                     nextWeek: "dddd, hh:mm a",
                                     lastDay: "[Yesterday], h:mm a",
                                     lastWeek: "[Last] ddd, h:mm a",
-                                    sameElse: "DD MMM YYYY",
+                                    sameElse: "D MMMM, YY",
                                 })}
                             </span>
                         </p>

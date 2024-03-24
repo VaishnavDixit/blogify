@@ -60,10 +60,6 @@ const FeaturesPanel = () => {
                     >
                         Show results <ChevronRight className="mb-1" />
                     </Button>
-                    {/* <p className="mb-0 me-auto clearText josefin-sans-bold rounded-pill border ps-2 pt-1 pe-1" onClick={()=>setSelectedTags([])}>Clear <Close className=""/></p> */}
-                    {/* <p className="mb-0 showText josefin-sans-bold rounded-pill border ps-2 pt-1 pe-1">
-                        Show results <ChevronRight className="mb-1" />
-                    </p> */}
                 </div>
             )}
         </div>

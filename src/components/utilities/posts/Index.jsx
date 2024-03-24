@@ -12,12 +12,12 @@ const Posts = ({queries}) => {
     useEffect(() => {
         service.getPosts(queries||[]).then((value) => {
 			console.log(value)
-            setPosts(value.documents);
+            setPosts(value?.documents);
         }).catch(err=>console.log(err));
     }, []);
     return (
         <div className="postsStyle ps-md-0 ps-sm-0 container-fluid">
-            <Row>
+			<Row>
                 {posts &&
                     posts.map((post) => (
                         <Post

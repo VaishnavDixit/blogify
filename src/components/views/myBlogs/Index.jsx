@@ -1,4 +1,4 @@
-import {Favorite, MoreHoriz} from "@mui/icons-material";
+import {Bookmark, Favorite, MoreHoriz} from "@mui/icons-material";
 import {Query} from "appwrite";
 import "bootstrap/dist/js/bootstrap.bundle";
 import moment from "moment";
@@ -70,7 +70,9 @@ const Index = () => {
                                     </span>
                                     <span className="d-flex">
                                         <Favorite className="likeIcon me-1" />
-                                        <span className="me-2">{post.likes || 0}</span>
+                                        <span className="me-2">{(post && post?.likedBy.length) || 0}</span>
+                                        <Bookmark className="saveIcon me-1" />
+                                        <span className="me-2">{(post && post?.savedBy.length) || 0}</span>
                                         <Dropdown
                                             displayButton={
                                                 <MoreHoriz

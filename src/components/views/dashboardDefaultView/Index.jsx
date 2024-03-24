@@ -16,7 +16,7 @@ const Index = () => {
 
     return (
         <>
-            <SubHeader text={`Welcome, ${name}`} />
+            <SubHeader text={`Welcome, ${name}`} backButton={false}/>
             <Container>
                 <Row>
                     <Col md={4} className="d-none d-md-inline-block pe-0 leftCol">

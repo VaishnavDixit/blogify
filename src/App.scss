@@ -117,3 +117,53 @@ button {
 		cursor: pointer;
 	}
 }
+.likeIcon{
+	color: $webpinkred;
+}
+.saveIcon{
+	color: $webblue;
+}
+.post {
+    overflow: hidden;
+    // border-bottom: 1px solid rgba(128, 128, 128, 0.155);
+    .tagsSection {
+        .tag {
+            font-size: 12px;
+            background-color: rgba(189, 189, 189, 0.397);
+        }
+    }
+    .textContent {
+        width: 80%;
+        h3,
+        pre {
+            width: 90%;
+            cursor: pointer;
+        }
+        pre {
+            p {
+                margin-bottom: 0;
+            }
+        }
+        h3 {
+            font-size: 20px;
+        }
+        .info {
+            .saveIcon {
+                font-size: 20px;
+                cursor: pointer;
+                z-index: 9999;
+            }
+        }
+    }
+    .imgContent {
+        width: 20%;
+        height: 110px;
+        img {
+            display: block;
+            width: 90%;
+            max-height: 110px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+    }
+}

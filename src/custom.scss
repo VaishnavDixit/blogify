@@ -9,18 +9,21 @@ $webviolet: #7209b7;
 $webdarkblue: #3a0ca3;
 $webblue: #4361ee;
 $weblightblue: #4cc9f0;
+$webgrey: lightgrey;
 
 $webpinkred_t: #f725849f;
 $webviolet_t: #7109b7a6;
 $webdarkblue_t: #390ca3a4;
 $webblue_t: #4362eea2;
 $weblightblue_t: #4ccaf0a6;
+$webgrey_t: rgba(211, 211, 211, 0.639);
 
 $webpinkred_tt: #f725846e;
 $webviolet_tt: #7109b771;
 $webdarkblue_tt: #390ca369;
 $webblue_tt: #4362ee68;
 $weblightblue_tt: #4ccaf062;
+$webgrey_tt: rgba(211, 211, 211, 0.438);
 
 // $webpinkred: grey;
 // $webviolet: white;
@@ -46,7 +49,6 @@ $theme-colors: map-merge(
         // configure existing colors to whatever color you like.
         // ex:
         "success": $success,
-        "info": $info,
         "primary": $webblue,
         // add any additional color below
         //..
@@ -55,6 +57,7 @@ $theme-colors: map-merge(
         "webdarkblue": $webdarkblue,
         "webblue": $webblue,
         "weblightblue": $weblightblue,
+        "grey": $webgrey,
         // now bg-accent,btn-accent,etc.. can be called
     )
 );
