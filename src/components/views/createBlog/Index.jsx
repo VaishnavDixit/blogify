@@ -78,11 +78,11 @@ const Index = () => {
             alert("invalid submission");
         }
         const slug = title
-		.toLowerCase()
-		.replace(/ /g, "-")
-		.replace(/[^\w-]+/g, "")
-		.substring(0, 16)
-		.trim()
+            .toLowerCase()
+            .replace(/ /g, "-")
+            .replace(/[^\w-]+/g, "")
+            .substring(0, 16)
+            .trim();
 
         const publisher = JSON.parse(localStorage.getItem("userData")).$id;
         const uploadedFile = await service.uploadFile(featuredImage[0]);
@@ -127,8 +127,9 @@ const Index = () => {
                         </Col>
                         <Col sm={12} md={12} xs={12} className="mb-3">
                             {tags &&
-                                tags?.map((tag) => (
+                                tags?.map((tag, index) => (
                                     <Button
+                                        key={index + 1}
                                         className="me-2 my-1 py-1 rounded-pill"
                                         variant={
                                             selectedTags.length &&

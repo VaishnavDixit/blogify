@@ -10,21 +10,17 @@ const Posts = ({queries}) => {
     const [posts, setPosts] = useState([]);
     console.log(queries);
     useEffect(() => {
-        service.getPosts(queries||[]).then((value) => {
-			console.log(value)
-            setPosts(value?.documents);
-        }).catch(err=>console.log(err));
+        service
+            .getPosts(queries || [])
+            .then((value) => {
+                console.log(value);
+                setPosts(value?.documents);
+            })
+            .catch((err) => console.log(err));
     }, []);
     return (
         <div className="postsStyle ps-md-0 ps-sm-0 container-fluid">
-			<Row>
-                {posts &&
-                    posts.map((post) => (
-                        <Post
-                            post={post}
-                        />
-                    ))}
-            </Row>
+            <Row>{posts && posts.map((post, index) => <Post key={index + 1} post={post} />)}</Row>
         </div>
     );
 };

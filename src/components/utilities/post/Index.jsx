@@ -67,8 +67,8 @@ const Post = ({post}) => {
                         dangerouslySetInnerHTML={{__html: content}}
                     ></div>
                     <div className="d-flex flex-wrap tagsSection">
-                        {tags?.map((tag) => (
-                            <div className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans">
+                        {tags?.map((tag, index) => (
+                            <div key={index+1} className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans">
                                 {tag.name}
                             </div>
                         ))}

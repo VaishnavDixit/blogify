@@ -67,8 +67,8 @@ const Index = () => {
                     </div>
                     <h5 className="josefin-sans-bold text-center mb-3 mt-4">Interests</h5>
                     <div className="d-flex flex-wrap justify-content-center">
-                        {tags?.map((tag) => (
-                            <div className=" tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans">
+                        {tags?.map((tag, index) => (
+                            <div key={index+1} className=" tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans">
                                 {tag.name}
                             </div>
                         ))}

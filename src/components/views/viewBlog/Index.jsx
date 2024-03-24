@@ -136,8 +136,8 @@ const Index = () => {
                     </div>
                     {image ? <img src={service.getImgPreview(image) || ""} className="mt-3" /> : ""}
                     <div className="d-flex flex-wrap tagsSection my-3">
-                        {post?.tags?.map((tag) => (
-                            <div className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans">
+                        {post?.tags?.map((tag, index) => (
+                            <div key={index+1} className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans">
                                 {tag.name}
                             </div>
                         ))}

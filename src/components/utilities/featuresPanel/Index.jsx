@@ -31,8 +31,9 @@ const FeaturesPanel = () => {
     return (
         <div className="featuresPanelStyle py-4 border-bottom">
             <h5 className="josefin-sans-bold text-center mb-3">Recommended Topics</h5>
-			{tags?.map((tag) => (
+            {tags?.map((tag, index) => (
                 <Button
+                    key={index + 1}
                     variant={
                         selectedTags.length && selectedTags.findIndex((i) => i == tag.$id) != -1
                             ? "primary"
