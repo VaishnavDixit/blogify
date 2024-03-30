@@ -7,17 +7,17 @@ import {
     MoreHorizRounded,
     Person,
 } from "@mui/icons-material";
-import moment from "moment";
 import React, {useEffect, useState} from "react";
 import {Container, Row} from "react-bootstrap";
 import "react-image-crop/src/ReactCrop.scss";
 import {useNavigate, useParams} from "react-router-dom";
 import authService from "../../../appwrite/auth.js";
 import service from "../../../appwrite/config.js";
-import userDataService, {UserDataService} from "../../../appwrite/userData.js";
-import {snackbar} from "../../../utilityFunctions/utilities.js";
+import userDataService from "../../../appwrite/userData.js";
+import {dateFormat, snackbar} from "../../../utilityFunctions/utilities.js";
 import Dropdown from "../../utilities/dropdown/Index.jsx";
 import "./style.scss";
+import SubHeader from "../../utilities/subHeader/Index.jsx";
 
 const Index = () => {
     const params = useParams();
@@ -28,7 +28,8 @@ const Index = () => {
     const [likeCount, setLikeCount] = useState(false);
     const [image, setImage] = useState("");
     const navigate = useNavigate();
-	const handleOnClickName = () => {
+    const user = localStorage.getItem("userData");
+    const handleOnClickName = () => {
         navigate(`/dashboard/profile/${userInfo && userInfo.name}`, {
             state: {userId: userInfo?.$id},
         });
@@ -40,10 +41,8 @@ const Index = () => {
                 if (!p) throw "cant find publiser id";
                 setPost(p);
                 setImage(p.featuredImage);
-                const user = p.publisher;
-                setUserInfo(user);
                 const curUser = await authService.getCurrentUser();
-                console.log(curUser);
+                setUserInfo(curUser);
                 p &&
                     p.savedBy?.map(({$id}) => {
                         if ($id == curUser.$id) setSaved(true);
@@ -64,9 +63,6 @@ const Index = () => {
             setLikeCount(p && p.likedBy.length);
         })();
     }, [liked]);
-    const handleDeleteBlog = async () => {
-        service.deletePost(params?.slug).then((res) => navigate("/dashboard/my-blogs"));
-    };
     const handleSaveBlog = async () => {
         const res = await userDataService.bookmarkBlog(
             userInfo?.$id,
@@ -87,15 +83,18 @@ const Index = () => {
     };
     return (
         <>
+            <SubHeader backButton text={""} />
             <Container className="viewBlogPage">
                 <Row className="pt-3">
                     <h2 className="josefin-sans-bolder mt-3">{post?.title}</h2>
-                    <div className="infoRow pb-2 d-flex justify-content-between align-items-center">
-                        <p className="mb-0 josefin-sans-thin text-truncate " onClick={handleOnClickName}>
+                    {post?.description && <div className="my-3">{post?.description}</div>}
+                    {image ? <img src={service.getImgPreview(image) || ""} className="mt-3" /> : ""}
+                    <div className="infoRow mt-3 d-flex justify-content-between align-items-center">
+                        <p className="mb-0 text-truncate " onClick={handleOnClickName}>
                             <Person className="mb-2 me-1" style={{fontSize: "2em"}} />
-                            <span className="hover-underline">{userInfo?.name}</span>
+                            <span className="hover-underline josefin-sans">{userInfo?.name}</span>
                             <Lens className="mx-1 mb-1" style={{fontSize: ".3em"}} />
-                            {moment(post.$createdAt).calendar()}
+                            <span className="josefin-sans">{dateFormat(post.$createdAt)}</span>
                         </p>
                         <div className="d-flex justify-content-end align-items-center">
                             {liked ? (
@@ -110,12 +109,12 @@ const Index = () => {
                             {saved ? (
                                 <BookmarkRemoveSharp
                                     onClick={handleSaveBlog}
-                                    className="saveIcon d-inline"
+                                    className="d-inline"
                                 />
                             ) : (
                                 <BookmarkBorderSharp
                                     onClick={handleSaveBlog}
-                                    className="saveIcon d-inline"
+                                    className="d-inline"
                                 />
                             )}
                             <Dropdown
@@ -134,16 +133,18 @@ const Index = () => {
                             />
                         </div>
                     </div>
-                    {image ? <img src={service.getImgPreview(image) || ""} className="mt-3" /> : ""}
                     <div className="d-flex flex-wrap tagsSection my-3">
                         {post?.tags?.map((tag, index) => (
-                            <div key={index+1} className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans">
+                            <div
+                                key={index + 1}
+                                className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans"
+                            >
                                 {tag.name}
                             </div>
                         ))}
                     </div>
                     <div
-                        className="mt-3 content"
+                        className="mt-2 content"
                         dangerouslySetInnerHTML={{__html: post?.content}}
                     ></div>
                 </Row>

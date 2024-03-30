@@ -1,13 +1,13 @@
-import React, {useState} from "react";
-import "./style.scss";
-import authService from "../../../appwrite/auth.js";
-import {useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {PersonSharp} from "@mui/icons-material";
-import {logout} from "../../../store/authSlice.js";
-import {Button} from "react-bootstrap";
+import { BookmarksOutlined, Logout, Person2Outlined, PersonSharp, SummarizeOutlined } from "@mui/icons-material";
 import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useState } from "react";
+import { Button } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import authService from "../../../appwrite/auth.js";
+import { logout } from "../../../store/authSlice.js";
 import Dropdown from "../dropdown/Index.jsx";
+import "./style.scss";
 
 const Header = () => {
     const navigate = useNavigate();
@@ -34,7 +34,7 @@ const Header = () => {
     return (
         <div className="headerStyle d-flex align-items-center justify-content-between p-3">
             <h2
-                className="mainIcon josefin-sans-bolder mb-0 me-auto"
+                className="mainIcon josefin-sans-thin mb-0 me-auto"
                 onClick={() => navigate("/dashboard")}
             >
                 Blogify
@@ -60,9 +60,10 @@ const Header = () => {
                     </Button>
                 }
                 options={[
-                    {name: "Profile", func: () => navigate("/dashboard/my-blogs")},
-                    {name: "My Blogs", func: () => navigate("/dashboard/my-blogs")},
-                    {name: "Sign Out", func: signOut},
+                    {name: "Profile", func: () => navigate("/dashboard/my-blogs"), icon: <Person2Outlined className="mb-1 me-1"/>},
+                    {name: "My Blogs", func: () => navigate("/dashboard/my-blogs"), icon: <SummarizeOutlined className="mb-1 me-1"/>},
+                    {name: "Saved Blogs", func: () => navigate("/dashboard/saved-blogs"), icon: <BookmarksOutlined className="mb-1 me-1"/>},
+                    {name: "Sign Out", func: signOut, icon: <Logout className="mb-1 me-1"/>},
                 ]}
             />
         </div>

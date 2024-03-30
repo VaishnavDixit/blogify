@@ -73,7 +73,7 @@ const Index = () => {
                 : [...prev, tagId]
         );
     };
-    const submitBlog = async ({title, featuredImage}) => {
+    const submitBlog = async ({title, featuredImage, description}) => {
         if (!title || !featuredImage || content == "") {
             alert("invalid submission");
         }
@@ -89,16 +89,16 @@ const Index = () => {
         if (uploadedFile) {
             const id = uploadedFile.$id;
             service
-                .createPost({
+                .createPost(slug, {
                     title,
-                    slug,
+                    description,
                     featuredImage: id,
                     content,
                     publisher,
                     tags: selectedTags,
                 })
                 .then((res) => {
-                    reset({title: ""});
+                    reset({title: "", description: ""});
                     setFinalImage("");
                     setContent("");
                     snackbar("success", "Successfully Created");
@@ -143,6 +143,16 @@ const Index = () => {
                                     </Button>
                                 ))}
                         </Col>
+                        <Col sm={12} xs={12} className="mb-3">
+                            <textarea
+                                className="form-control titleInput"
+                                type="text"
+                                placeholder="Description"
+                                rows={3}
+                                {...register("description", {required: true})}
+                            />
+                            {errors && errors.title}
+                        </Col>
                         <Col sm={12} md={4} xs={12} className="mb-3">
                             <label className="imageInputLabel d-flex align-items-center justify-content-center">
                                 {finalImage ? (
@@ -171,7 +181,6 @@ const Index = () => {
                                 {errors && errors.featuredImage}
                             </label>
                         </Col>
-
                         <Col sm={12} md={8} xs={12} className="mb-3">
                             <Editor
                                 apiKey="jntiw31132ao4jsbperypsg60i5yeaoqd7uimsnooxz7pbtd"

@@ -14,23 +14,25 @@ export class Service {
         this.bucket = new Storage(this.client);
     }
 
-    createPost = async ({title, slug, featuredImage, content, status, publisher, tags}) => {
+    createPost = async (
+        slug,
+        {title, content, featuredImage, tags, publisher, description}
+    ) => {
         //featured Image is an ID. actual image is stored in bucket aka storage
-        console.log({title, slug, featuredImage, content, status, publisher, tags});
+        console.log({title, slug, featuredImage, content, publisher, tags});
         try {
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionBlogsId,
                 slug, //slug is used as the the doc ID here.
-                {title, content, featuredImage, tags, publisher}
+                {title, content, featuredImage, tags, publisher, description}
             );
         } catch (error) {
             console.log(error);
         }
     };
 
-
-	/*
+    /*
 	
 	name
 	String
@@ -100,6 +102,7 @@ Relationship with savedBy
 
     //slug will be the document id
     getPost = async (slug) => {
+		
         try {
             return await this.databases.getDocument(
                 conf.appwriteDatabaseId,
@@ -113,7 +116,7 @@ Relationship with savedBy
     };
 
     //has query in this
-    getPosts = async (queries = [Query.equal("status", "active")]) => {
+    getPosts = async (queries = []) => {
         // we only want active blogs
         try {
             return await this.databases.listDocuments(

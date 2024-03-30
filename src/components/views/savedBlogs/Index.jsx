@@ -1,12 +1,12 @@
-import {MoreHoriz} from "@mui/icons-material";
-import {Query} from "appwrite";
+import { MoreHoriz } from "@mui/icons-material";
+import { Query } from "appwrite";
 import "bootstrap/dist/js/bootstrap.bundle";
-import moment from "moment";
-import React, {useEffect, useState} from "react";
-import {Container} from "react-bootstrap";
-import {useNavigate} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import authService from "../../../appwrite/auth.js";
 import service from "../../../appwrite/config.js";
+import { dateFormat } from "../../../utilityFunctions/utilities.js";
 import Dropdown from "../../utilities/dropdown/Index.jsx";
 import SubHeader from "../../utilities/subHeader/Index.jsx";
 import "./style.scss";
@@ -18,8 +18,14 @@ const Index = () => {
     useEffect(() => {
         authService.getCurrentUser().then((res) => {
             setUserId(res.$id);
-            service.getPosts([Query.equal("userId", res.$id)]).then((value) => {
-                setPosts(value.documents);
+            service.getPosts([]).then((value) => {
+                console.log(value);
+                setPosts(
+                    value.documents.filter(
+                        (document) =>
+                            document.savedBy.findIndex((saver) => saver.$id == userId) != -1
+                    )
+                );
             });
         });
     }, []);
@@ -45,7 +51,7 @@ const Index = () => {
                     posts.map((post, index) => (
                         <div
                             key={index}
-                            className=" myBlog d-flex border-bottom align-items-start justify-content-start mb-4 pb-3"
+                            className=" myBlog d-flex align-items-start justify-content-start mb-4 pb-3"
                         >
                             <h3 className="index josefin-sans-thin me-4">{index + 1}.</h3>
                             <img
@@ -58,15 +64,10 @@ const Index = () => {
                                     className="titleBlog line-wrap3 josefin-sans-bold mb-1"
                                     onClick={() => handleOnClickPost(post.$id)}
                                 >
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque
-                                    labore commodi, facere nisi harum, earum, dignissimos aut
-                                    ratione similique numquam quo? Saepe ab dolores amet animi sequi
-                                    culpa reprehenderit excepturi, aperiam repellat cupiditate,
-                                    molestias tempore voluptatibus necessitatibus odit, consequatur
-                                    blanditiis.
+                                    {post.title}
                                 </h4>
                                 <p className="mb-0 josefin-sans-thin dateInfo">
-                                    {moment(post.$createdAt).calendar()}
+                                    {dateFormat(post.$createdAt)}
                                 </p>
                             </div>
                             <span>
@@ -79,7 +80,7 @@ const Index = () => {
                                         />
                                     }
                                     options={[
-                                        {name: "edit", func: () => alert("edit")},
+                                        {name: "Edit", func: () => alert("edit")},
                                         {name: "Delete", func: () => handleDeleteBlog(post.$id)},
                                     ]}
                                 />

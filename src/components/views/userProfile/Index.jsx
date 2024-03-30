@@ -1,16 +1,14 @@
-import {Container} from "@mui/material";
-import React, {useEffect, useState} from "react";
-import {useLocation} from "react-router-dom";
+import { Bookmark, Favorite } from "@mui/icons-material";
+import { Container } from "@mui/material";
+import { Query } from "appwrite";
+import React, { useEffect, useState } from "react";
+import { Col, Row } from "react-bootstrap";
+import { useLocation, useNavigate } from "react-router-dom";
 import authService from "../../../appwrite/auth.js";
-import userDataService from "../../../appwrite/userData.js";
-import SubHeader from "../../utilities/subHeader/Index.jsx";
-import {Col, Row} from "react-bootstrap";
-import "./style.scss";
-import Posts from "../../utilities/posts/Index.jsx";
-import {Query} from "appwrite";
 import service from "../../../appwrite/config.js";
-import moment from "moment";
-import {Bookmark, BookmarkBorderSharp, Favorite, Lens, Person} from "@mui/icons-material";
+import userDataService from "../../../appwrite/userData.js";
+import { dateFormat } from "../../../utilityFunctions/utilities.js";
+import "./style.scss";
 
 const Index = () => {
     const location = useLocation();
@@ -20,7 +18,8 @@ const Index = () => {
     const [toFollow, setToFollow] = useState(false);
     const [posts, setPosts] = useState([]);
     // console.log(queries);
-
+    const navigate = useNavigate();
+    const handleOnClickPost = (id) => navigate(`/dashboard/view/${id}`);
     useEffect(() => {
         (async () => {
             try {
@@ -52,7 +51,7 @@ const Index = () => {
     }, []);
 
     return (
-		<Container className="profile mt-4">
+        <Container className="profile mt-4">
             <Row>
                 <Col
                     xs={12}
@@ -68,14 +67,17 @@ const Index = () => {
                     <h5 className="josefin-sans-bold text-center mb-3 mt-4">Interests</h5>
                     <div className="d-flex flex-wrap justify-content-center">
                         {tags?.map((tag, index) => (
-                            <div key={index+1} className=" tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans">
+                            <div
+                                key={index + 1}
+                                className=" tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans"
+                            >
                                 {tag.name}
                             </div>
                         ))}
                     </div>
                 </Col>
                 <Col xs={12} sm={12} md={9} className="mt-4">
-                    <div className="blogs">
+                    <div className="blogs pe-2">
                         {userData?.$id &&
                             posts &&
                             posts.map(
@@ -88,44 +90,42 @@ const Index = () => {
                                     $createdAt,
                                     tags,
                                     savedBy,
+                                    likedBy,
                                 }) => (
                                     <div className="py-3 d-flex justify-content-between post">
                                         <div className="textContent">
                                             <h3
-                                                className="josefin-sans-bolder line-wrap3"
-                                                // onClick={handleOnClickPost}
+                                                className="josefin-sans-bolder line-wrap3 pointer"
+                                                onClick={() => handleOnClickPost($id)}
                                             >
                                                 {title}
                                             </h3>
                                             <div
-                                                // onClick={handleOnClickPost}
+                                                onClick={() => handleOnClickPost($id)}
                                                 className="cardo-regular line-wrap2 contentSection mb-0 me-3"
                                                 dangerouslySetInnerHTML={{__html: content}}
                                             ></div>
                                             <div className="info mt-2 pb-2 d-flex justify-content-between align-items-start">
                                                 <p className="mb-0 text-truncate">
                                                     <span className=" josefin-sans">
-                                                        {moment($createdAt).calendar({
-                                                            sameDay: "[Today], h:mm a",
-                                                            nextDay: "[Tomorrow], h:mm a",
-                                                            nextWeek: "dddd, hh:mm a",
-                                                            lastDay: "[Yesterday], h:mm a",
-                                                            lastWeek: "[Last] ddd, h:mm a",
-                                                            sameElse: "D MMMM, YY",
-                                                        })}
+                                                        {dateFormat($createdAt || "")}
                                                     </span>
                                                 </p>
                                                 <p className="mb-0">
                                                     <Favorite className="likeIcon mb-1 me-1" />
-                                                    <span>123</span>
+                                                    <span>
+                                                        {(likedBy && likedBy?.length) ?? "-"}
+                                                    </span>
                                                     <Bookmark className="saveIcon ms-2 mb-1 me-1" />
-                                                    <span>123</span>
+                                                    <span>
+                                                        {(savedBy && savedBy?.length) ?? "-"}
+                                                    </span>
                                                 </p>
                                             </div>
                                         </div>
                                         <div className="imgContent d-flex align-items-start justify-content-end">
                                             <img
-                                                // onClick={handleOnClickPost}
+                                                onClick={() => handleOnClickPost($id)}
                                                 src={service.getImgPreview(featuredImage)}
                                             ></img>
                                         </div>

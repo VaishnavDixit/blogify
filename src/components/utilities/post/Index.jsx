@@ -1,25 +1,24 @@
 import {
-    BookmarkBorderSharp,
-    BookmarkRemoveSharp,
-    Lens,
-    MoreHorizRounded,
-    Person,
+	BookmarkBorderSharp,
+	BookmarkRemoveSharp,
+	Lens,
+	MoreHorizRounded,
+	Person,
 } from "@mui/icons-material";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
-import moment from "moment";
-import React, {useEffect, useState} from "react";
-import {Col} from "react-bootstrap";
-import {useNavigate} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import authService from "../../../appwrite/auth.js";
 import service from "../../../appwrite/config.js";
 import userDataService from "../../../appwrite/userData.js";
 import Dropdown from "../dropdown/Index.jsx";
 import "./style.scss";
 
-import {snackbar} from "../../../utilityFunctions/utilities.js";
+import { dateFormat, snackbar } from "../../../utilityFunctions/utilities.js";
 const Post = ({post}) => {
-    const {title, content, featuredImage, publisher, $id, $createdAt, tags, savedBy} = post;
+    const {title, content, description, featuredImage, publisher, $id, $createdAt, tags, savedBy} = post;
     const [saved, setSaved] = useState(false);
 
     useEffect(() => {
@@ -64,8 +63,7 @@ const Post = ({post}) => {
                     <div
                         onClick={handleOnClickPost}
                         className="cardo-regular line-wrap2 contentSection mb-0 me-3"
-                        dangerouslySetInnerHTML={{__html: content}}
-                    ></div>
+                    >{description}</div>
                     <div className="d-flex flex-wrap tagsSection">
                         {tags?.map((tag, index) => (
                             <div key={index+1} className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans">
@@ -85,26 +83,19 @@ const Post = ({post}) => {
                             </span>
                             <Lens className="mx-1 mb-1" style={{fontSize: ".3em"}} />
                             <span className=" josefin-sans-thin">
-                                {moment($createdAt).calendar({
-                                    sameDay: "[Today], h:mm a",
-                                    nextDay: "[Tomorrow], h:mm a",
-                                    nextWeek: "dddd, hh:mm a",
-                                    lastDay: "[Yesterday], h:mm a",
-                                    lastWeek: "[Last] ddd, h:mm a",
-                                    sameElse: "D MMMM, YY",
-                                })}
+                                {dateFormat($createdAt)}
                             </span>
                         </p>
                         <div className="d-flex justify-content-end align-items-center">
                             {saved ? (
                                 <BookmarkRemoveSharp
                                     onClick={handleSaveBlog}
-                                    className="saveIcon d-block "
+                                    className="d-block pointer"
                                 />
                             ) : (
                                 <BookmarkBorderSharp
                                     onClick={handleSaveBlog}
-                                    className="saveIcon d-inline"
+                                    className="d-inline pointer"
                                 />
                             )}
                             <Dropdown

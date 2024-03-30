@@ -66,9 +66,9 @@ export class UserDataService {
                 conf.appwriteCollectionUsersId,
                 userId
             );
-            console.log("save: ", toSave);
-            console.log([...userData.savedArticles.filter((i) => i != blogId)]);
-            console.log([...userData.savedArticles, blogId]);
+            // console.log("save: ", toSave);
+            // console.log([...userData.savedArticles.filter((i) => i != blogId)]);
+            // console.log([...userData.savedArticles, blogId]);
             return await this.databases.updateDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionUsersId,
