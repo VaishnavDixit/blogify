@@ -16,8 +16,8 @@ import service from "../../../appwrite/config.js";
 import userDataService from "../../../appwrite/userData.js";
 import {dateFormat, snackbar} from "../../../utilityFunctions/utilities.js";
 import Dropdown from "../../utilities/dropdown/Index.jsx";
-import "./style.scss";
 import SubHeader from "../../utilities/subHeader/Index.jsx";
+import "./style.scss";
 
 const Index = () => {
     const params = useParams();
@@ -109,12 +109,12 @@ const Index = () => {
                             {saved ? (
                                 <BookmarkRemoveSharp
                                     onClick={handleSaveBlog}
-                                    className="d-inline"
+                                    className="d-inline pointer"
                                 />
                             ) : (
                                 <BookmarkBorderSharp
                                     onClick={handleSaveBlog}
-                                    className="d-inline"
+                                    className="d-inline pointer"
                                 />
                             )}
                             <Dropdown

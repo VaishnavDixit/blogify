@@ -1,32 +1,32 @@
 import {
-	BookmarkBorderSharp,
-	BookmarkRemoveSharp,
-	Lens,
-	MoreHorizRounded,
-	Person,
+    BookmarkBorderSharp,
+    BookmarkRemoveSharp,
+    Lens,
+    MoreHorizRounded,
+    Person,
 } from "@mui/icons-material";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
-import React, { useEffect, useState } from "react";
-import { Col } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Col} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 import authService from "../../../appwrite/auth.js";
 import service from "../../../appwrite/config.js";
 import userDataService from "../../../appwrite/userData.js";
 import Dropdown from "../dropdown/Index.jsx";
 import "./style.scss";
 
-import { dateFormat, snackbar } from "../../../utilityFunctions/utilities.js";
+import {dateFormat, snackbar} from "../../../utilityFunctions/utilities.js";
 const Post = ({post}) => {
-    const {title, content, description, featuredImage, publisher, $id, $createdAt, tags, savedBy} = post;
+    const {title, content, description, featuredImage, publisher, $id, $createdAt, tags, savedBy} =
+        post;
     const [saved, setSaved] = useState(false);
-
+    const [curUser, setCurUser] = useState({});
     useEffect(() => {
         (async () => {
             const curUser = await authService.getCurrentUser();
-			console.log('title ', title)
-			console.log(savedBy)
-			console.log(curUser)
+            setCurUser(curUser);
+            console.log(savedBy);
             savedBy?.map(({$id}) => {
                 if ($id == curUser.$id) setSaved(true);
             });
@@ -46,7 +46,7 @@ const Post = ({post}) => {
     };
 
     const handleSaveBlog = async () => {
-        const res = await userDataService.bookmarkBlog(publisher?.$id, $id, !saved);
+        const res = await userDataService.bookmarkBlog(curUser && curUser?.$id, $id, !saved);
         if (res) {
             snackbar("success", !saved ? "Added to bookmarks" : "removed from bookmarks");
             setSaved((p) => !p);
@@ -63,10 +63,15 @@ const Post = ({post}) => {
                     <div
                         onClick={handleOnClickPost}
                         className="cardo-regular line-wrap2 contentSection mb-0 me-3"
-                    >{description}</div>
+                    >
+                        {description}
+                    </div>
                     <div className="d-flex flex-wrap tagsSection">
                         {tags?.map((tag, index) => (
-                            <div key={index+1} className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans">
+                            <div
+                                key={index + 1}
+                                className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans"
+                            >
                                 {tag.name}
                             </div>
                         ))}
@@ -78,13 +83,14 @@ const Post = ({post}) => {
                                 className="mb-1"
                                 style={{fontSize: "1.8em"}}
                             />
-                            <span className=" josefin-sans-thin hover-underline" onClick={handleOnClickName}>
+                            <span
+                                className=" josefin-sans-thin hover-underline"
+                                onClick={handleOnClickName}
+                            >
                                 {publisher && publisher.name}
                             </span>
                             <Lens className="mx-1 mb-1" style={{fontSize: ".3em"}} />
-                            <span className=" josefin-sans-thin">
-                                {dateFormat($createdAt)}
-                            </span>
+                            <span className=" josefin-sans-thin">{dateFormat($createdAt)}</span>
                         </p>
                         <div className="d-flex justify-content-end align-items-center">
                             {saved ? (
@@ -108,8 +114,8 @@ const Post = ({post}) => {
                                     />
                                 }
                                 options={[
-                                    {name: "report", func: () => alert("reported!")},
-                                    {name: "test", func: () => alert("test 123 ;)!")},
+                                    {name: "Report", func: () => alert("reported!")},
+                                    {name: "Test", func: () => alert("test 123 ;)!")},
                                 ]}
                             />
                         </div>

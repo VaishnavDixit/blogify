@@ -1,13 +1,9 @@
+import {ChevronRight, Close} from "@mui/icons-material";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
-import authService from "../../../appwrite/auth.js";
-import {logout} from "../../../store/authSlice.js";
-import "./style.scss";
 import {Button} from "react-bootstrap";
 import service from "../../../appwrite/config.js";
-import {ArrowRightAltSharp, ChevronRight, Close, CloseOutlined} from "@mui/icons-material";
+import "./style.scss";
 
 const FeaturesPanel = () => {
     const [tags, setTags] = useState([]);
@@ -30,7 +26,7 @@ const FeaturesPanel = () => {
     }, []);
     return (
         <div className="featuresPanelStyle py-4 border-bottom">
-            <h5 className="josefin-sans-bold text-center mb-3">Recommended Topics</h5>
+            <h5 className="josefin-sans-bold text-center mb-3 ">Recommended Topics</h5>
             {tags?.map((tag, index) => (
                 <Button
                     key={index + 1}

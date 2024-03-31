@@ -22,7 +22,6 @@ export class AuthService {
         try {
             const userAccount = await this.account.create(ID.unique(), email, password, name);
             if (userAccount) {
-                //will log in now
                 console.log("successfullt signed up");
                 return await this.login({email, password});
             } else return userAccount;
@@ -33,8 +32,6 @@ export class AuthService {
     createGoogleSession = async () => {
         try {
             this.account.createOAuth2Session("google", "http://localhost:5173/");
-            // const session = await this.account.getSession("current");
-            // if(session){
         } catch (err) {
             console.log(err);
         }

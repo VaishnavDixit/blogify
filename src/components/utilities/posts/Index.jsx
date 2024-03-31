@@ -1,26 +1,21 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, {useEffect, useState} from "react";
-import "./style.scss";
-import service from "../../../appwrite/config.js";
-import {Col, Row} from "react-bootstrap";
-import {RemoveRedEye, ViewComfy} from "@mui/icons-material";
+import React from "react";
+import {Row} from "react-bootstrap";
+import {useGetPosts} from "../../../queries/blogs.js";
 import Post from "../post/Index.jsx";
+import "./style.scss";
 
 const Posts = ({queries}) => {
-    const [posts, setPosts] = useState([]);
     console.log(queries);
-    useEffect(() => {
-        service
-            .getPosts(queries || [])
-            .then((value) => {
-                console.log(value);
-                setPosts(value?.documents);
-            })
-            .catch((err) => console.log(err));
-    }, []);
+    const {data: posts, isLoading} = useGetPosts();
+    console.log(posts);
     return (
         <div className="postsStyle ps-md-0 ps-sm-0 container-fluid">
-            <Row>{posts && posts.map((post, index) => <Post key={index + 1} post={post} />)}</Row>
+            <Row>
+                {posts &&
+                    posts?.documents &&
+                    posts?.documents?.map((post, index) => <Post key={index + 1} post={post} />)}
+            </Row>
         </div>
     );
 };

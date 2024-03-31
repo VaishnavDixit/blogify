@@ -2,6 +2,7 @@ import conf from "../conf/conf.js";
 import {Client, Account, ID, Databases, Storage, Query} from "appwrite";
 import authService from "./auth.js";
 import {ToastContainer} from "react-bootstrap";
+import {VerticalAlignBottom} from "@mui/icons-material";
 
 //it's just database service
 export class UserDataService {
@@ -66,6 +67,7 @@ export class UserDataService {
                 conf.appwriteCollectionUsersId,
                 userId
             );
+            console.log(userId, blogId, toSave);
             // console.log("save: ", toSave);
             // console.log([...userData.savedArticles.filter((i) => i != blogId)]);
             // console.log([...userData.savedArticles, blogId]);
@@ -95,15 +97,15 @@ export class UserDataService {
             );
             if (blogInfo) {
                 console.log(blogInfo);
-				console.log([...blogInfo?.likedBy.map((i) => i.$id) || [], userId])
-				console.log([...blogInfo?.likedBy.map((i) => i.$id).filter((i) => i != userId)])
+                console.log([...(blogInfo?.likedBy.map((i) => i.$id) || []), userId]);
+                console.log([...blogInfo?.likedBy.map((i) => i.$id).filter((i) => i != userId)]);
                 return await this.databases.updateDocument(
                     conf.appwriteDatabaseId,
                     conf.appwriteCollectionBlogsId,
                     blogId,
                     {
                         "likedBy": toLike
-                            ? [...blogInfo?.likedBy.map((i) => i.$id) || [], userId]
+                            ? [...(blogInfo?.likedBy.map((i) => i.$id) || []), userId]
                             : [...blogInfo?.likedBy.map((i) => i.$id).filter((i) => i != userId)],
                     }
                 );

@@ -1,22 +1,24 @@
-import React, {useState} from "react";
+import {Search} from "@mui/icons-material";
+import React from "react";
 import {Col, Container, Row} from "react-bootstrap";
-import authService from "../../../appwrite/auth.js";
+import {LoaderIcon} from "../../../assets/svgs.jsx";
+import {useGetCurrentUser} from "../../../queries/auth.js";
+import {useGetPosts} from "../../../queries/blogs.js";
+import DiscoverOtherTopics from "../../utilities/discoverOtherTopics/Index.jsx";
 import FeaturesPanel from "../../utilities/featuresPanel/Index.jsx";
-import Posts from "../../utilities/posts/Index.jsx";
+import Post from "../../utilities/post/Index.jsx";
 import SubHeader from "../../utilities/subHeader/Index.jsx";
 import "./style.scss";
-import DiscoverOtherTopics from "../../utilities/discoverOtherTopics/Index.jsx";
-import {Search} from "@mui/icons-material";
 const Index = () => {
-    const [name, setName] = useState("");
-
-    authService.getCurrentUser().then((value) => {
-        setName(value?.name || "n/a");
-    });
+    const {data: posts, isLoading} = useGetPosts();
+    const {data: curUser, isLoading: isLoadingGetCurUser} = useGetCurrentUser();
 
     return (
         <>
-            <SubHeader text={`Welcome, ${name}`} backButton={false}/>
+            <SubHeader
+                text={`Welcome, ${isLoadingGetCurUser ? "-" : curUser?.name}`}
+                backButton={false}
+            />
             <Container>
                 <Row>
                     <Col md={4} className="d-none d-md-inline-block pe-0 leftCol">
@@ -38,7 +40,21 @@ const Index = () => {
                         </Container>
                     </Col>
                     <Col md={8} sm={12} xs={12}>
-                        <Posts queries={[]} />
+                        {isLoading ? (
+                            <div className="d-flex mt-4 align-itens-center justify-content-center">
+                                {LoaderIcon}
+                            </div>
+                        ) : (
+                            <div className="postsStyle ps-md-0 ps-sm-0 container-fluid">
+                                <Row>
+                                    {posts &&
+                                        posts?.documents &&
+                                        posts?.documents?.map((post, index) => (
+                                            <Post key={index + 1} post={post} />
+                                        ))}
+                                </Row>
+                            </div>
+                        )}
                     </Col>
                 </Row>
             </Container>

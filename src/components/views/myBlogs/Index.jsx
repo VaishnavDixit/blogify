@@ -1,29 +1,24 @@
-import { Bookmark, Favorite, MoreHoriz } from "@mui/icons-material";
-import { Query } from "appwrite";
+import {Bookmark, Favorite, MoreHoriz} from "@mui/icons-material";
+import {Query} from "appwrite";
 import "bootstrap/dist/js/bootstrap.bundle";
-import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import authService from "../../../appwrite/auth.js";
+import React, {useState} from "react";
+import {Container} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 import service from "../../../appwrite/config.js";
-import { dateFormat, snackbar } from "../../../utilityFunctions/utilities.js";
+import {LoaderIcon} from "../../../assets/svgs.jsx";
+import {useGetPosts} from "../../../queries/blogs.js";
+import {dateFormat, snackbar} from "../../../utilityFunctions/utilities.js";
 import Dropdown from "../../utilities/dropdown/Index.jsx";
 import SubHeader from "../../utilities/subHeader/Index.jsx";
 import "./style.scss";
 const Index = () => {
-    // console.log(JSON.parse(localStorage.userData).$id)
     const [userId, setUserId] = useState("");
-    const [posts, setPosts] = useState([]);
     const navigate = useNavigate();
-    useEffect(() => {
-        authService.getCurrentUser().then((res) => {
-            setUserId(res.$id);
-            service.getPosts([Query.equal("publisher", res.$id)]).then((value) => {
-				console.log(value)
-                setPosts(value.documents);
-            }).catch(err=>console.log(err));
-        });
-    }, []);
+    const curUser = JSON.parse(localStorage.getItem("userData"));
+    const {data: myBlogs, isLoading: isLoadingMyBlogs} = useGetPosts(curUser?.id, [
+        Query.equal("publisher", curUser && curUser?.$id),
+    ]);
+
     const handleDeleteBlog = async (slug) => {
         service.deletePost(slug).then((res) => {
             snackbar("success", "Successfully deleted");
@@ -33,19 +28,23 @@ const Index = () => {
             });
         });
     };
+
     const handleOnClickPost = (slug) => {
         console.log(slug);
         navigate(`/dashboard/view/${slug}`);
     };
-    // const [showBanner, setShowBanner] = useState(true);
-    // const hideBannerHandler = () => setShowBanner(false);
-    // const showBannerHandler = () => setShowBanner(true);
+
     return (
         <>
             <SubHeader text={`My Blogs`} />
             <Container className="myBlogs">
-                {posts &&
-                    posts.map((post, index) => (
+                {isLoadingMyBlogs ? (
+                    <div className="d-flex justify-content-center mt-4">
+                        {LoaderIcon || "loading..."}
+                    </div>
+                ) : (
+                    myBlogs &&
+                    myBlogs?.documents?.map((post, index) => (
                         <div
                             key={index}
                             className=" myBlog d-flex border-bottom align-items-start justify-content-start py-4 pb-3"
@@ -69,9 +68,13 @@ const Index = () => {
                                     </span>
                                     <span className="d-flex">
                                         <Favorite className="likeIcon me-1" />
-                                        <span className="me-2">{(post && post?.likedBy.length) || 0}</span>
+                                        <span className="me-2">
+                                            {(post && post?.likedBy.length) || 0}
+                                        </span>
                                         <Bookmark className="saveIcon me-1" />
-                                        <span className="me-2">{(post && post?.savedBy.length) || 0}</span>
+                                        <span className="me-2">
+                                            {(post && post?.savedBy.length) || 0}
+                                        </span>
                                         <Dropdown
                                             displayButton={
                                                 <MoreHoriz
@@ -92,7 +95,8 @@ const Index = () => {
                                 </div>
                             </div>
                         </div>
-                    ))}
+                    ))
+                )}
             </Container>
         </>
     );
