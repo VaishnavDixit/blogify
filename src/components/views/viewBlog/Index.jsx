@@ -1,20 +1,20 @@
 import {
-    BookmarkBorderSharp,
-    BookmarkRemoveSharp,
-    Favorite,
-    FavoriteBorderSharp,
-    Lens,
-    MoreHorizRounded,
-    Person,
+	BookmarkBorderSharp,
+	BookmarkRemoveSharp,
+	Favorite,
+	FavoriteBorderSharp,
+	Lens,
+	MoreHorizRounded,
+	Person,
 } from "@mui/icons-material";
-import React, {useEffect, useState} from "react";
-import {Container, Row} from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Container, Row } from "react-bootstrap";
 import "react-image-crop/src/ReactCrop.scss";
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import authService from "../../../appwrite/auth.js";
 import service from "../../../appwrite/config.js";
 import userDataService from "../../../appwrite/userData.js";
-import {dateFormat, snackbar} from "../../../utilityFunctions/utilities.js";
+import { dateFormat, snackbar } from "../../../utilityFunctions/utilities.js";
 import Dropdown from "../../utilities/dropdown/Index.jsx";
 import SubHeader from "../../utilities/subHeader/Index.jsx";
 import "./style.scss";

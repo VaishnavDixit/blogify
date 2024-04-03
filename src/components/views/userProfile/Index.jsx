@@ -77,10 +77,11 @@ const Index = () => {
                     </div>
                 </Col>
                 <Col xs={12} sm={12} md={9} className="mt-4">
+					<h2 className="josefin-sans-thin">Blogs by {userData && userData?.name}</h2>
                     <div className="blogs pe-2">
                         {userData?.$id &&
                             posts &&
-                            posts.map(
+                            [...posts,...posts,...posts,...posts,...posts].map(
                                 ({
                                     title,
                                     content,

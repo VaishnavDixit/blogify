@@ -1,8 +1,6 @@
+import { Client, Databases, Query, Storage } from "appwrite";
 import conf from "../conf/conf.js";
-import {Client, Account, ID, Databases, Storage, Query} from "appwrite";
 import authService from "./auth.js";
-import {ToastContainer} from "react-bootstrap";
-import {VerticalAlignBottom} from "@mui/icons-material";
 
 //it's just database service
 export class UserDataService {
