@@ -1,13 +1,13 @@
-import { Bookmark, Favorite } from "@mui/icons-material";
-import { Container } from "@mui/material";
-import { Query } from "appwrite";
-import React, { useEffect, useState } from "react";
-import { Col, Row } from "react-bootstrap";
-import { useLocation, useNavigate } from "react-router-dom";
+import {Bookmark, Favorite} from "@mui/icons-material";
+import {Container} from "@mui/material";
+import {Query} from "appwrite";
+import React, {useEffect, useState} from "react";
+import {Col, Row} from "react-bootstrap";
+import {useLocation, useNavigate} from "react-router-dom";
 import authService from "../../../appwrite/auth.js";
 import service from "../../../appwrite/config.js";
 import userDataService from "../../../appwrite/userData.js";
-import { dateFormat } from "../../../utilityFunctions/utilities.js";
+import {dateFormat} from "../../../utilityFunctions/utilities.js";
 import "./style.scss";
 
 const Index = () => {
@@ -17,6 +17,7 @@ const Index = () => {
     const [tags, setTags] = useState([]);
     const [toFollow, setToFollow] = useState(false);
     const [posts, setPosts] = useState([]);
+    const [totalLikes, setTotalLikes] = useState(0);
     // console.log(queries);
     const navigate = useNavigate();
     const handleOnClickPost = (id) => navigate(`/dashboard/view/${id}`);
@@ -50,6 +51,14 @@ const Index = () => {
         })();
     }, []);
 
+    useEffect(() => {
+        if (posts) {
+            let sum = 0;
+            posts.map((post) => (sum += post.likedBy?.length ?? "-"));
+            setTotalLikes(sum);
+        }
+    }, [posts]);
+
     return (
         <Container className="profile mt-4">
             <Row>
@@ -62,7 +71,9 @@ const Index = () => {
                     <img src="https://picsum.photos/200/200" className="rounded-circle " />
                     <div className="text ps-3 my-3">
                         <h4>{userData?.name}</h4>
-                        <p className="mb-0 josefin-sans-thin">1.2k followers, 12k+ likes</p>
+                        <p className="mb-0 josefin-sans-thin">
+                            1.2k followers, {totalLikes} like{totalLikes == 1 ? "" : "s"}
+                        </p>
                     </div>
                     <h5 className="josefin-sans-bold text-center mb-3 mt-4">Interests</h5>
                     <div className="d-flex flex-wrap justify-content-center">
@@ -76,12 +87,14 @@ const Index = () => {
                         ))}
                     </div>
                 </Col>
-                <Col xs={12} sm={12} md={9} className="mt-4">
-					<h2 className="josefin-sans-thin">Blogs by {userData && userData?.name}</h2>
-                    <div className="blogs pe-2">
+                <Col xs={12} sm={12} md={9} className="">
+                    {posts && posts.length ? (
+                        <h2 className=" blogsBy josefin-sans-thin mb-0">Blogs by {userData && userData?.name}</h2>
+                    ) : null}
+                    <div className="blogs pt-5 pe-2">
                         {userData?.$id &&
                             posts &&
-                            [...posts,...posts,...posts,...posts,...posts].map(
+                            posts.map(
                                 ({
                                     title,
                                     content,

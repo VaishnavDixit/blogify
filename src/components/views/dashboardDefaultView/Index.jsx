@@ -9,6 +9,7 @@ import FeaturesPanel from "../../utilities/featuresPanel/Index.jsx";
 import Post from "../../utilities/post/Index.jsx";
 import SubHeader from "../../utilities/subHeader/Index.jsx";
 import "./style.scss";
+import {ShimmerButton, ShimmerCard, ShimmerText} from "react-shimmer-effects";
 const Index = () => {
     const {data: posts, isLoading} = useGetPosts();
     const {data: curUser, isLoading: isLoadingGetCurUser} = useGetCurrentUser();
@@ -42,7 +43,7 @@ const Index = () => {
                     <Col md={8} sm={12} xs={12}>
                         {isLoading ? (
                             <div className="d-flex mt-4 align-itens-center justify-content-center">
-                                {LoaderIcon}
+                                <LoaderIcon />
                             </div>
                         ) : (
                             <div className="postsStyle ps-md-0 ps-sm-0 container-fluid">

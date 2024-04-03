@@ -88,7 +88,7 @@ const Index = () => {
                 <Row className="pt-3">
                     <h2 className="josefin-sans-bolder mt-3">{post?.title}</h2>
                     {post?.description && <div className="my-3">{post?.description}</div>}
-                    {image ? <img src={service.getImgPreview(image) || ""} className="mt-3" /> : ""}
+                    {image ? <img src={service.getImgPreview(image) || ""} className="mt-3" /> : null}
                     <div className="infoRow mt-3 d-flex justify-content-between align-items-center">
                         <p className="mb-0 text-truncate " onClick={handleOnClickName}>
                             <Person className="mb-2 me-1" style={{fontSize: "2em"}} />

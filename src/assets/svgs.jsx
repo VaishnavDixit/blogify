@@ -1,4 +1,4 @@
-export const LoaderIcon = (
+export const LoaderIcon = ()=>(
     <svg width={60} height={60} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
         <circle fill="#4792EF" stroke="#4792EF" strokeWidth="8" r="15" cx="40" cy="100">
             <animate

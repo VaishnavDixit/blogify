@@ -36,7 +36,7 @@ const Index = () => {
             <SubHeader text={`Saved Blogs`} />
             <Container className="savedArticles">
                 {isLoadingSavedBlogs ? (
-                    <div className="d-flex justify-content-center mt-4">{LoaderIcon}</div>
+                    <div className="d-flex justify-content-center mt-4">{<LoaderIcon/>}</div>
                 ) : (
                     savedBlogs &&
                     savedBlogs?.documents &&

@@ -27,7 +27,7 @@ const DiscoverOtherTopics = () => {
     }, [posts]);
     return (
         <div className="discoverOthersStyle py-2">
-            <h5 className="josefin-sans-bold text-center mb-3">Trending</h5>
+            <h5 className="josefin-sans-thin text-center mb-3">Trending 🔥</h5>
             {trending &&
                 trending.map(({title, publisher, $id}) => (
                     <div className="blog p-2 mb-4" onClick={()=>handleOnClickPost($id)}>

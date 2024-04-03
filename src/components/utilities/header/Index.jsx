@@ -32,13 +32,19 @@ const Header = () => {
     };
 
     return (
-        <div className="headerStyle d-flex align-items-center justify-content-between p-3">
+        <div className="headerStyle d-flex align-items-center justify-content-between px-3 py-3">
             <h2
                 className="mainIcon josefin-sans-thin mb-0 me-auto"
                 onClick={() => navigate("/dashboard")}
             >
                 Blogify
             </h2>
+			{/* 
+			this style to be decided
+			<div className="curve curve1 "/>
+			<div className="curve curve2 d-none d-md-block"/>
+			<div className="curve curve3 d-none d-md-block"/>
+			<div className="curve curve4 d-none d-md-block"/> */}
             <Button
                 onClick={() => navigate("/dashboard/create-blog")}
                 className="me-3 rounded-pill"

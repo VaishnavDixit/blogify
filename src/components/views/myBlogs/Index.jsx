@@ -41,7 +41,7 @@ const Index = () => {
             <Container className="myBlogs">
                 {isLoadingMyBlogs ? (
                     <div className="d-flex justify-content-center mt-4">
-                        {LoaderIcon || "loading..."}
+                        {<LoaderIcon/> || "loading..."}
                     </div>
                 ) : (
                     myBlogs &&
