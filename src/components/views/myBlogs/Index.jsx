@@ -15,9 +15,10 @@ const Index = () => {
     const [userId, setUserId] = useState("");
     const navigate = useNavigate();
     const curUser = JSON.parse(localStorage.getItem("userData"));
-    const {data: myBlogs, isLoading: isLoadingMyBlogs} = useGetPosts(curUser?.id, [
-        Query.equal("publisher", curUser && curUser?.$id),
-    ]);
+    const {data: myBlogs, isLoading: isLoadingMyBlogs} = useGetPosts(
+        [Query.equal("publisher", curUser && curUser?.$id)],
+        curUser?.id
+    );
 
     const handleDeleteBlog = async (slug) => {
         service.deletePost(slug).then((res) => {

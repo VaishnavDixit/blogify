@@ -10,6 +10,7 @@ import {dateFormat} from "../../../utilityFunctions/utilities.js";
 import Dropdown from "../../utilities/dropdown/Index.jsx";
 import SubHeader from "../../utilities/subHeader/Index.jsx";
 import "./style.scss";
+import { Query } from "appwrite";
 const Index = () => {
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem("userData"));
@@ -24,14 +25,15 @@ const Index = () => {
         //     });
         // });
     };
+
     const handleOnClickPost = (slug) => {
         console.log(slug);
         navigate(`/dashboard/view/${slug}`);
     };
+
     return (
         <>
             <SubHeader text={`Saved Blogs`} />
-            {isLoadingSavedBlogs ? "true" : "false"}
             <Container className="savedArticles">
                 {isLoadingSavedBlogs ? (
                     <div className="d-flex justify-content-center mt-4">{LoaderIcon}</div>
