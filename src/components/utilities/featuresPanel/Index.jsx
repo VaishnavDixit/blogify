@@ -4,9 +4,12 @@ import React, {useEffect, useState} from "react";
 import {Button} from "react-bootstrap";
 import service from "../../../appwrite/config.js";
 import "./style.scss";
-import {ShimmerButton, ShimmerThumbnail} from "react-shimmer-effects";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
 import {useGetTags} from "../../../queries/tags.js";
-import { LoaderIcon } from "../../../assets/svgs.jsx";
+import {LoaderIcon} from "../../../assets/svgs.jsx";
+import {RecommendedTopicsLoader} from "../loadingScreens/Index.jsx";
 
 const FeaturesPanel = () => {
     const [selectedTags, setSelectedTags] = useState([]);
@@ -20,20 +23,14 @@ const FeaturesPanel = () => {
                 : [...prev, tagId]
         );
     };
-    useEffect(() => {
-        (async () => {
-            const res = await service.getTags();
-            console.log(res);
-            setTags(res.documents);
-        })();
-    }, []);
+	
     return (
         <div className="featuresPanelStyle py-4 border-bottom">
             <h5 className="josefin-sans-thin text-center mb-3 ">Recommended Topics ✨</h5>
             {isLoadingTags ? (
-                <span className="d-flex justify-content-center">
-                    <LoaderIcon/>
-                </span>
+                <div className="d-flex flex-wrap justify-content-start">
+                    <RecommendedTopicsLoader />
+                </div>
             ) : (
                 tags?.documents?.map((tag, index) => (
                     <Button

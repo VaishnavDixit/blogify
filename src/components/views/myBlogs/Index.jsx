@@ -6,30 +6,27 @@ import {Container} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import service from "../../../appwrite/config.js";
 import {LoaderIcon} from "../../../assets/svgs.jsx";
-import {useGetPosts} from "../../../queries/blogs.js";
+import {useDeleteBlog, useGetPosts} from "../../../queries/blogs.js";
 import {dateFormat, snackbar} from "../../../utilityFunctions/utilities.js";
 import Dropdown from "../../utilities/dropdown/Index.jsx";
 import SubHeader from "../../utilities/subHeader/Index.jsx";
+import Skeleton from "react-loading-skeleton";
+
 import "./style.scss";
 const Index = () => {
     const [userId, setUserId] = useState("");
     const navigate = useNavigate();
     const curUser = JSON.parse(localStorage.getItem("userData"));
-    const {data: myBlogs, isLoading: isLoadingMyBlogs} = useGetPosts(
-        [Query.equal("publisher", curUser && curUser?.$id)],
-        curUser?.id
-    );
-
-    const handleDeleteBlog = async (slug) => {
-        service.deletePost(slug).then((res) => {
-            snackbar("success", "Successfully deleted");
-            service.getPosts([Query.equal("userId", userId)]).then((value) => {
-                setPosts(value.documents);
-                console.log(value.documents);
-            });
-        });
+    const {
+        data: myBlogs,
+        isLoading: isLoadingMyBlogs,
+        refetch: refetchGetPosts,
+    } = useGetPosts([Query.equal("publisher", curUser && curUser?.$id)], curUser?.id);
+    const {mutateAsync, isLoading} = useDeleteBlog(refetchGetPosts);
+    const handleDeleteBlog = async (id) => {
+        mutateAsync(id);
     };
-
+	
     const handleOnClickPost = (slug) => {
         console.log(slug);
         navigate(`/dashboard/view/${slug}`);
@@ -37,11 +34,11 @@ const Index = () => {
 
     return (
         <>
-            <SubHeader text={`My Blogs`} />
+            <SubHeader text={`My Blogs ${isLoading ? "deleting..." : ""}`} />
             <Container className="myBlogs">
                 {isLoadingMyBlogs ? (
                     <div className="d-flex justify-content-center mt-4">
-                        {<LoaderIcon/> || "loading..."}
+                        {<LoaderIcon /> || "loading..."}
                     </div>
                 ) : (
                     myBlogs &&
@@ -85,7 +82,7 @@ const Index = () => {
                                                 />
                                             }
                                             options={[
-                                                {name: "edit", func: () => alert("edit")},
+                                                {name: "Edit", func: () => alert("edit")},
                                                 {
                                                     name: "Delete",
                                                     func: () => handleDeleteBlog(post.$id),

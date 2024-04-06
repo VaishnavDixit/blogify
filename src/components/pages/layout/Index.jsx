@@ -13,7 +13,7 @@ const Index = () => {
                 {routes.map((item, index) => (
                     <Route key={index + 1} path={item.path} element={item.element} />
                 ))}
-                <Route path="*" element={<>err in def layout</>} />
+                <Route path="*" element={<>Path is invalid :/</>} />
             </Routes>
         </div>
     );

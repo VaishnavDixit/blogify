@@ -6,10 +6,12 @@ import {useGetCurrentUser} from "../../../queries/auth.js";
 import {useGetPosts} from "../../../queries/blogs.js";
 import DiscoverOtherTopics from "../../utilities/discoverOtherTopics/Index.jsx";
 import FeaturesPanel from "../../utilities/featuresPanel/Index.jsx";
+import Skeleton from "react-loading-skeleton";
+
 import Post from "../../utilities/post/Index.jsx";
 import SubHeader from "../../utilities/subHeader/Index.jsx";
 import "./style.scss";
-import {ShimmerButton, ShimmerCard, ShimmerText} from "react-shimmer-effects";
+import {BlogsListLoader} from "../../utilities/loadingScreens/Index.jsx";
 const Index = () => {
     const {data: posts, isLoading} = useGetPosts();
     const {data: curUser, isLoading: isLoadingGetCurUser} = useGetCurrentUser();
@@ -42,9 +44,11 @@ const Index = () => {
                     </Col>
                     <Col md={8} sm={12} xs={12}>
                         {isLoading ? (
-                            <div className="d-flex mt-4 align-itens-center justify-content-center">
-                                <LoaderIcon />
-                            </div>
+                            <>
+                                <BlogsListLoader />
+                                <BlogsListLoader />
+                                <BlogsListLoader />
+                            </>
                         ) : (
                             <div className="postsStyle ps-md-0 ps-sm-0 container-fluid">
                                 <Row>
