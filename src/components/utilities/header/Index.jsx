@@ -39,7 +39,7 @@ const Header = () => {
 
     return (
         <div className="headerStyle d-flex align-items-center justify-content-between px-3 py-3">
-            <img src="/blogify-logo-white.svg" width={50}/>
+            <img src="/blogify-logo-white.svg" width={50} className="mb-2 me-1"/>
             <h2
                 className="mainIcon josefin-sans-thin mb-0 me-auto"
                 onClick={() => navigate("/dashboard")}

@@ -41,7 +41,7 @@ const Index = () => {
     const {data, refetch, isLoading} = useGetPost(params?.slug);
     console.log(data);
     const {refetch: refetchGetPosts} = useGetPosts();
-    const {mutateAsync} = useDeleteBlog(refetchGetPosts);
+    const {mutateAsync, isSuccess} = useDeleteBlog(refetchGetPosts);
     useEffect(() => {
         (async () => {
             setImage(data?.featuredImage);
@@ -85,6 +85,7 @@ const Index = () => {
     const handleDeleteBlog = () => {
         console.log(data);
         mutateAsync(params?.slug);
+		
         navigate("/dashboard/my-blogs");
     };
 
