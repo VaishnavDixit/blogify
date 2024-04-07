@@ -13,6 +13,8 @@ import "./style.scss";
 const Index = () => {
     const location = useLocation();
     const [userData, setUserData] = useState({});
+	
+    const [userPersonalInfo, setUserPersonalInfo] = useState({});
     const [loggedInUser, setLoggedInUser] = useState({});
     const [tags, setTags] = useState([]);
     const [toFollow, setToFollow] = useState(false);
@@ -21,9 +23,16 @@ const Index = () => {
     // console.log(queries);
     const navigate = useNavigate();
     const handleOnClickPost = (id) => navigate(`/dashboard/view/${id}`);
+	console.log(userData)
     useEffect(() => {
         (async () => {
             try {
+                const session = await authService.getSession();
+                console.log("session: ", session);
+                const providerAccessToken = session && session?.providerAccessToken;
+                const personalInfo = await authService.fetchGoogleUserData(providerAccessToken);
+                console.log(personalInfo);
+                setUserPersonalInfo(personalInfo);
                 const viewUserInfo = await userDataService.getUserData(
                     location.state && location.state.userId
                 );
@@ -58,7 +67,6 @@ const Index = () => {
             setTotalLikes(sum);
         }
     }, [posts]);
-
     return (
         <Container className="profile mt-4">
             <Row>
@@ -68,7 +76,9 @@ const Index = () => {
                     md={3}
                     className="dataShow my-4 d-flex flex-column align-items-center"
                 >
-                    <img src="https://picsum.photos/200/200" className="rounded-circle " />
+                    {userData && (
+                        <img src={userData?.profilePicture} className="rounded-circle " />
+                    )}
                     <div className="text ps-3 my-3">
                         <h4>{userData?.name}</h4>
                         <p className="mb-0 josefin-sans-thin">
@@ -89,9 +99,11 @@ const Index = () => {
                 </Col>
                 <Col xs={12} sm={12} md={9} className="">
                     {posts && posts.length ? (
-                        <h2 className=" blogsBy josefin-sans-thin mb-0">Blogs by {userData && userData?.name}</h2>
+                        <h2 className=" blogsBy josefin-sans-thin mb-0 mt-3">
+                            Blogs by {userData && userData?.name}
+                        </h2>
                     ) : null}
-                    <div className="blogs pt-5 pe-2">
+                    <div className="blogs pt-4 pe-2">
                         {userData?.$id &&
                             posts &&
                             posts.map(

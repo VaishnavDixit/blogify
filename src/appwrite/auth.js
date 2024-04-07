@@ -5,6 +5,7 @@ import conf from "../conf/conf.js";
 import {Client, Account, ID} from "appwrite";
 import userDataService from "./userData.js";
 import {current} from "@reduxjs/toolkit";
+import axios from "axios";
 
 export class AuthService {
     client;
@@ -16,7 +17,7 @@ export class AuthService {
             .setProject(conf.appwriteProjectId);
         this.account = new Account(this.client);
     }
-    //65c53f61a610a794ea50
+
     createAccount = async ({email, password, name}) => {
         console.log({email, password, name});
         try {
@@ -31,11 +32,12 @@ export class AuthService {
     };
     createGoogleSession = async () => {
         try {
-            this.account.createOAuth2Session("google", "http://localhost:5173/");
+            this.account.createOAuth2Session("google", "http://localhost:5173/", 'http://localhost:5173/abd');
         } catch (err) {
             console.log(err);
         }
     };
+	
     login = async ({email, password}) => {
         try {
             return await this.account.createEmailSession(email, password);
@@ -61,10 +63,33 @@ export class AuthService {
             return null;
         }
     };
+	
+    getSession = async () => {
+        try {
+            return await this.account.getSession("current");
+        } catch (error) {
+            console.log("error while gettting current user session");
+            return null;
+        }
+    };
 
-    // getUser = async (userId) =>{
-
-    // }
+    fetchGoogleUserData = async (providerAccessToken) => {
+        try {
+            // Make a GET request to Google API to fetch user data
+            const response = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
+                headers: {
+                    "Authorization": `Bearer ${providerAccessToken}`,
+                },
+            });
+			console.log(response)
+            // Handle the response and extract user data
+            const userData = response.data;
+            return userData;
+        } catch (error) {
+            console.error("Error fetching Google user data:", error.response.data);
+            throw new Error("Failed to fetch Google user data");
+        }
+    };
 }
 const authService = new AuthService();
 export default authService;

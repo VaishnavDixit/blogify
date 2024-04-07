@@ -6,14 +6,12 @@ export const ViewBlogLoader = () => (
             style={{
                 width: "80%",
                 height: "10px",
-                borderRadius: "2px",
             }}
         />
         <Skeleton
             style={{
                 width: "80%",
                 height: "10px",
-                borderRadius: "2px",
             }}
         />
         <Skeleton
@@ -22,7 +20,6 @@ export const ViewBlogLoader = () => (
                 margin: "8px auto",
                 width: "70%",
                 height: "250px",
-                borderRadius: "2px",
             }}
         />
         <div className="d-flex justify-content-start">
@@ -31,7 +28,7 @@ export const ViewBlogLoader = () => (
                     width: "110px",
                     height: "30px",
                     borderRadius: "15px",
-					marginRight: '6px',
+                    marginRight: "6px",
                 }}
             />
             <Skeleton
@@ -39,7 +36,7 @@ export const ViewBlogLoader = () => (
                     width: "70px",
                     height: "30px",
                     borderRadius: "15px",
-					marginRight: '6px',
+                    marginRight: "6px",
                 }}
             />
             <Skeleton
@@ -47,7 +44,7 @@ export const ViewBlogLoader = () => (
                     width: "80px",
                     height: "30px",
                     borderRadius: "15px",
-					marginRight: '6px',
+                    marginRight: "6px",
                 }}
             />
             <Skeleton
@@ -55,7 +52,7 @@ export const ViewBlogLoader = () => (
                     width: "60px",
                     height: "30px",
                     borderRadius: "15px",
-					marginRight: '6px',
+                    marginRight: "6px",
                 }}
             />
         </div>
@@ -63,21 +60,18 @@ export const ViewBlogLoader = () => (
             style={{
                 width: "60%",
                 height: "10px",
-                borderRadius: "2px",
             }}
         />
         <Skeleton
             style={{
                 width: "50%",
                 height: "10px",
-                borderRadius: "2px",
             }}
         />
         <Skeleton
             style={{
                 width: "60%",
                 height: "10px",
-                borderRadius: "2px",
             }}
         />
 
@@ -85,21 +79,18 @@ export const ViewBlogLoader = () => (
             style={{
                 width: "45%",
                 height: "10px",
-                borderRadius: "2px",
             }}
         />
         <Skeleton
             style={{
                 width: "55%",
                 height: "10px",
-                borderRadius: "2px",
             }}
         />
         <Skeleton
             style={{
                 width: "65%",
                 height: "10px",
-                borderRadius: "2px",
             }}
         />
     </>
@@ -141,17 +132,17 @@ export const TrendingPageLoader = () => (
 export const BlogsListLoader = () => (
     <div className="d-flex mb-4">
         <div style={{width: "60%"}}>
-            <Skeleton style={{height: "8px", borderRadius: "4px"}} />
-            <Skeleton style={{height: "8px", borderRadius: "4px"}} />
-            <Skeleton style={{height: "8px", borderRadius: "4px"}} />
-            <Skeleton style={{height: "8px", borderRadius: "4px"}} />
+            <Skeleton style={{height: "8px"}} />
+            <Skeleton style={{height: "8px"}} />
+            <Skeleton style={{height: "8px"}} />
+            <Skeleton style={{height: "8px"}} />
             <div className="d-flex align-items-center">
-                <Skeleton circle width={30} height={30} />       
-                <Skeleton style={{width: "50px", height: "10px", marginLeft: '6px'}} />     
-			</div>
+                <Skeleton circle width={30} height={30} />
+                <Skeleton style={{width: "50px", height: "10px", marginLeft: "6px"}} />
+            </div>
         </div>
         <div style={{width: "30%", padding: "0px 0px 0px 5%"}}>
-            <Skeleton style={{height: "126px", borderRadius: "4px"}} />
+            <Skeleton style={{height: "126px"}} />
         </div>
     </div>
 );

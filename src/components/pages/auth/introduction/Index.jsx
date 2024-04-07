@@ -7,19 +7,22 @@ import "./style.scss";
 const Index = () => {
     const navigate = useNavigate();
     useEffect(() => {
-        authService.getCurrentUser().then((res) => {
-            console.log(res);
-            localStorage.setItem("userData", JSON.stringify(res));
-            localStorage.setItem("status", "true");
-            if (res) {
-                userDataService.createUser().then((res) => {
-                    console.log(res);
-                    navigate("/dashboard");
-                });
-            }
-        });
+        authService
+            .getCurrentUser()
+            .then((res) => {
+                console.log(res);
+                localStorage.setItem("userData", JSON.stringify(res));
+                localStorage.setItem("status", "true");
+                if (res) {
+                    userDataService.createUser().then((res) => {
+                        console.log(res);
+                        navigate("/dashboard");
+                    });
+                }
+            })
+            .catch((res) => console.log(res));
     }, []);
-
+ 
     return (
         <Container>
             <div className="introductionPage row">

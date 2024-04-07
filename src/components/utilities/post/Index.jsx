@@ -1,22 +1,22 @@
 import {
-    BookmarkBorderSharp,
-    BookmarkRemoveSharp,
-    Lens,
-    MoreHorizRounded,
-    Person,
+	BookmarkBorderSharp,
+	BookmarkRemoveSharp,
+	Lens,
+	MoreHorizRounded,
+	Person,
 } from "@mui/icons-material";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
-import React, {useEffect, useState} from "react";
-import {Col} from "react-bootstrap";
-import {useNavigate} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import authService from "../../../appwrite/auth.js";
 import service from "../../../appwrite/config.js";
 import userDataService from "../../../appwrite/userData.js";
 import Dropdown from "../dropdown/Index.jsx";
 import "./style.scss";
 
-import {dateFormat, snackbar} from "../../../utilityFunctions/utilities.js";
+import { dateFormat, snackbar } from "../../../utilityFunctions/utilities.js";
 const Post = ({post}) => {
     const {title, content, description, featuredImage, publisher, $id, $createdAt, tags, savedBy} =
         post;
@@ -57,12 +57,12 @@ const Post = ({post}) => {
         <Col sm={12} xs={12} className="px-4">
             <div className="py-3 d-flex justify-content-between post">
                 <div className="textContent">
-                    <h3 className="josefin-sans-bolder line-wrap3" onClick={handleOnClickPost}>
+                    <h3 className="josefin-sans-bolder line-wrap3 pointer" onClick={handleOnClickPost}>
                         {title}
                     </h3>
                     <div
                         onClick={handleOnClickPost}
-                        className="cardo-regular line-wrap2 contentSection mb-0 me-3"
+                        className=" cardo-regular line-wrap2 contentSection mb-0 me-3 pointer"
                     >
                         {description}
                     </div>
@@ -70,7 +70,7 @@ const Post = ({post}) => {
                         {tags?.map((tag, index) => (
                             <div
                                 key={index + 1}
-                                className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans"
+                                className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans pointer"
                             >
                                 {tag.name}
                             </div>

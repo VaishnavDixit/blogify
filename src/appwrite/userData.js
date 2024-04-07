@@ -1,4 +1,4 @@
-import { Client, Databases, Query, Storage } from "appwrite";
+import {Client, Databases, Query, Storage} from "appwrite";
 import conf from "../conf/conf.js";
 import authService from "./auth.js";
 
@@ -19,8 +19,9 @@ export class UserDataService {
         try {
             const userData = await authService.getCurrentUser();
             if (userData) {
-                console.log(userData);
                 const id = userData.$id;
+                const {providerAccessToken} = await authService.getSession();
+                const userPersonalInfo = await authService.fetchGoogleUserData(providerAccessToken);
                 const user = await this.databases.listDocuments(
                     conf.appwriteDatabaseId,
                     conf.appwriteCollectionUsersId,
@@ -28,7 +29,6 @@ export class UserDataService {
                 );
                 if (!user || !user.length) {
                     console.log("adding user to the table. with id=", id);
-                    console.log(userData);
                     return await this.databases.createDocument(
                         conf.appwriteDatabaseId,
                         conf.appwriteCollectionUsersId,
@@ -36,6 +36,7 @@ export class UserDataService {
                         {
                             name: userData?.name,
                             email: userData?.email,
+                            profilePicture: userPersonalInfo?.picture,
                         }
                     );
                 }
@@ -66,9 +67,6 @@ export class UserDataService {
                 userId
             );
             console.log(userId, blogId, toSave);
-            // console.log("save: ", toSave);
-            // console.log([...userData.savedArticles.filter((i) => i != blogId)]);
-            // console.log([...userData.savedArticles, blogId]);
             return await this.databases.updateDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionUsersId,
@@ -85,8 +83,6 @@ export class UserDataService {
     };
 
     likeBlog = async (blogId, userId, toLike) => {
-        //blogId is slug
-        console.log(blogId, userId, toLike);
         try {
             const blogInfo = await this.databases.getDocument(
                 conf.appwriteDatabaseId,
@@ -94,9 +90,6 @@ export class UserDataService {
                 blogId
             );
             if (blogInfo) {
-                console.log(blogInfo);
-                console.log([...(blogInfo?.likedBy.map((i) => i.$id) || []), userId]);
-                console.log([...blogInfo?.likedBy.map((i) => i.$id).filter((i) => i != userId)]);
                 return await this.databases.updateDocument(
                     conf.appwriteDatabaseId,
                     conf.appwriteCollectionBlogsId,

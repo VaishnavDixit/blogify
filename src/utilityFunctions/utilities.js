@@ -1,6 +1,5 @@
 import moment from "moment";
-import {enqueueSnackbar} from "notistack";
-import {useNavigate} from "react-router-dom";
+import { enqueueSnackbar } from "notistack";
 export const snackbar = (type = "success", message = "-") => {
     enqueueSnackbar(message, {
         variant: type,

@@ -6,7 +6,7 @@ import {
     SummarizeOutlined,
 } from "@mui/icons-material";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button} from "react-bootstrap";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
@@ -19,6 +19,16 @@ const Header = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [name, setName] = useState("");
+    const [personalInfo, setPersonalInfo] = useState({});
+    useEffect(() => {
+        (async () => {
+            const {providerAccessToken} = await authService.getSession();
+            console.log(providerAccessToken);
+            const userPersonalInfo = await authService.fetchGoogleUserData(providerAccessToken);
+            console.log(userPersonalInfo);
+            setPersonalInfo(userPersonalInfo);
+        })();
+    }, []);
     const signOut = async () => {
         try {
             console.log("sign out started");
@@ -38,10 +48,10 @@ const Header = () => {
     };
 
     return (
-        <div className="headerStyle d-flex align-items-center justify-content-between px-3 py-3">
-            <img src="/blogify-logo-white.svg" width={50} className="mb-2 me-1"/>
+        <div className="headerStyle d-flex align-items-center justify-content-between pe-3 ps-1 py-2">
+            <img src="/blogify-logo-white.svg" width={50} className="mb-2 me-1" />
             <h2
-                className="mainIcon josefin-sans-thin mb-0 me-auto"
+                className="mainIcon josefin-sans-thin mb-0 me-auto pointer"
                 onClick={() => navigate("/dashboard")}
             >
                 Blogify
@@ -59,38 +69,39 @@ const Header = () => {
             >
                 Create Blog
             </Button>
-            <Dropdown
-                displayButton={
-                    <Button
-                        type="button"
-                        variant="webviolet"
-                        className="btn btn-outline-webdarkblue rounded-circle accountLogo "
-                        id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                    >
-                        <PersonSharp />
-                    </Button>
-                }
-                options={[
-                    {
-                        name: "Profile",
-                        func: () => navigate("/dashboard/my-blogs"),
-                        icon: <Person2Outlined className="mb-1 me-1" />,
-                    },
-                    {
-                        name: "My Blogs",
-                        func: () => navigate("/dashboard/my-blogs"),
-                        icon: <SummarizeOutlined className="mb-1 me-1" />,
-                    },
-                    {
-                        name: "Saved Blogs",
-                        func: () => navigate("/dashboard/saved-blogs"),
-                        icon: <BookmarksOutlined className="mb-1 me-1" />,
-                    },
-                    {name: "Sign Out", func: signOut, icon: <Logout className="mb-1 me-1" />},
-                ]}
-            />
+            {personalInfo && (
+                <Dropdown
+                    displayButton={
+                        <img
+                            type="button"
+                            variant="webviolet"
+                            className="rounded-circle accountLogo pointer"
+                            id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            src={personalInfo?.picture}
+                        ></img>
+                    }
+                    options={[
+                        {
+                            name: "Profile",
+                            func: () => navigate(`/dashboard/profile/${personalInfo?.name}`),
+                            icon: <Person2Outlined className="mb-1 me-1" />,
+                        },
+                        {
+                            name: "My Blogs",
+                            func: () => navigate("/dashboard/my-blogs"),
+                            icon: <SummarizeOutlined className="mb-1 me-1" />,
+                        },
+                        {
+                            name: "Saved Blogs",
+                            func: () => navigate("/dashboard/saved-blogs"),
+                            icon: <BookmarksOutlined className="mb-1 me-1" />,
+                        },
+                        {name: "Sign Out", func: signOut, icon: <Logout className="mb-1 me-1" />},
+                    ]}
+                />
+            )}
         </div>
     );
 };

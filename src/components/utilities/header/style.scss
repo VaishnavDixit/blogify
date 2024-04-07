@@ -7,8 +7,8 @@
     position: sticky;
     top: 0;
     z-index: 8;
-    background: linear-gradient(to right, $webdarkblue, $weblightblue);
-    //designs regarding styling of the header
+    background: linear-gradient(to right, $webdarkblue, $weblightblue_t);
+    backdrop-filter: blur(6px);
     .curve {
         position: absolute;
         top: 0;
@@ -36,12 +36,11 @@
         z-index: 9;
         background: #b8eeff;
     }
-	
+
     h2 {
         z-index: 13;
         color: white;
         font-size: 2em;
-        cursor: pointer;
     }
     Button {
         font-size: 1em;
