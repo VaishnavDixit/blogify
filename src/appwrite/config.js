@@ -29,13 +29,13 @@ export class Service {
         }
     };
 
-    updatePost = async (slug, {title, featuredImage, content, status}) => {
+    updatePost = async (slug, {title, content, featuredImage, tags, publisher, description}) => {
         try {
             return await this.databases.updateDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionBlogsId,
                 slug,
-                {title, content, featuredImage, status}
+                {title, content, featuredImage, tags, publisher, description}
             );
         } catch (error) {
             console.log(error);
@@ -44,7 +44,7 @@ export class Service {
 
     deletePost = async (slug) => {
         try {
-			console.log(slug)
+            console.log(slug);
             await this.databases.deleteDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionBlogsId,

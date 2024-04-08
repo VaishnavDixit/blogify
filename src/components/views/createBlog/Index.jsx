@@ -11,13 +11,18 @@ import service from "../../../appwrite/config.js";
 import {snackbar} from "../../../utilityFunctions/utilities.js";
 import SubHeader from "../../utilities/subHeader/Index.jsx";
 import "./style.scss";
+import {useLocation} from "react-router-dom";
+import {useGetPost} from "../../../queries/blogs.js";
 
-const Index = () => {
+const Index = ({id}) => {
+    const navigate = useNavigate();
+    const location = useLocation();
     const [content, setContent] = useState("");
     const [finalImage, setFinalImage] = useState("");
     const [tags, setTags] = useState([]);
     // const userData = useSelector((state) => state.userData);
     const [selectedTags, setSelectedTags] = useState([]);
+    const {data: toEditData, isLoadingDat} = useGetPost(location?.state?.id || "");
     useEffect(() => {
         (async () => {
             const res = await service.getTags();
@@ -25,10 +30,19 @@ const Index = () => {
             setTags(res.documents);
         })();
     }, []);
+    useEffect(() => {
+        console.log(toEditData);
+        setSelectedTags(location?.state?.id ? toEditData?.tags?.map((item) => item.name) : []);
+        setContent(location?.state?.id ? toEditData?.content : []);
+        setFinalImage(
+            location?.state?.id && toEditData
+                ? service.getImgPreview(toEditData?.featuredImage)
+                : ""
+        );
+    }, [toEditData]);
     const onchange = (d) => {
         setContent(d);
     };
-    const navigate = useNavigate();
     const uploadImage = async (e) => {
         const file = e.target.files[0];
         const imgsize = file.size / 1024 <= 500;
@@ -68,12 +82,13 @@ const Index = () => {
     const handleClickTag = (tagId) => {
         // tag id is same as tag name currently.
         setSelectedTags((prev) =>
-            prev.length && prev.findIndex((i) => i == tagId) != -1
+            prev && prev.length && prev.findIndex((i) => i == tagId) != -1
                 ? [...prev.filter((t) => t != tagId)]
                 : [...prev, tagId]
         );
     };
     const submitBlog = async ({title, featuredImage, description}) => {
+		console.log({title, featuredImage, description})
         if (!title || !featuredImage || content == "") {
             alert("invalid submission");
         }
@@ -86,10 +101,28 @@ const Index = () => {
             .replace(/\s+/g, "-") // replace spaces with hyphens
             .replace(/-+/g, "-") // remove consecutive hyphens
             .substring(0, 16)
-            .trim();
+            
 
         const publisher = JSON.parse(localStorage.getItem("userData")).$id;
         const uploadedFile = await service.uploadFile(featuredImage[0]);
+        if (id) {
+            service
+                .updatePost(slug, {
+                    title,
+                    description,
+                    featuredImage: id,
+                    content,
+                    publisher,
+                    tags: selectedTags,
+                })
+                .then((res) => {
+                    reset({title: "", description: ""});
+                    setFinalImage("");
+                    setContent("");
+                    snackbar("success", "Successfully Updated");
+                    navigate(`/dashboard/view/${slug}`);
+                });
+        }
         if (uploadedFile) {
             const id = uploadedFile.$id;
             service
@@ -124,7 +157,8 @@ const Index = () => {
                                 className="form-control titleInput"
                                 type="text"
                                 placeholder="Enter Title"
-                                rows={1}
+                                rows={3}
+                                defaultValue={toEditData ? toEditData.title : undefined}
                                 {...register("title", {required: true})}
                             />
                             {errors && errors.title}
@@ -136,6 +170,7 @@ const Index = () => {
                                         key={index + 1}
                                         className="me-2 my-1 py-1 rounded-pill"
                                         variant={
+                                            selectedTags &&
                                             selectedTags.length &&
                                             selectedTags.findIndex((i) => i == tag.$id) != -1
                                                 ? "primary"
@@ -153,6 +188,7 @@ const Index = () => {
                                 type="text"
                                 placeholder="Description"
                                 rows={3}
+                                defaultValue={toEditData ? toEditData.description : undefined}
                                 {...register("description", {required: true})}
                             />
                             {errors && errors.title}
@@ -161,7 +197,7 @@ const Index = () => {
                             <label className="imageInputLabel d-flex align-items-center justify-content-center">
                                 {finalImage ? (
                                     <>
-                                        <img src={finalImage} />
+                                        <img src={finalImage} defaultValue={finalImage} />
                                         <CancelOutlined
                                             className="cancelIcon"
                                             onClick={handleOnClickCancelImage}
@@ -202,7 +238,7 @@ const Index = () => {
                         </Col>
                         <Col className="d-flex justify-content-center">
                             <Button variant="webdarkblue" type="submit">
-                                Submit Blog
+                                {location?.state?.id ? "Update" : "Submit"} Blog
                             </Button>
                             <Button className="btn btn-outlined ms-2" variant="webpinkred">
                                 Cancel

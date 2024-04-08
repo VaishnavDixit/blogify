@@ -26,7 +26,13 @@ const Index = () => {
     const handleDeleteBlog = async (id) => {
         mutateAsync(id);
     };
-	
+
+    const handleEditBlog = async (id) => {
+        navigate("/dashboard/create-blog", {
+            state: {id: id},
+        });
+    };
+
     const handleOnClickPost = (slug) => {
         console.log(slug);
         navigate(`/dashboard/view/${slug}`);
@@ -82,10 +88,13 @@ const Index = () => {
                                                 />
                                             }
                                             options={[
-                                                {name: "Edit", func: () => alert("edit")},
                                                 {
                                                     name: "Delete",
                                                     func: () => handleDeleteBlog(post.$id),
+                                                },
+                                                {
+                                                    name: "Edit",
+                                                    func: () => handleEditBlog(post.$id),
                                                 },
                                             ]}
                                         />
