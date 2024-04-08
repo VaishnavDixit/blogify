@@ -13,23 +13,19 @@ import SubHeader from "../../utilities/subHeader/Index.jsx";
 import "./style.scss";
 import {useLocation} from "react-router-dom";
 import {useGetPost} from "../../../queries/blogs.js";
+import {useGetTags} from "../../../queries/tags.js";
+import { TagsListLoader } from "../../utilities/loadingScreens/Index.jsx";
 
 const Index = ({id}) => {
     const navigate = useNavigate();
     const location = useLocation();
     const [content, setContent] = useState("");
     const [finalImage, setFinalImage] = useState("");
-    const [tags, setTags] = useState([]);
     // const userData = useSelector((state) => state.userData);
     const [selectedTags, setSelectedTags] = useState([]);
     const {data: toEditData, isLoadingDat} = useGetPost(location?.state?.id || "");
-    useEffect(() => {
-        (async () => {
-            const res = await service.getTags();
-            console.log(res);
-            setTags(res.documents);
-        })();
-    }, []);
+    const {data: tags, isLoading: isLoadingTags} = useGetTags();
+
     useEffect(() => {
         console.log(toEditData);
         setSelectedTags(location?.state?.id ? toEditData?.tags?.map((item) => item.name) : []);
@@ -88,7 +84,7 @@ const Index = ({id}) => {
         );
     };
     const submitBlog = async ({title, featuredImage, description}) => {
-		console.log({title, featuredImage, description})
+        console.log({title, featuredImage, description});
         if (!title || !featuredImage || content == "") {
             alert("invalid submission");
         }
@@ -100,8 +96,7 @@ const Index = ({id}) => {
             .replace(/[^a-z0-9 -]/g, "") // remove non-alphanumeric characters
             .replace(/\s+/g, "-") // replace spaces with hyphens
             .replace(/-+/g, "-") // remove consecutive hyphens
-            .substring(0, 16)
-            
+            .substring(0, 16);
 
         const publisher = JSON.parse(localStorage.getItem("userData")).$id;
         const uploadedFile = await service.uploadFile(featuredImage[0]);
@@ -164,8 +159,11 @@ const Index = ({id}) => {
                             {errors && errors.title}
                         </Col>
                         <Col sm={12} md={12} xs={12} className="mb-3">
-                            {tags &&
-                                tags?.map((tag, index) => (
+                            {isLoadingTags ? (
+                                <TagsListLoader />
+                            ) : (
+                                tags &&
+                                tags?.documents?.map((tag, index) => (
                                     <Button
                                         key={index + 1}
                                         className="me-2 my-1 py-1 rounded-pill"
@@ -180,7 +178,8 @@ const Index = ({id}) => {
                                     >
                                         {tag.name}
                                     </Button>
-                                ))}
+                                ))
+                            )}
                         </Col>
                         <Col sm={12} xs={12} className="mb-3">
                             <textarea

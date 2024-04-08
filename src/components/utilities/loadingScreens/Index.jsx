@@ -22,40 +22,7 @@ export const ViewBlogLoader = () => (
                 height: "250px",
             }}
         />
-        <div className="d-flex justify-content-start">
-            <Skeleton
-                style={{
-                    width: "110px",
-                    height: "30px",
-                    borderRadius: "15px",
-                    marginRight: "6px",
-                }}
-            />
-            <Skeleton
-                style={{
-                    width: "70px",
-                    height: "30px",
-                    borderRadius: "15px",
-                    marginRight: "6px",
-                }}
-            />
-            <Skeleton
-                style={{
-                    width: "80px",
-                    height: "30px",
-                    borderRadius: "15px",
-                    marginRight: "6px",
-                }}
-            />
-            <Skeleton
-                style={{
-                    width: "60px",
-                    height: "30px",
-                    borderRadius: "15px",
-                    marginRight: "6px",
-                }}
-            />
-        </div>
+        <TagsListLoader/>
         <Skeleton
             style={{
                 width: "60%",
@@ -144,5 +111,42 @@ export const BlogsListLoader = () => (
         <div style={{width: "30%", padding: "0px 0px 0px 5%"}}>
             <Skeleton style={{height: "126px"}} />
         </div>
+    </div>
+);
+
+export const TagsListLoader = (count) => (
+    <div className="d-flex justify-content-start">
+        <Skeleton
+            style={{
+                width: "110px",
+                height: "30px",
+                borderRadius: "15px",
+                marginRight: "6px",
+            }}
+        />
+        <Skeleton
+            style={{
+                width: "70px",
+                height: "30px",
+                borderRadius: "15px",
+                marginRight: "6px",
+            }}
+        />
+        <Skeleton
+            style={{
+                width: "80px",
+                height: "30px",
+                borderRadius: "15px",
+                marginRight: "6px",
+            }}
+        />
+        <Skeleton
+            style={{
+                width: "60px",
+                height: "30px",
+                borderRadius: "15px",
+                marginRight: "6px",
+            }}
+        />
     </div>
 );
