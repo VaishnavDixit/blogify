@@ -92,10 +92,10 @@ const Index = () => {
                                                     name: "Delete",
                                                     func: () => handleDeleteBlog(post.$id),
                                                 },
-                                                {
-                                                    name: "Edit",
-                                                    func: () => handleEditBlog(post.$id),
-                                                },
+                                                // {
+                                                //     name: "Edit",
+                                                //     func: () => handleEditBlog(post.$id),
+                                                // }, TODO
                                             ]}
                                         />
                                     </span>

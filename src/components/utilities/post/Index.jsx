@@ -1,25 +1,25 @@
 import {
-	BookmarkBorderSharp,
-	BookmarkRemoveSharp,
-	Lens,
-	MoreHorizRounded,
-	Person,
+    BookmarkBorderSharp,
+    BookmarkRemoveSharp,
+    Lens,
+    MoreHorizRounded,
+    Person,
 } from "@mui/icons-material";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
-import React, { useEffect, useState } from "react";
-import { Col } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Col} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 import authService from "../../../appwrite/auth.js";
 import service from "../../../appwrite/config.js";
 import userDataService from "../../../appwrite/userData.js";
 import Dropdown from "../dropdown/Index.jsx";
 import "./style.scss";
 
-import { dateFormat, snackbar } from "../../../utilityFunctions/utilities.js";
-const Post = ({post}) => {
-    const {title, content, description, featuredImage, publisher, $id, $createdAt, tags, savedBy} =
-        post;
+import {dateFormat, snackbar} from "../../../utilityFunctions/utilities.js";
+const Post = ({
+    post: {title, content, description, featuredImage, publisher, $id, $createdAt, tags, savedBy},
+}) => {
     const [saved, setSaved] = useState(false);
     const [curUser, setCurUser] = useState({});
     useEffect(() => {
@@ -54,10 +54,13 @@ const Post = ({post}) => {
     };
 
     return (
-        <Col sm={12} xs={12} className="px-4">
+        <Col sm={12} xs={12} className="">
             <div className="py-3 d-flex justify-content-between post">
                 <div className="textContent">
-                    <h3 className="josefin-sans-bolder line-wrap3 pointer" onClick={handleOnClickPost}>
+                    <h3
+                        className="josefin-sans-bolder line-wrap3 pointer"
+                        onClick={handleOnClickPost}
+                    >
                         {title}
                     </h3>
                     <div

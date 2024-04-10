@@ -48,20 +48,15 @@ const Header = () => {
     };
 
     return (
-        <div className="headerStyle d-flex align-items-center justify-content-between pe-3 ps-1 py-2">
-            <img src="/blogify-logo-white.svg" width={50} className="mb-2 me-1" />
+        <div className="headerStyle d-flex align-items-center justify-content-between pe-3 ps-2 py-2">
+            <img src="/blogify-logo-white.svg" width={45} className="m-2" />
             <h2
                 className="mainIcon josefin-sans-thin mb-0 me-auto pointer"
                 onClick={() => navigate("/dashboard")}
             >
                 Blogify
             </h2>
-            {/* 
-			this style to be decided
-			<div className="curve curve1 "/>
-			<div className="curve curve2 d-none d-md-block"/>
-			<div className="curve curve3 d-none d-md-block"/>
-			<div className="curve curve4 d-none d-md-block"/> */}
+            {/* <span>{JSON.stringify(personalInfo)}</span> */}
             <Button
                 onClick={() => navigate("/dashboard/create-blog")}
                 className="me-3 rounded-pill"
@@ -80,6 +75,7 @@ const Header = () => {
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                             src={personalInfo?.picture}
+                            alt="pfp"
                         ></img>
                     }
                     options={[

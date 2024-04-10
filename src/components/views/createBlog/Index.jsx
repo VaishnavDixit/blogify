@@ -14,20 +14,20 @@ import "./style.scss";
 import {useLocation} from "react-router-dom";
 import {useGetPost} from "../../../queries/blogs.js";
 import {useGetTags} from "../../../queries/tags.js";
-import { TagsListLoader } from "../../utilities/loadingScreens/Index.jsx";
+import {TagsListLoader} from "../../utilities/loadingScreens/Index.jsx";
 
-const Index = ({id}) => {
+const Index = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [content, setContent] = useState("");
     const [finalImage, setFinalImage] = useState("");
-    // const userData = useSelector((state) => state.userData);
     const [selectedTags, setSelectedTags] = useState([]);
-    const {data: toEditData, isLoadingDat} = useGetPost(location?.state?.id || "");
+    const {data: toEditData, isLoadingData} = useGetPost(location?.state?.id || "");
     const {data: tags, isLoading: isLoadingTags} = useGetTags();
-
     useEffect(() => {
         console.log(toEditData);
+        if (!toEditData) return;
+        console.log(service.getImgPreview(toEditData?.featuredImage));
         setSelectedTags(location?.state?.id ? toEditData?.tags?.map((item) => item.name) : []);
         setContent(location?.state?.id ? toEditData?.content : []);
         setFinalImage(
@@ -36,21 +36,26 @@ const Index = ({id}) => {
                 : ""
         );
     }, [toEditData]);
+
     const onchange = (d) => {
         setContent(d);
     };
+
     const uploadImage = async (e) => {
         const file = e.target.files[0];
+        console.log(file);
         const imgsize = file.size / 1024 <= 500;
         const imgType = file.name.match(/\.(jpg|jpeg|png)$/);
         if (imgsize && imgType) {
             const base64 = await convertBase64(file);
+            console.log(base64);
             setFinalImage(base64);
         } else {
-            if (!imgsize) alert("The image size should be less than 500KB");
-            if (!imgType) alert("The File Type should be in jpg ,jpeg ,png");
+            if (!imgsize) snackbar("error", "The image size should be less than 500KB");
+            if (!imgType) snackbar("error", "The File Type should be in jpg ,jpeg or png");
         }
     };
+
     const convertBase64 = (file) => {
         return new Promise((resolve, reject) => {
             const fileReader = new FileReader();
@@ -64,10 +69,12 @@ const Index = ({id}) => {
             };
         });
     };
+
     const handleOnClickCancelImage = (e) => {
         e.preventDefault();
         setFinalImage("");
     };
+
     const {
         register,
         handleSubmit,
@@ -75,49 +82,35 @@ const Index = ({id}) => {
         reset,
         formState: {errors},
     } = useForm();
+
     const handleClickTag = (tagId) => {
-        // tag id is same as tag name currently.
         setSelectedTags((prev) =>
             prev && prev.length && prev.findIndex((i) => i == tagId) != -1
                 ? [...prev.filter((t) => t != tagId)]
                 : [...prev, tagId]
         );
     };
+
     const submitBlog = async ({title, featuredImage, description}) => {
         console.log({title, featuredImage, description});
         if (!title || !featuredImage || content == "") {
             alert("invalid submission");
         }
+
         const slug = title
-            .normalize("NFKD") // split accented characters into their base characters and diacritical marks
-            .replace(/[\u0300-\u036f]/g, "") // remove all the accents, which happen to be all in the \u03xx UNICODE block.
-            .trim() // trim leading or trailing whitespace
-            .toLowerCase() // convert to lowercase
-            .replace(/[^a-z0-9 -]/g, "") // remove non-alphanumeric characters
-            .replace(/\s+/g, "-") // replace spaces with hyphens
-            .replace(/-+/g, "-") // remove consecutive hyphens
+            .normalize("NFKD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .trim()
+            .toLowerCase()
+            .replace(/[^a-z0-9 -]/g, "")
+            .replace(/\s+/g, "-")
+            .replace(/-+/g, "-")
             .substring(0, 16);
 
         const publisher = JSON.parse(localStorage.getItem("userData")).$id;
+        console.log(featuredImage[0]);
         const uploadedFile = await service.uploadFile(featuredImage[0]);
-        if (id) {
-            service
-                .updatePost(slug, {
-                    title,
-                    description,
-                    featuredImage: id,
-                    content,
-                    publisher,
-                    tags: selectedTags,
-                })
-                .then((res) => {
-                    reset({title: "", description: ""});
-                    setFinalImage("");
-                    setContent("");
-                    snackbar("success", "Successfully Updated");
-                    navigate(`/dashboard/view/${slug}`);
-                });
-        }
+        
         if (uploadedFile) {
             const id = uploadedFile.$id;
             service
@@ -140,14 +133,49 @@ const Index = ({id}) => {
             console.log("not uploaded :/");
         }
     };
+    const submitBlogUpdated = async ({title, featuredImage, description}) => {
+		console.log('update fn')
+        console.log({title, featuredImage, description});
+        if (!title || !featuredImage || content == "") {
+            alert("invalid submission");
+        }
+        var arr = finalImage.split(","),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]),
+            n = bstr.length,
+            u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        const file = new File([u8arr], "filename", {type: mime});
+        const uploadedFile = await service.uploadFile(file);
 
+        service
+            .updatePost(slug, {
+                title,
+                description,
+                featuredImage: uploadedFile?.$id,
+                content,
+                publisher,
+                tags: selectedTags,
+            })
+            .then((res) => {
+                reset({title: "", description: ""});
+                setFinalImage("");
+                setContent("");
+                snackbar("success", "Successfully Updated");
+                navigate(`/dashboard/view/${slug}`);
+            });
+    };
     return (
         <>
             <SubHeader text={"Create a blog"} />
+            {JSON.stringify(finalImage)}
             <Container className="createBlogPage">
-                <form onSubmit={handleSubmit(submitBlog)}>
+                <form onSubmit={handleSubmit(location.state?.id ? submitBlogUpdated : submitBlog)}>
                     <Row>
                         <Col sm={12} xs={12} className="mb-3">
+			
                             <textarea
                                 className="form-control titleInput"
                                 type="text"
@@ -211,6 +239,7 @@ const Index = ({id}) => {
                                 <input
                                     className="form-control d-none"
                                     type="file"
+                                    defaultValue={finalImage}
                                     {...register("featuredImage", {
                                         onChange: (e) => {
                                             uploadImage(e);
