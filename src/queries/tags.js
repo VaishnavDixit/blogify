@@ -6,3 +6,9 @@ export const useGetTags = () =>
         queryKey: ["getTags"],
         queryFn: () => service.getTags().then((res) => res),
     });
+
+export const useGetTag = (id) =>
+    useQuery({
+        queryKey: ["getTag"],
+        queryFn: () => service.getTag(id).then((res) => res),
+    });

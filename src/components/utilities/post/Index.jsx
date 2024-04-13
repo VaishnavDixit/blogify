@@ -15,8 +15,8 @@ import service from "../../../appwrite/config.js";
 import userDataService from "../../../appwrite/userData.js";
 import Dropdown from "../dropdown/Index.jsx";
 import "./style.scss";
+import {dateFormat, handleClickTag, snackbar} from "../../../utilityFunctions/utilities.js";
 
-import {dateFormat, snackbar} from "../../../utilityFunctions/utilities.js";
 const Post = ({
     post: {title, content, description, featuredImage, publisher, $id, $createdAt, tags, savedBy},
 }) => {
@@ -26,7 +26,6 @@ const Post = ({
         (async () => {
             const curUser = await authService.getCurrentUser();
             setCurUser(curUser);
-            console.log(savedBy);
             savedBy?.map(({$id}) => {
                 if ($id == curUser.$id) setSaved(true);
             });
@@ -54,7 +53,7 @@ const Post = ({
     };
 
     return (
-        <Col sm={12} xs={12} className="">
+        <Col sm={12} xs={12} className="px-0">
             <div className="py-3 d-flex justify-content-between post">
                 <div className="textContent">
                     <h3
@@ -70,10 +69,11 @@ const Post = ({
                         {description}
                     </div>
                     <div className="d-flex flex-wrap tagsSection">
-                        {tags?.map((tag, index) => (
+                        {tags && tags?.map((tag, index) => (
                             <div
                                 key={index + 1}
                                 className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans pointer"
+                                onClick={()=>handleClickTag(tag, navigate)}
                             >
                                 {tag.name}
                             </div>

@@ -4,16 +4,20 @@ import "./style.scss";
 import {useGetPosts} from "../../../queries/blogs";
 import {useNavigate} from "react-router";
 import Skeleton from "react-loading-skeleton";
-import { TrendingPageLoader } from "../loadingScreens/Index";
-
+import {TrendingPageLoader} from "../loadingScreens/Index";
+import {useQueryClient} from "@tanstack/react-query";
 const DiscoverOtherTopics = () => {
+    const queryClient = useQueryClient();                                                                
     const {data: posts, isLoading} = useGetPosts();
     const [trending, setTrending] = useState([]);
     const navigate = useNavigate();
 
     const handleOnClickPost = (id) => {
+		queryClient.invalidateQueries('getPosts')
+		queryClient.invalidateQueries('getTags')
         navigate(`/dashboard/view/${id}`);
     };
+
     useEffect(() => {
         if (posts) {
             let list = posts?.documents?.sort((a, b) => b.likedBy.length - a.likedBy.length);
@@ -26,6 +30,7 @@ const DiscoverOtherTopics = () => {
             setTrending(list);
         }
     }, [posts]);
+	
     return (
         <div className="discoverOthersStyle py-2">
             <h5 className="josefin-sans-thin text-center mb-3">Trending 🔥</h5>
@@ -48,7 +53,5 @@ const DiscoverOtherTopics = () => {
         </div>
     );
 };
-
-
 
 export default DiscoverOtherTopics;

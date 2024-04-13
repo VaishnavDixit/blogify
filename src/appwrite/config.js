@@ -1,6 +1,5 @@
+import {Client, Databases, ID, Query, Storage} from "appwrite";
 import conf from "../conf/conf.js";
-import {Client, Account, ID, Databases, Storage, Query} from "appwrite";
-
 //it's just database service
 export class Service {
     client;
@@ -74,6 +73,8 @@ export class Service {
     //has query in this
     getPosts = async (queries = []) => {
         // we only want active blogs
+        console.log(queries);
+        console.log([...queries, Query.orderDesc("$createdAt")]);
         try {
             return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
@@ -115,7 +116,19 @@ export class Service {
             return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionTagsId,
-                []
+                [Query.limit(100)]
+            );
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    getTag = async (id) => {
+        try {
+            return await this.databases.getDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionTagsId,
+                id
             );
         } catch (error) {
             console.log(error);

@@ -42,7 +42,7 @@ const Index = () => {
                             </Row>
                         </Container>
                     </Col>
-                    <Col md={8} sm={12} xs={12}>
+                    <Col md={8} sm={12} xs={12} className="ps-3">
                         {isLoading ? (
                             <>
                                 <BlogsListLoader />

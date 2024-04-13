@@ -16,7 +16,7 @@ const queryClient = new QueryClient();
 function App() {
     return (
         <QueryClientProvider client={queryClient}>
-            <SnackbarProvider dense={true} autoHideDuration={2000}>
+            <SnackbarProvider dense={true} autoHideDuration={2000} >
                 <BrowserRouter>
                     <Routes>
                         <Route index element={<LandingPage />} />

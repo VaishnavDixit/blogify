@@ -1,27 +1,28 @@
 import {
-	BookmarkBorderSharp,
-	BookmarkRemoveSharp,
-	Favorite,
-	FavoriteBorderSharp,
-	Lens,
-	MoreHorizRounded,
-	Person,
+    BookmarkBorderSharp,
+    BookmarkRemoveSharp,
+    Favorite,
+    FavoriteBorderSharp,
+    Lens,
+    MoreHorizRounded,
+    Person,
 } from "@mui/icons-material";
-import React, { useEffect, useState } from "react";
-import { Container, Row } from "react-bootstrap";
+import React, {useEffect, useState} from "react";
+import {Container, Row} from "react-bootstrap";
 import "react-image-crop/src/ReactCrop.scss";
 import Skeleton from "react-loading-skeleton";
-import { useNavigate, useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import authService from "../../../appwrite/auth.js";
 import service from "../../../appwrite/config.js";
 import userDataService from "../../../appwrite/userData.js";
-import { dateFormat, snackbar } from "../../../utilityFunctions/utilities.js";
+import {dateFormat, handleClickTag, snackbar} from "../../../utilityFunctions/utilities.js";
 import Dropdown from "../../utilities/dropdown/Index.jsx";
-import { ViewBlogLoader } from "../../utilities/loadingScreens/Index.jsx";
+import {ViewBlogLoader} from "../../utilities/loadingScreens/Index.jsx";
 import SubHeader from "../../utilities/subHeader/Index.jsx";
 import "./style.scss";
 
-import { useDeleteBlog, useGetPost, useGetPosts } from "../../../queries/blogs.js";
+import {useDeleteBlog, useGetPost, useGetPosts} from "../../../queries/blogs.js";
+import {useGetCurrentUser} from "../../../queries/auth.js";
 
 const Index = () => {
     const params = useParams();
@@ -38,29 +39,26 @@ const Index = () => {
             state: {userId: userInfo?.$id},
         });
     };
-    const {data, refetch, isLoading} = useGetPost(params?.slug);
-    console.log(data);
+    const {data: currentPost, refetch: refetchPost, isLoading} = useGetPost(params?.slug);
+    const {data: currentUserAuth} = useGetCurrentUser();
     const {refetch: refetchGetPosts} = useGetPosts();
     const {mutateAsync, isSuccess} = useDeleteBlog(refetchGetPosts);
-    useEffect(() => {
-        (async () => {
-            setImage(data?.featuredImage);
-            const curUser = await authService.getCurrentUser();
-            setUserInfo(curUser);
-            data &&
-                data.savedBy?.map(({$id}) => {
-                    if ($id == curUser.$id) setSaved(true);
-                });
-            data &&
-                data.likedBy?.map((likingUser) => {
-                    if (likingUser.$id == curUser.$id) setLiked(true);
-                });
-            setLikeCount(data && data?.likedBy.length);
-        })();
-    }, [data]);
 
     useEffect(() => {
-        refetch();
+        setImage(currentPost?.featuredImage);
+        currentPost &&
+            currentPost.savedBy?.map(({$id}) => {
+                if ($id == currentUserAuth.$id) setSaved(true);
+            });
+        currentPost &&
+            currentPost.likedBy?.map((likingUser) => {
+                if (likingUser.$id == currentUserAuth.$id) setLiked(true);
+            });
+        setLikeCount(currentPost && currentPost?.likedBy.length);
+    }, [currentUserAuth, currentPost]);
+
+    useEffect(() => {
+        refetchPost();
     }, [liked]);
 
     const handleSaveBlog = async () => {
@@ -83,9 +81,9 @@ const Index = () => {
     };
 
     const handleDeleteBlog = () => {
-        console.log(data);
+        console.log(currentPost);
         mutateAsync(params?.slug);
-		
+
         navigate("/dashboard/my-blogs");
     };
 
@@ -97,8 +95,10 @@ const Index = () => {
                     <ViewBlogLoader />
                 ) : (
                     <Row className="pt-3">
-                        <h2 className="josefin-sans-bolder mt-3">{data?.title}</h2>
-                        {data?.description && <div className="my-3">{data?.description}</div>}
+                        <h2 className="josefin-sans-bolder mt-3">{currentPost?.title}</h2>
+                        {currentPost?.description && (
+                            <div className="my-3">{currentPost?.description}</div>
+                        )}
                         {image ? (
                             <img src={service.getImgPreview(image) || ""} className="mt-3" />
                         ) : null}
@@ -106,10 +106,12 @@ const Index = () => {
                             <p className="mb-0 text-truncate " onClick={handleOnClickName}>
                                 <Person className="mb-2 me-1" style={{fontSize: "2em"}} />
                                 <span className="hover-underline josefin-sans">
-                                    {data && data?.publisher?.name}
+                                    {currentPost && currentPost?.publisher?.name}
                                 </span>
                                 <Lens className="mx-1 mb-1" style={{fontSize: ".3em"}} />
-                                <span className="josefin-sans">{dateFormat(data?.$createdAt)}</span>
+                                <span className="josefin-sans">
+                                    {dateFormat(currentPost?.$createdAt)}
+                                </span>
                             </p>
                             <div className="d-flex justify-content-end align-items-center">
                                 {liked ? (
@@ -142,7 +144,7 @@ const Index = () => {
                                         />
                                     }
                                     options={
-                                        userInfo?.$id === data?.publisher?.$id
+                                        userInfo?.$id === currentPost?.publisher?.$id
                                             ? [
                                                   {name: "Report", func: () => alert("reported!")},
                                                   {name: "Test", func: () => alert("test 123 ;)!")},
@@ -163,10 +165,11 @@ const Index = () => {
                             {isLoading ? (
                                 <SkeletonLoader />
                             ) : (
-                                data?.tags?.map((tag, index) => (
+                                currentPost?.tags?.map((tag, index) => (
                                     <div
                                         key={index + 1}
                                         className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans"
+                                        onClick={() => handleClickTag(tag, navigate)}
                                     >
                                         {tag.name}
                                     </div>
@@ -175,7 +178,7 @@ const Index = () => {
                         </div>
                         <div
                             className="mt-2 content"
-                            dangerouslySetInnerHTML={{__html: data?.content}}
+                            dangerouslySetInnerHTML={{__html: currentPost?.content}}
                         ></div>
                     </Row>
                 )}

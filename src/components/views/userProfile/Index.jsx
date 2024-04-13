@@ -7,7 +7,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import authService from "../../../appwrite/auth.js";
 import service from "../../../appwrite/config.js";
 import userDataService from "../../../appwrite/userData.js";
-import {dateFormat} from "../../../utilityFunctions/utilities.js";
+import {dateFormat, handleClickTag} from "../../../utilityFunctions/utilities.js";
 import "./style.scss";
 
 const Index = () => {
@@ -91,6 +91,7 @@ const Index = () => {
                             <div
                                 key={index + 1}
                                 className=" tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans"
+								onClick={()=>handleClickTag(tag, navigate)}
                             >
                                 {tag.name}
                             </div>

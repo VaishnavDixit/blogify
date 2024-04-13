@@ -1,27 +1,40 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Col, Container, Row} from "react-bootstrap";
+import Skeleton from "react-loading-skeleton";
+import {useLocation, useParams} from "react-router-dom";
 import {useGetCurrentUser} from "../../../queries/auth.js";
 import {useGetPosts} from "../../../queries/blogs.js";
+import {useGetTag} from "../../../queries/tags.js";
 import DiscoverOtherTopics from "../../utilities/discoverOtherTopics/Index.jsx";
 import FeaturesPanel from "../../utilities/featuresPanel/Index.jsx";
-import {useParams} from "react-router-dom";
 import {BlogsListLoader} from "../../utilities/loadingScreens/Index.jsx";
 import Post from "../../utilities/post/Index.jsx";
 import SubHeader from "../../utilities/subHeader/Index.jsx";
+
 import "./style.scss";
-import {Add, PlusOne} from "@mui/icons-material";
-import Skeleton from "react-loading-skeleton";
 
 const Index = () => {
-    const {data: posts, isLoading} = useGetPosts();
-    const {data: curUser, isLoading: isLoadingGetCurUser} = useGetCurrentUser();
-    const params = useParams();
+    console.log("page reload");
+    const location = useLocation();
+
+    const {
+        data: tagInfo,
+        isloading: isloadingTagInfo,
+        refetch,
+        isFetching,
+    } = useGetTag(location && location.state.id);
+
+    useEffect(() => {
+        console.log("refetching...");
+        refetch();
+    }, [location?.state?.id]);
+
     return (
         <>
-            <SubHeader text={``} backButton={false} />
+            {/* <SubHeader text={``} backButton={false} /> */}
             <Container>
                 <Row>
-                    <Col md={4} className="d-none d-md-inline-block pe-0 leftCol">
+                    <Col md={4} className="d-none d-md-inline-block pe-0 mt-5 leftCol">
                         <Container fluid>
                             <Row>
                                 <Col sm={12} className="mb-4">
@@ -34,28 +47,42 @@ const Index = () => {
                         </Container>
                     </Col>
                     <Col md={8} sm={12} xs={12}>
-                        {isLoading ? (
+                        {isloadingTagInfo || isFetching ? (
                             <TagPageLoader />
                         ) : (
-                            <div className="mainContent ps-md-0 ps-sm-0 container-fluid">
-                                <Row className="tagInfoSection pb-5">
-                                    <Col sm={12} xs={12}>
-                                        <h1 className="josefin-sans-bolder tagName">Music</h1>
-                                        <p className="josefin-sans-thin tagInfo">
-                                            12k followers, 103 blogs
-                                        </p>
-                                        <Button
-                                            variant="grey"
-                                            className="rounded-pill px-4 followBtn"
-                                        >
-                                            Follow
-                                        </Button>
+                            <div className="mainContent ps-md-0 ps-sm-0 container-fluid mt-3">
+                                <Row
+                                    className="tagInfoSection px-4 pb-3 mb-4"
+                                    style={{
+                                        backgroundImage: "url('https://picsum.photos/650/200')",
+                                        height: "200px",
+                                    }}
+                                >
+                                    <Col
+                                        sm={12}
+                                        xs={12}
+                                        className="contentCol d-flex flex-column justify-content-end"
+                                    >
+                                        <h3 className="josefin-sans-bold tagName mb-1 text-center text-md-start">
+                                            {tagInfo && tagInfo?.name}
+                                        </h3>
+                                        <div className="d-flex flex-column flex-md-row align-items-center">
+                                            <p className="josefin-sans-thin tagInfo mb-0">
+                                                12k followers, {tagInfo &&
+                                        tagInfo.articles?.length} blogs
+                                            </p>
+                                            <Button
+                                                className="rounded-pill px-4 followBtn ms-3"
+                                                variant="outline-grey"
+                                            >
+                                                Follow
+                                            </Button>
+                                        </div>
                                     </Col>
                                 </Row>
-                                <Row>
-                                    {posts &&
-                                        posts?.documents &&
-                                        posts?.documents?.map((post, index) => (
+                                <Row className="postsContent">
+                                    {tagInfo &&
+                                        tagInfo.articles.map((post, index) => (
                                             <Post key={index + 1} post={post} />
                                         ))}
                                 </Row>

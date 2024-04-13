@@ -1,18 +1,16 @@
 @import "../../../custom.scss";
-
+* {
+    // outline: 1px solid lightgrey;
+}
 .featuresPanelStyle {
     width: 100%;
     background: white;
     border-radius: 4px;
-    overflow: auto;
-    // .showText,
-    // .clearText {
-    //     &:hover {
-    //         text-decoration: underline;
-    //         cursor: pointer;
-    //     }
-    // }
-	.border-rounded{
-		border-radius: 16px !important;
-	}
+    .tagsDiv {
+        overflow: auto;
+        height: 300px;
+    }
+    .border-rounded {
+        border-radius: 16px !important;
+    }
 }

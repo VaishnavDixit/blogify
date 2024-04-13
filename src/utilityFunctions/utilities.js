@@ -1,5 +1,7 @@
 import moment from "moment";
-import { enqueueSnackbar } from "notistack";
+import {enqueueSnackbar} from "notistack";
+import {useNavigate} from "react-router-dom";
+
 export const snackbar = (type = "success", message = "-") => {
     enqueueSnackbar(message, {
         variant: type,
@@ -22,3 +24,9 @@ export const dateFormat = (date) =>
         lastWeek: "[Last] ddd, h:mm a",
         sameElse: "D MMMM, YY",
     });
+
+export const handleClickTag = async (tag, navigate) => {
+    navigate(`/dashboard/tag/${tag?.name}`, {
+        state: {id: tag?.$id},
+    });
+};
