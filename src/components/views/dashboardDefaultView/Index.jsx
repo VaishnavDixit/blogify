@@ -24,7 +24,7 @@ const Index = () => {
             />
             <Container>
                 <Row>
-                    <Col md={4} className="d-none d-md-inline-block pe-0 leftCol">
+                    <Col md={4} className="d-none d-md-inline-block pe-2 leftCol">
                         <Container fluid>
                             <Row>
                                 <Col sm={12} className="mb-4">
@@ -42,7 +42,7 @@ const Index = () => {
                             </Row>
                         </Container>
                     </Col>
-                    <Col md={8} sm={12} xs={12} className="ps-3">
+                    <Col md={8} sm={12} xs={12} className="ps-4">
                         {isLoading ? (
                             <>
                                 <BlogsListLoader />

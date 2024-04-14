@@ -46,11 +46,11 @@ const Index = () => {
                             </Row>
                         </Container>
                     </Col>
-                    <Col md={8} sm={12} xs={12}>
+                    <Col md={8} sm={12} xs={12} className="mt-3">
                         {isloadingTagInfo || isFetching ? (
                             <TagPageLoader />
                         ) : (
-                            <div className="mainContent ps-md-0 ps-sm-0 container-fluid mt-3">
+                            <div className="mainContent ps-md-0 ps-sm-0 container-fluid ">
                                 <Row
                                     className="tagInfoSection px-4 pb-3 mb-4"
                                     style={{
@@ -63,13 +63,13 @@ const Index = () => {
                                         xs={12}
                                         className="contentCol d-flex flex-column justify-content-end"
                                     >
-                                        <h3 className="josefin-sans-bold tagName mb-1 text-center text-md-start">
+                                        <h3 className="josefin-sans-thin tagName mb-0 text-center text-md-start">
                                             {tagInfo && tagInfo?.name}
                                         </h3>
                                         <div className="d-flex flex-column flex-md-row align-items-center">
                                             <p className="josefin-sans-thin tagInfo mb-0">
-                                                12k followers, {tagInfo &&
-                                        tagInfo.articles?.length} blogs
+                                                12k followers, {tagInfo && tagInfo.articles?.length}{" "}
+                                                blogs
                                             </p>
                                             <Button
                                                 className="rounded-pill px-4 followBtn ms-3"
