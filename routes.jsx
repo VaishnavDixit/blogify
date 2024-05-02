@@ -1,9 +1,12 @@
-import CreateBlog from "./src/components/views/createBlog/Index.jsx";
-import ViewBlog from "./src/components/views/viewBlog/Index.jsx";
-import MyBlogs from "./src/components/views/myBlogs/Index.jsx";
-import SavedBlogs from "./src/components/views/savedBlogs/Index.jsx";
-import UserProfile from "./src/components/views/userProfile/Index.jsx";
-import TagDashboard from "./src/components/views/tagPage/Index.jsx";
+import React, { lazy, Suspense } from "react";
+
+const CreateBlog = lazy(() => import("./src/components/views/createBlog/Index.jsx"));
+const ViewBlog = lazy(() => import("./src/components/views/viewBlog/Index.jsx"));
+const MyBlogs = lazy(() => import("./src/components/views/myBlogs/Index.jsx"));
+const SavedBlogs = lazy(() => import("./src/components/views/savedBlogs/Index.jsx"));
+const UserProfile = lazy(() => import("./src/components/views/userProfile/Index.jsx"));
+const TagDashboard = lazy(() => import("./src/components/views/tagPage/Index.jsx"));
+const AllTags = lazy(() => import("./src/components/views/allTags/Index.jsx"));
 const routes = [
     {path: "/create-blog", element: <CreateBlog />},
     {path: "/view/:slug", element: <ViewBlog />},
@@ -11,5 +14,7 @@ const routes = [
     {path: "/saved-blogs", element: <SavedBlogs />},
     {path: "/profile/:name", element: <UserProfile />},
     {path: "/tag/:name", element: <TagDashboard />},
+    {path: "/tag/:name", element: <TagDashboard />},
+    {path: "/allTags", element: <AllTags />},
 ];
 export default routes;

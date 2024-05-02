@@ -1,4 +1,5 @@
 import {
+    ArrowRightSharp,
     ChevronRight,
     Close,
     CompareArrowsSharp,
@@ -25,14 +26,18 @@ import {useQueryClient} from "@tanstack/react-query";
 const FeaturesPanel = () => {
     const queryClient = useQueryClient();
 
-    const {data: tags, isLoading: isLoadingTags} = useGetTags();
+    const {data: tags, isLoading: isLoadingTags} = useGetTags(120);
     const navigate = useNavigate();
     const onClickTag = (tag, navigate) => {
         handleClickTag(tag, navigate);
     };
+    const onClickShowAll = () => {
+        navigate("/dashboard/allTags");
+    };
+
     return (
         <div className="featuresPanelStyle py-4 border-bottom">
-            <h5 className="josefin-sans-thin text-center mb-3 ">Explore other Topics 🧭</h5>
+            <h4 className="font1-regular text-center mb-3 ">Explore other Topics 🧭</h4>
             {isLoadingTags ? (
                 <div className="d-flex flex-wrap justify-content-start">
                     <RecommendedTopicsLoader />
@@ -43,12 +48,19 @@ const FeaturesPanel = () => {
                         <Button
                             key={index + 1}
                             variant="outline-primary"
-                            className="me-2 mb-2 pb-1 rounded-pill josefin-sans-thin"
+                            className="me-2 mb-2 pb-1 rounded-pill font1-thin"
                             onClick={() => onClickTag(tag, navigate)}
                         >
                             {tag.name}
                         </Button>
                     ))}
+                    {/* {JSON.stringify(tags?.documents?.map((tag, index) => tag.name))} */}
+                    {/* <div className="d-flex justify-content-end">
+                        <Button variant="link" onClick={onClickShowAll}>
+                            Show all
+                            <ArrowRightSharp className="mb-1" />
+                        </Button>
+                    </div> */}
                 </div>
             )}
         </div>

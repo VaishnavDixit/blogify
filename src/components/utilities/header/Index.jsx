@@ -51,7 +51,7 @@ const Header = () => {
         <div className="headerStyle d-flex align-items-center justify-content-between pe-3 ps-2 py-2">
             <img src="/blogify-logo-white.svg" width={45} className="m-2" />
             <h2
-                className="mainIcon josefin-sans-thin mb-0 me-auto pointer"
+                className="mainIcon font1-thin mb-0 me-auto pointer"
                 onClick={() => navigate("/dashboard")}
             >
                 Blogify

@@ -1,7 +1,6 @@
 @import "node_modules/bootstrap/scss/bootstrap.scss";
 
-//custom color to be mapped
-
+// Custom colors
 $webpinkred: #f72585;
 $webviolet: #7209b7;
 $webdarkblue: #3a0ca3;
@@ -23,152 +22,122 @@ $webblue_tt: #4362ee68;
 $weblightblue_tt: #4ccaf062;
 $webgrey_tt: rgba(211, 211, 211, 0.438);
 
-// $webpinkred: grey;
-// $webviolet: white;
-// $webdarkblue: darkgrey;
-// $webblue: grey;
-// $weblightblue: lightgrey;
-
-// $webpinkred_t: rgba(128, 128, 128, 0.641);
-// $webviolet_t: rgba(255, 255, 255, 0.64);
-// $webdarkblue_t: rgba(169, 169, 169, 0.622);
-// $webblue_t: rgba(128, 128, 128, 0.645);
-// $weblightblue_t: rgba(211, 211, 211, 0.668);
-
-// $webpinkred_tt: rgba(128, 128, 128, 0.328);
-// $webviolet_tt: rgba(255, 255, 255, 0.311);
-// $webdarkblue_tt: rgba(169, 169, 169, 0.309);
-// $webblue_tt: rgba(128, 128, 128, 0.324);
-// $weblightblue_tt: rgba(211, 211, 211, 0.315);
-
 $theme-colors: map-merge(
     $theme-colors,
     (
-        // configure existing colors to whatever color you like.
-        // ex:
-        "success": $success,
         "primary": $webblue,
-        // add any additional color below
-        //..
         "webpinkred": $webpinkred,
         "webviolet": $webviolet,
         "webdarkblue": $webdarkblue,
         "webblue": $webblue,
         "weblightblue": $weblightblue,
         "grey": $webgrey,
-        // now bg-accent,btn-accent,etc.. can be called
     )
 );
 
-// Import Bootstrap and its default variables
-
+// Scrollbar styles
 ::-webkit-scrollbar {
     width: 6px;
+    height: 6px;
 }
-* {
-    // outline: 1px solid lightgrey;
-}
-/* Track */
+
 ::-webkit-scrollbar-track {
     background: none;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
     background: #555555b3;
     border-radius: 10px;
+
+    &:hover {
+        background: #555555c3;
+    }
 }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #555555c3;
+// Font styles
+%basicFontCSS {
+    font-style: normal;
+    font-optical-sizing: auto;
+}
+
+%font1 {
+    @extend %basicFontCSS;
+    font-family: "Montserrat", sans-serif;
+}
+
+%font2 {
+    @extend %basicFontCSS;
+    font-family: "Cardo", sans-serif;
 }
 
 * {
-    // outline: 1px solid lightgrey;
-    font-family: "Josefin Sans", sans-serif !important;
-    font-optical-sizing: auto;
+    @extend %font1;
     font-weight: 300;
-    font-style: normal;
 }
-Button,
+
 button {
-    font-family: "Josefin Sans", sans-serif !important;
-    font-optical-sizing: auto;
+    @extend %font1;
     font-weight: 300;
-    font-style: normal;
 }
+
 .addShadow {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 5px 16px 0px;
 }
-.cardo-regular {
-    font-family: "Cardo", serif;
+
+.font2-regular {
+    @extend %font2;
     font-weight: 400;
-    font-style: normal;
 }
 
-.cardo-bold {
-    font-family: "Cardo", serif;
+.font2-bold {
+    @extend %font2;
     font-weight: 700;
-    font-style: normal;
 }
 
-#root {
-    // max-width: 1280px;
-    // margin: 0 auto;
-    // padding: 1rem;
-    // text-align: center;
-}
-
-.josefin-sans-bolder {
-    font-family: "Josefin Sans", sans-serif !important;
-    font-optical-sizing: auto;
+.font1-bolder {
+    @extend %font1;
     font-weight: 800;
-    font-style: normal;
-    // letter-spacing: -1px;
 }
 
-.josefin-sans-bold {
-    font-family: "Josefin Sans", sans-serif !important;
-    font-optical-sizing: auto;
+.font1-bold {
+    @extend %font1;
     font-weight: 400;
     letter-spacing: -1px;
-    font-style: normal;
 }
 
-.josefin-sans {
-    font-family: "Josefin Sans", sans-serif !important;
-    font-optical-sizing: auto;
+.font1-regular {
+    @extend %font1;
     font-weight: 400;
-    font-style: normal;
 }
-.josefin-sans-thin {
-    font-family: "Josefin Sans", sans-serif !important;
-    font-optical-sizing: auto;
+
+.font1-thin {
+    @extend %font1;
     font-weight: 300;
-    font-style: normal;
 }
 
 .form-control {
-    border: 1px solid lightgrey !important;
+    border: 1px solid $webgrey !important;
+
     &:focus {
-        border: 2px solid grey;
+        border: 2px solid $webgrey;
     }
 }
-.line-wrap3 {
+
+%line-wrap {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
     word-wrap: break-word;
+}
+
+.line-wrap3 {
+    @extend %line-wrap;
     -webkit-line-clamp: 3;
 }
+
 .line-wrap2 {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-wrap: break-word;
+    @extend %line-wrap;
     -webkit-line-clamp: 2;
 }
 
@@ -178,49 +147,56 @@ button {
         cursor: pointer;
     }
 }
+
 .likeIcon {
     color: $webpinkred;
 }
+
 .saveIcon {
     color: $webblue;
 }
+
 .pointer {
     cursor: pointer;
 }
+
 .post {
     overflow: hidden;
-    // border-bottom: 1px solid rgba(128, 128, 128, 0.155);
+
     .tagsSection {
         .tag {
             font-size: 12px;
             background-color: rgba(189, 189, 189, 0.397);
         }
     }
+
     .textContent {
         width: 80%;
+
         h3,
         pre {
             width: 90%;
             cursor: pointer;
         }
-        pre {
-            p {
-                margin-bottom: 0;
-            }
+
+        pre p {
+            margin-bottom: 0;
         }
+
         h3 {
             font-size: 20px;
         }
-        .info {
-            .saveIcon {
-                font-size: 20px;
-                z-index: 9999;
-            }
+
+        .info .saveIcon {
+            font-size: 20px;
+            z-index: 9999;
         }
     }
+
     .imgContent {
         width: 20%;
         height: 110px;
+
         img {
             display: block;
             width: 90%;
@@ -230,22 +206,20 @@ button {
         }
     }
 }
-.color-webpinkred {
-    color: $webpinkred;
-}
-.color-webviolet {
-    color: $webviolet;
-}
-.color-webdarkblue {
-    color: $webdarkblue;
-}
-.color-webblue {
-    color: $webblue;
-}
-.color-weblightblue {
-    color: $weblightblue;
-}
-.color-webgrey {
-    color: $webgrey;
+
+@each $color,
+    $value
+        in (
+            "webpinkred": $webpinkred,
+            "webviolet": $webviolet,
+            "webdarkblue": $webdarkblue,
+            "webblue": $webblue,
+            "weblightblue": $weblightblue,
+            "webgrey": $webgrey
+        )
+{
+    .color-#{$color} {
+        color: $value;
+    }
 }
 @import "node_modules/bootstrap/scss/bootstrap.scss";

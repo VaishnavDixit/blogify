@@ -16,21 +16,19 @@ import userDataService from "../../../appwrite/userData.js";
 import Dropdown from "../dropdown/Index.jsx";
 import "./style.scss";
 import {dateFormat, handleClickTag, snackbar} from "../../../utilityFunctions/utilities.js";
-
+import {useGetCurrentUser} from "../../../queries/auth.js";
+import BlankPFP from "../../../assets/blankProfilePicture.png";
 const Post = ({
     post: {title, content, description, featuredImage, publisher, $id, $createdAt, tags, savedBy},
 }) => {
     const [saved, setSaved] = useState(false);
-    const [curUser, setCurUser] = useState({});
+    // const [curUser, setCurUser] = useState({});
+    const {data: curUser} = useGetCurrentUser();
     useEffect(() => {
-        (async () => {
-            const curUser = await authService.getCurrentUser();
-            setCurUser(curUser);
-            savedBy?.map(({$id}) => {
-                if ($id == curUser.$id) setSaved(true);
-            });
-        })();
-    }, []);
+        savedBy?.map(({$id}) => {
+            if ($id == curUser?.$id) setSaved(true);
+        });
+    }, [curUser]);
 
     const navigate = useNavigate();
 
@@ -54,46 +52,43 @@ const Post = ({
 
     return (
         <Col sm={12} xs={12} className="px-0">
-            <div className="py-3 d-flex justify-content-between post">
+            <div className="py-4 d-flex justify-content-between post">
                 <div className="textContent">
-                    <h3
-                        className="josefin-sans-bolder line-wrap3 pointer"
-                        onClick={handleOnClickPost}
-                    >
+                    <h3 className="font1-bolder line-wrap3 pointer" onClick={handleOnClickPost}>
                         {title}
                     </h3>
                     <div
                         onClick={handleOnClickPost}
-                        className=" cardo-regular line-wrap2 contentSection mb-0 me-3 pointer"
+                        className=" font2-regular line-wrap2 contentSection mb-0 me-3 pointer"
                     >
                         {description}
                     </div>
                     <div className="d-flex flex-wrap tagsSection">
-                        {tags && tags?.map((tag, index) => (
-                            <div
-                                key={index + 1}
-                                className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans pointer"
-                                onClick={()=>handleClickTag(tag, navigate)}
-                            >
-                                {tag.name}
-                            </div>
-                        ))}
+                        {tags &&
+                            tags?.map((tag, index) => (
+                                <div
+                                    key={index + 1}
+                                    className="tag px-3 pt-1 me-2 mb-2 rounded-pill font1-regular pointer"
+                                    onClick={() => handleClickTag(tag, navigate)}
+                                >
+                                    {tag.name}
+                                </div>
+                            ))}
                     </div>
                     <div className="info mt-2 pb-2 d-flex justify-content-between align-items-center">
-                        <p className="mb-0 josefin-sans-thin text-truncate ">
-                            <Person
-                                onClick={handleOnClickName}
-                                className="mb-1"
-                                style={{fontSize: "1.8em"}}
+                        <p className="mb-0 font1-thin text-truncate ">
+                            <img
+                                className="profilePicture rounded-circle"
+                                src={publisher?.profilePicture || BlankPFP}
                             />
                             <span
-                                className=" josefin-sans-thin hover-underline"
+                                className="font1-thin hover-underline ps-2"
                                 onClick={handleOnClickName}
                             >
                                 {publisher && publisher.name}
                             </span>
                             <Lens className="mx-1 mb-1" style={{fontSize: ".3em"}} />
-                            <span className=" josefin-sans-thin">{dateFormat($createdAt)}</span>
+                            <span className=" font1-thin">{dateFormat($createdAt)}</span>
                         </p>
                         <div className="d-flex justify-content-end align-items-center">
                             {saved ? (

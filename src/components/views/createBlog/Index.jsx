@@ -110,7 +110,7 @@ const Index = () => {
         const publisher = JSON.parse(localStorage.getItem("userData")).$id;
         console.log(featuredImage[0]);
         const uploadedFile = await service.uploadFile(featuredImage[0]);
-        
+
         if (uploadedFile) {
             const id = uploadedFile.$id;
             service
@@ -134,7 +134,7 @@ const Index = () => {
         }
     };
     const submitBlogUpdated = async ({title, featuredImage, description}) => {
-		console.log('update fn')
+        console.log("update fn");
         console.log({title, featuredImage, description});
         if (!title || !featuredImage || content == "") {
             alert("invalid submission");
@@ -175,7 +175,6 @@ const Index = () => {
                 <form onSubmit={handleSubmit(location.state?.id ? submitBlogUpdated : submitBlog)}>
                     <Row>
                         <Col sm={12} xs={12} className="mb-3">
-			
                             <textarea
                                 className="form-control titleInput"
                                 type="text"
@@ -231,7 +230,7 @@ const Index = () => {
                                         />
                                     </>
                                 ) : (
-                                    <p className="labelText josefin-sans-bold text-center mb-0">
+                                    <p className="labelText font1-bold text-center mb-0">
                                         <AddAPhoto className="mb-2 me-1 addPhotoIcon" />
                                         Upload Photo
                                     </p>

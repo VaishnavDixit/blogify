@@ -18,13 +18,13 @@ const SubHeader = ({text, backButton = true}) => {
                 <span
                     variant="outline"
                     onClick={() => navigate(-1)}
-                    className="py-1 ms-3 pt-2 px-2 hover-underline backBtn josefin-sans"
+                    className="py-1 ms-3 pt-2 px-2 hover-underline backBtn font1-regular"
                 >
                     <ArrowBackIosNewTwoTone className="mb-1 me-1 arrowIcon" />
                     Back
                 </span>
             )}
-            {text && <h4 className="josefin-sans-thin mb-0">{text}</h4>}
+            {text && <h3 className="font1-thin mb-0">{text}</h3>}
         </div>
     );
 };

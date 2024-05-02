@@ -1,2 +1,10 @@
 @import "../../../custom.scss";
 
+.post {
+    .textContent {
+        .profilePicture {
+            width: 25px;
+            height: 25px;
+        }
+    }
+}

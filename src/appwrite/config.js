@@ -111,12 +111,12 @@ export class Service {
         return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
     };
 
-    getTags = async () => {
+    getTags = async (count=0) => {
         try {
             return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionTagsId,
-                [Query.limit(100)]
+                [Query.limit(count), Query.orderAsc("name")]
             );
         } catch (error) {
             console.log(error);

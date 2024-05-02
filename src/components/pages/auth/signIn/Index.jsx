@@ -36,7 +36,7 @@ const Index = () => {
         <Container>
             <div className="signUpPage d-flex flex-nowrap flex-column justify-content-center row">
                 <Col sm={12}>
-                    <p className="josefin-sans-bold desc text-center">
+                    <p className="font1-bold desc text-center">
                         Sign in to Blogify to access your account.
                     </p>
                 </Col>

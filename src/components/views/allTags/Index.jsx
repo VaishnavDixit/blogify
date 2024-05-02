@@ -10,7 +10,7 @@ import Skeleton from "react-loading-skeleton";
 
 import "./style.scss";
 import SubHeader from "../../utilities/subHeader/Index.jsx";
-import {BlogsListLoader} from "../../utilities/loadingScreens/Index.jsx";
+import { BlogsListLoader } from "../../utilities/loadingScreens/Index.jsx";
 import Post from "../../utilities/post/Index.jsx";
 const Index = () => {
     const {data: posts, isLoading} = useGetPosts();
@@ -19,12 +19,12 @@ const Index = () => {
     return (
         <>
             <SubHeader
-                text={`Welcome, ${isLoadingGetCurUser ? "-" : curUser?.name}`}
+                text={`All Tags`}
                 backButton={false}
-            /> 
+            />
             <Container>
-                <Row className="gx-5">
-                    <Col md={4} className="d-none d-md-inline-block pe-4 leftCol">
+                <Row>
+                    <Col md={4} className="d-none d-md-inline-block pe-2 leftCol">
                         <Container fluid>
                             <Row>
                                 <Col sm={12} className="mb-4">

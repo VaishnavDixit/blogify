@@ -7,14 +7,14 @@ import Skeleton from "react-loading-skeleton";
 import {TrendingPageLoader} from "../loadingScreens/Index";
 import {useQueryClient} from "@tanstack/react-query";
 const DiscoverOtherTopics = () => {
-    const queryClient = useQueryClient();                                                                
+    const queryClient = useQueryClient();
     const {data: posts, isLoading} = useGetPosts();
     const [trending, setTrending] = useState([]);
     const navigate = useNavigate();
 
     const handleOnClickPost = (id) => {
-		queryClient.invalidateQueries('getPosts')
-		queryClient.invalidateQueries('getTags')
+        queryClient.invalidateQueries("getPosts");
+        queryClient.invalidateQueries("getTags");
         navigate(`/dashboard/view/${id}`);
     };
 
@@ -30,17 +30,17 @@ const DiscoverOtherTopics = () => {
             setTrending(list);
         }
     }, [posts]);
-	
+
     return (
         <div className="discoverOthersStyle py-2">
-            <h5 className="josefin-sans-thin text-center mb-3">Trending 🔥</h5>
+            <h4 className="font1-regular text-center mb-3">Trending 🔥</h4>
             {isLoading ? (
                 <TrendingPageLoader />
             ) : (
                 trending &&
                 trending.map(({title, publisher, $id}) => (
                     <div className="blog p-2 mb-4" onClick={() => handleOnClickPost($id)}>
-                        <h4 className="title josefin-sans-bolder line-wrap3 mb-2">{title}</h4>
+                        <h4 className="title font1-bolder line-wrap3 mb-2">{title}</h4>
                         <div className="d-flex publisher line-wrap3 justify-content-start align-items-center">
                             <img className="rounded-circle" src="https://picsum.photos/200/300" />
                             <p className="mb-0 ms-2 name text-truncate">

@@ -22,13 +22,13 @@ const Index = () => {
             })
             .catch((res) => console.log(res));
     }, []);
- 
+
     return (
         <Container>
             <div className="introductionPage row">
                 <div className="d-flex flex-column justify-content-center col-sm-12 col-md-6">
-                    <h4 className="josefin-sans-thin title text-md-start text-center">Blogify</h4>
-                    <p className="cardo-regular desc text-md-start text-center">
+                    <h4 className="font1-thin title text-md-start text-center">Blogify</h4>
+                    <p className="font2-regular desc text-md-start text-center">
                         "Discover a world of insights and inspiration on our vibrant blogging hub."
                     </p>
                 </div>

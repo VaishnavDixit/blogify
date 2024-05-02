@@ -12,6 +12,7 @@ import Post from "../../utilities/post/Index.jsx";
 import SubHeader from "../../utilities/subHeader/Index.jsx";
 
 import "./style.scss";
+import service from "../../../appwrite/config.js";
 
 const Index = () => {
     console.log("page reload");
@@ -31,7 +32,6 @@ const Index = () => {
 
     return (
         <>
-            {/* <SubHeader text={``} backButton={false} /> */}
             <Container>
                 <Row>
                     <Col md={4} className="d-none d-md-inline-block pe-0 mt-5 leftCol">
@@ -54,7 +54,9 @@ const Index = () => {
                                 <Row
                                     className="tagInfoSection px-4 pb-3 mb-4"
                                     style={{
-                                        backgroundImage: "url('https://picsum.photos/650/200')",
+                                        backgroundImage: `url(${service.getImgPreview(
+                                            tagInfo?.image
+                                        )})`,
                                         height: "200px",
                                     }}
                                 >
@@ -63,16 +65,16 @@ const Index = () => {
                                         xs={12}
                                         className="contentCol d-flex flex-column justify-content-end"
                                     >
-                                        <h3 className="josefin-sans-thin tagName mb-0 text-center text-md-start">
+                                        <h3 className="font1-thin tagName mb-0 text-center text-md-start mb-3">
                                             {tagInfo && tagInfo?.name}
                                         </h3>
                                         <div className="d-flex flex-column flex-md-row align-items-center">
-                                            <p className="josefin-sans-thin tagInfo mb-0">
+                                            <p className="font1-thin tagInfo mb-0">
                                                 12k followers, {tagInfo && tagInfo.articles?.length}{" "}
                                                 blogs
                                             </p>
                                             <Button
-                                                className="rounded-pill px-4 followBtn ms-3"
+                                                className="rounded-pill px-4 followBtn ms-3 pb-1"
                                                 variant="outline-grey"
                                             >
                                                 Follow

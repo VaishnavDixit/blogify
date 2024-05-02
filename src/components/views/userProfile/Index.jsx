@@ -9,21 +9,22 @@ import service from "../../../appwrite/config.js";
 import userDataService from "../../../appwrite/userData.js";
 import {dateFormat, handleClickTag} from "../../../utilityFunctions/utilities.js";
 import "./style.scss";
+import {useGetCurrentUser, useGetUserData} from "../../../queries/auth.js";
+import {useGetTags} from "../../../queries/tags.js";
+import BlankPFP from "../../../assets/blankProfilePicture.png";
 
 const Index = () => {
     const location = useLocation();
-    const [userData, setUserData] = useState({});
-	
     const [userPersonalInfo, setUserPersonalInfo] = useState({});
-    const [loggedInUser, setLoggedInUser] = useState({});
-    const [tags, setTags] = useState([]);
     const [toFollow, setToFollow] = useState(false);
     const [posts, setPosts] = useState([]);
     const [totalLikes, setTotalLikes] = useState(0);
-    // console.log(queries);
     const navigate = useNavigate();
     const handleOnClickPost = (id) => navigate(`/dashboard/view/${id}`);
-	console.log(userData)
+    const {data: userData} = useGetUserData(location.state && location.state.userId);
+    const {data: loggedInUser} = useGetCurrentUser();
+    const {data: tags} = useGetTags();
+
     useEffect(() => {
         (async () => {
             try {
@@ -33,20 +34,16 @@ const Index = () => {
                 const personalInfo = await authService.fetchGoogleUserData(providerAccessToken);
                 console.log(personalInfo);
                 setUserPersonalInfo(personalInfo);
-                const viewUserInfo = await userDataService.getUserData(
-                    location.state && location.state.userId
-                );
-                if (viewUserInfo) setUserData(viewUserInfo);
                 const loggedInUserInfoAuth = await authService.getCurrentUser();
                 const loggedInUserId = loggedInUserInfoAuth.$id;
-                if (
-                    viewUserInfo.followers &&
-                    viewUserInfo.followers.findIndex((i) => i == loggedInUserId) != -1
-                ) {
-                    setToFollow(true);
-                } else setToFollow(false);
-                const res = await service.getTags();
-                setTags(res.documents);
+
+                // if (
+                //     viewUserInfo.followers &&
+                //     viewUserInfo.followers.findIndex((i) => i == loggedInUserId) != -1
+                // ) {
+                //     setToFollow(true);
+                // } else setToFollow(false);
+
                 service
                     .getPosts([Query.equal("publisher", viewUserInfo && viewUserInfo?.$id)])
                     .then((value) => {
@@ -67,51 +64,52 @@ const Index = () => {
             setTotalLikes(sum);
         }
     }, [posts]);
+
     return (
         <Container className="profile mt-4">
             <Row>
                 <Col
                     xs={12}
                     sm={12}
-                    md={3}
+                    md={5}
                     className="dataShow my-4 d-flex flex-column align-items-center"
                 >
-                    {userData && (
-                        <img src={userData?.profilePicture} className="rounded-circle " />
-                    )}
+                    <img src={userData?.profilePicture || BlankPFP} className="rounded-circle" />
                     <div className="text ps-3 my-3">
                         <h4>{userData?.name}</h4>
-                        <p className="mb-0 josefin-sans-thin">
+                        <p className="mb-0 font1-thin">
                             1.2k followers, {totalLikes} like{totalLikes == 1 ? "" : "s"}
                         </p>
                     </div>
-                    <h5 className="josefin-sans-bold text-center mb-3 mt-4">Interests</h5>
+                    <h5 className="font1-bold text-center mb-3 mt-4">Interests</h5>
                     <div className="d-flex flex-wrap justify-content-center">
-                        {tags?.map((tag, index) => (
-                            <div
-                                key={index + 1}
-                                className=" tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans"
-								onClick={()=>handleClickTag(tag, navigate)}
-                            >
-                                {tag.name}
-                            </div>
-                        ))}
+                        {tags &&
+                            tags?.documents?.map((tag, index) => (
+                                <div
+                                    key={index + 1}
+                                    className=" tag px-3 pt-1 me-2 mb-2 rounded-pill font1-regular"
+                                    onClick={() => handleClickTag(tag, navigate)}
+                                >
+                                    {tag.name}
+                                </div>
+                            ))}
                     </div>
                 </Col>
-                <Col xs={12} sm={12} md={9} className="">
-                    {posts && posts.length ? (
-                        <h2 className=" blogsBy josefin-sans-thin mb-0 mt-3">
+                <Col xs={12} sm={12} md={7} className="">
+                    {userData?.myArticles && userData?.myArticles.length ? (
+                        <h2 className=" blogsBy font1-thin mb-0 mt-3">
                             Blogs by {userData && userData?.name}
                         </h2>
                     ) : null}
                     <div className="blogs pt-4 pe-2">
                         {userData?.$id &&
-                            posts &&
-                            posts.map(
+                            userData?.myArticles &&
+                            userData?.myArticles.map(
                                 ({
                                     title,
                                     content,
                                     featuredImage,
+									description,
                                     publisher,
                                     $id,
                                     $createdAt,
@@ -122,19 +120,18 @@ const Index = () => {
                                     <div className="py-3 d-flex justify-content-between post">
                                         <div className="textContent">
                                             <h3
-                                                className="josefin-sans-bolder line-wrap3 pointer"
+                                                className="font1-bolder line-wrap3 pointer"
                                                 onClick={() => handleOnClickPost($id)}
                                             >
                                                 {title}
                                             </h3>
                                             <div
                                                 onClick={() => handleOnClickPost($id)}
-                                                className="cardo-regular line-wrap2 contentSection mb-0 me-3"
-                                                dangerouslySetInnerHTML={{__html: content}}
-                                            ></div>
+                                                className="font2-regular line-wrap2 contentSection mb-0 me-3"
+                                            >{description}</div>
                                             <div className="info mt-2 pb-2 d-flex justify-content-between align-items-start">
                                                 <p className="mb-0 text-truncate">
-                                                    <span className=" josefin-sans">
+                                                    <span className=" font1-regular">
                                                         {dateFormat($createdAt || "")}
                                                     </span>
                                                 </p>

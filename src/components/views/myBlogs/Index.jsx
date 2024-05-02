@@ -53,7 +53,7 @@ const Index = () => {
                             key={index}
                             className=" myBlog d-flex border-bottom align-items-start justify-content-start py-4 pb-3"
                         >
-                            <h3 className="index josefin-sans-thin me-4">{index + 1}.</h3>
+                            <h3 className="index font1-thin me-4">{index + 1}.</h3>
                             <img
                                 className="me-4 d-none d-md-block"
                                 src={service.getImgPreview(post?.featuredImage)}
@@ -61,13 +61,13 @@ const Index = () => {
                             />
                             <div className="titleAndInfo px-4">
                                 <h4
-                                    className="titleBlog line-wrap3 josefin-sans-bold mb-3"
+                                    className="titleBlog line-wrap3 font1-bold mb-3"
                                     onClick={() => handleOnClickPost(post.$id)}
                                 >
                                     {post?.title}
                                 </h4>
                                 <div className="mb-0 d-flex blogInfo">
-                                    <span className="josefin-sans-thin text-truncate me-auto">
+                                    <span className="font1-thin text-truncate me-auto">
                                         {dateFormat(post.$createdAt)}
                                     </span>
                                     <span className="d-flex">

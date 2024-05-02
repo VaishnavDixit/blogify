@@ -20,6 +20,7 @@ import Dropdown from "../../utilities/dropdown/Index.jsx";
 import {ViewBlogLoader} from "../../utilities/loadingScreens/Index.jsx";
 import SubHeader from "../../utilities/subHeader/Index.jsx";
 import "./style.scss";
+import BlankPFP from '../../../assets/blankProfilePicture.png'
 
 import {useDeleteBlog, useGetPost, useGetPosts} from "../../../queries/blogs.js";
 import {useGetCurrentUser} from "../../../queries/auth.js";
@@ -43,7 +44,6 @@ const Index = () => {
     const {data: currentUserAuth} = useGetCurrentUser();
     const {refetch: refetchGetPosts} = useGetPosts();
     const {mutateAsync, isSuccess} = useDeleteBlog(refetchGetPosts);
-
     useEffect(() => {
         setImage(currentPost?.featuredImage);
         currentPost &&
@@ -63,8 +63,8 @@ const Index = () => {
 
     const handleSaveBlog = async () => {
         const res = await userDataService.bookmarkBlog(
-            userInfo?.$id,
-            post.$id,
+            currentUserAuth?.$id,
+            currentPost?.$id,
             saved ? false : true
         );
         if (res) {
@@ -72,8 +72,9 @@ const Index = () => {
             snackbar("success", !saved ? "Added to bookmarks" : "removed from bookmarks");
         }
     };
+
     const handleLikePost = async () => {
-        const res = await userDataService.likeBlog(params?.slug, userInfo?.$id, !liked);
+        const res = await userDataService.likeBlog(params?.slug, currentUserAuth?.$id, !liked);
         if (res) {
             setLiked((p) => !p);
             snackbar("success", !liked ? "Like added" : "Like removed");
@@ -95,7 +96,7 @@ const Index = () => {
                     <ViewBlogLoader />
                 ) : (
                     <Row className="pt-3">
-                        <h2 className="josefin-sans-bolder mt-3">{currentPost?.title}</h2>
+                        <h2 className="font1-bolder mt-3">{currentPost?.title}</h2>
                         {currentPost?.description && (
                             <div className="my-3">{currentPost?.description}</div>
                         )}
@@ -104,12 +105,15 @@ const Index = () => {
                         ) : null}
                         <div className="infoRow mt-3 d-flex justify-content-between align-items-center">
                             <p className="mb-0 text-truncate " onClick={handleOnClickName}>
-                                <Person className="mb-2 me-1" style={{fontSize: "2em"}} />
-                                <span className="hover-underline josefin-sans">
+                                <img
+                                    className="profilePicture me-2"
+                                    src={currentPost?.publisher?.profilePicture||BlankPFP}
+                                />
+                                <span className="hover-underline font1-regular">
                                     {currentPost && currentPost?.publisher?.name}
                                 </span>
                                 <Lens className="mx-1 mb-1" style={{fontSize: ".3em"}} />
-                                <span className="josefin-sans">
+                                <span className="font1-regular">
                                     {dateFormat(currentPost?.$createdAt)}
                                 </span>
                             </p>
@@ -168,7 +172,7 @@ const Index = () => {
                                 currentPost?.tags?.map((tag, index) => (
                                     <div
                                         key={index + 1}
-                                        className="tag px-3 pt-1 me-2 mb-2 rounded-pill josefin-sans"
+                                        className="tag px-3 pt-1 me-2 mb-2 rounded-pill font1-regular"
                                         onClick={() => handleClickTag(tag, navigate)}
                                     >
                                         {tag.name}

@@ -34,7 +34,7 @@ const Index = () => {
         <div className="signUpPage d-flex align-items-center container">
             <Row>
                 <Col sm={12}>
-                    <p className="cardo-bold desc">Join to create and explore amazing blogs!</p>
+                    <p className="font2-bold desc">Join to create and explore amazing blogs!</p>
                 </Col>
                 <Col sm={12}>
                     <form onSubmit={handleSubmit(signUp)} className="container">
