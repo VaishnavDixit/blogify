@@ -106,6 +106,9 @@ export class Service {
             return false;
         }
     };
+
+
+
     //get file preview remaining (not an async function)
     getImgPreview = (fileId) => {
         return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
@@ -132,6 +135,31 @@ export class Service {
             );
         } catch (error) {
             console.log(error);
+        }
+    };
+
+	followTag = async (userId, tagId, toFollow) => {
+        try {
+            const userInfo = await this.databases.getDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionUsersId,
+                userId
+            );
+            if (userInfo) {
+                return await this.databases.updateDocument(
+                    conf.appwriteDatabaseId,
+                    conf.appwriteCollectionUsersId,
+                    userId,
+                    {
+                        "tagsFollowed": toFollow
+                            ? [...(userInfo?.tagsFollowed.map((i) => i.$id) || []), tagId]
+                            : [...userInfo?.tagsFollowed.map((i) => i.$id).filter((id) => id != tagId)],
+                    }
+                );
+            } else throw "err";
+        } catch (error) {
+            console.log(error);
+            return false;
         }
     };
 }

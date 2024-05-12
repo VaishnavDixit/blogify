@@ -14,10 +14,13 @@ import authService from "../../../appwrite/auth.js";
 import {logout} from "../../../store/authSlice.js";
 import Dropdown from "../dropdown/Index.jsx";
 import "./style.scss";
+import BlankPFP from "../../../assets/blankProfilePicture.png";
 
 const Header = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const curUser = JSON.parse(localStorage.getItem("userData"));
+
     const [name, setName] = useState("");
     const [personalInfo, setPersonalInfo] = useState({});
     useEffect(() => {
@@ -74,14 +77,20 @@ const Header = () => {
                             id="dropdownMenuButton1"
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
-                            src={personalInfo?.picture}
+                            src={personalInfo?.picture || BlankPFP}
                             alt="pfp"
                         ></img>
                     }
                     options={[
                         {
                             name: "Profile",
-                            func: () => navigate(`/dashboard/profile/${personalInfo?.name}`),
+                            func: () =>
+                                navigate(`/dashboard/profile/${personalInfo?.name}`, {
+                                    state: {userId: curUser?.$id},
+                                }),
+                            // navigate("/dashboard/create-blog", {
+                            // 	//         state: {id: id},
+                            // 	//     });
                             icon: <Person2Outlined className="mb-1 me-1" />,
                         },
                         {

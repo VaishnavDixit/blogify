@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Button, Col, Container, Row} from "react-bootstrap";
 import Skeleton from "react-loading-skeleton";
 import {useLocation, useParams} from "react-router-dom";
-import {useGetCurrentUser} from "../../../queries/auth.js";
+import {useGetCurrentUser, useGetUserData} from "../../../queries/auth.js";
 import {useGetPosts} from "../../../queries/blogs.js";
 import {useGetTag} from "../../../queries/tags.js";
 import DiscoverOtherTopics from "../../utilities/discoverOtherTopics/Index.jsx";
@@ -16,19 +16,39 @@ import service from "../../../appwrite/config.js";
 
 const Index = () => {
     console.log("page reload");
+    const curUser = JSON.parse(localStorage.getItem("userData"));
     const location = useLocation();
-
+    const {data: userInfo, refetchUserData} = useGetUserData(curUser && curUser?.$id);
     const {
         data: tagInfo,
         isloading: isloadingTagInfo,
         refetch,
         isFetching,
     } = useGetTag(location && location.state.id);
+    const [isFollowed, setIsFollowed] = useState(false);
 
     useEffect(() => {
         console.log("refetching...");
         refetch();
     }, [location?.state?.id]);
+
+    useEffect(() => {
+        console.log(userInfo);
+        if (userInfo?.tagsFollowed?.findIndex(({$id}) => $id == location?.state?.id) != -1)
+            setIsFollowed(true);
+        else setIsFollowed(false);
+    }, [userInfo]);
+
+    const handleFollowClick = (toFollow) => {
+        // console.log(object);
+        // debugger
+        service
+            .followTag(curUser?.$id, location.state?.id, toFollow)
+            .then(() => {
+                setIsFollowed((prev) => !prev);
+            })
+            .catch((err) => console.log(err));
+    };
 
     return (
         <>
@@ -36,6 +56,7 @@ const Index = () => {
                 <Row>
                     <Col md={4} className="d-none d-md-inline-block pe-0 mt-5 leftCol">
                         <Container fluid>
+                            {JSON.stringify(isFollowed)}
                             <Row>
                                 <Col sm={12} className="mb-4">
                                     <DiscoverOtherTopics />
@@ -44,6 +65,7 @@ const Index = () => {
                                     <FeaturesPanel />
                                 </Col>
                             </Row>
+                            {JSON.stringify(isFollowed)}
                         </Container>
                     </Col>
                     <Col md={8} sm={12} xs={12} className="mt-3">
@@ -54,9 +76,12 @@ const Index = () => {
                                 <Row
                                     className="tagInfoSection px-4 pb-3 mb-4"
                                     style={{
-                                        backgroundImage: `url(${service.getImgPreview(
-                                            tagInfo?.image
-                                        )})`,
+                                        // backgroundImage: `url(${service.getImgPreview(
+                                        //     tagInfo?.image
+                                        // )})`,
+                                        backgroundImage: `url('https://picsum.photos/1000/200')`,
+                                        backgroundSize: "cover", // This will make the image cover the entire width
+                                        backgroundPosition: "center", // This will center the image vertically
                                         height: "200px",
                                     }}
                                 >
@@ -65,7 +90,7 @@ const Index = () => {
                                         xs={12}
                                         className="contentCol d-flex flex-column justify-content-end"
                                     >
-                                        <h3 className="font1-thin tagName mb-0 text-center text-md-start mb-3">
+                                        <h3 className="font1-thin tagName mb-0 text-center text-md-start mb-2">
                                             {tagInfo && tagInfo?.name}
                                         </h3>
                                         <div className="d-flex flex-column flex-md-row align-items-center">
@@ -76,8 +101,9 @@ const Index = () => {
                                             <Button
                                                 className="rounded-pill px-4 followBtn ms-3 pb-1"
                                                 variant="outline-grey"
+                                                onClick={() => handleFollowClick(!isFollowed)}
                                             >
-                                                Follow
+                                                {isFollowed ? "Following" : "Follow"}
                                             </Button>
                                         </div>
                                     </Col>

@@ -23,7 +23,7 @@ const Index = () => {
     const handleOnClickPost = (id) => navigate(`/dashboard/view/${id}`);
     const {data: userData} = useGetUserData(location.state && location.state.userId);
     const {data: loggedInUser} = useGetCurrentUser();
-    const {data: tags} = useGetTags();
+    // const {data: tags} = useGetTags();
 
     useEffect(() => {
         (async () => {
@@ -64,7 +64,7 @@ const Index = () => {
             setTotalLikes(sum);
         }
     }, [posts]);
-
+console.log(userData)
     return (
         <Container className="profile mt-4">
             <Row>
@@ -73,7 +73,7 @@ const Index = () => {
                     sm={12}
                     md={5}
                     className="dataShow my-4 d-flex flex-column align-items-center"
-                >
+                > 
                     <img src={userData?.profilePicture || BlankPFP} className="rounded-circle" />
                     <div className="text ps-3 my-3">
                         <h4>{userData?.name}</h4>
@@ -81,10 +81,10 @@ const Index = () => {
                             1.2k followers, {totalLikes} like{totalLikes == 1 ? "" : "s"}
                         </p>
                     </div>
-                    <h5 className="font1-bold text-center mb-3 mt-4">Interests</h5>
+                    <h5 className="font1-bold text-center mb-3 mt-4">Tags Followed</h5>
                     <div className="d-flex flex-wrap justify-content-center">
-                        {tags &&
-                            tags?.documents?.map((tag, index) => (
+                        {userData && userData?.tagsFollowed && 
+                            userData?.tagsFollowed?.map((tag, index) => (
                                 <div
                                     key={index + 1}
                                     className=" tag px-3 pt-1 me-2 mb-2 rounded-pill font1-regular"

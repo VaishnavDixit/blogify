@@ -27,11 +27,11 @@ const Index = () => {
         mutateAsync(id);
     };
 
-    const handleEditBlog = async (id) => {
-        navigate("/dashboard/create-blog", {
-            state: {id: id},
-        });
-    };
+    // const handleEditBlog = async (id) => {
+    //     navigate("/dashboard/create-blog", {
+    //         state: {id: id},
+    //     });
+    // };
 
     const handleOnClickPost = (slug) => {
         console.log(slug);

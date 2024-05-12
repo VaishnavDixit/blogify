@@ -170,7 +170,6 @@ const Index = () => {
     return (
         <>
             <SubHeader text={"Create a blog"} />
-            {JSON.stringify(finalImage)}
             <Container className="createBlogPage">
                 <form onSubmit={handleSubmit(location.state?.id ? submitBlogUpdated : submitBlog)}>
                     <Row>
