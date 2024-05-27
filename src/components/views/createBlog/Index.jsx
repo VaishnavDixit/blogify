@@ -127,7 +127,7 @@ const Index = () => {
                     setFinalImage("");
                     setContent("");
                     snackbar("success", "Successfully Created");
-                    navigate(`/dashboard/view/${slug}`);
+                    navigate(`/view/${slug}`);
                 });
         } else {
             console.log("not uploaded :/");
@@ -164,7 +164,7 @@ const Index = () => {
                 setFinalImage("");
                 setContent("");
                 snackbar("success", "Successfully Updated");
-                navigate(`/dashboard/view/${slug}`);
+                navigate(`/view/${slug}`);
             });
     };
     return (

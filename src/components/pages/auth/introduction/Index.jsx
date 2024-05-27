@@ -16,7 +16,7 @@ const Index = () => {
                 if (res) {
                     userDataService.createUser().then((res) => {
                         console.log(res);
-                        navigate("/dashboard");
+                        navigate("/");
                     });
                 }
             })
@@ -33,15 +33,15 @@ const Index = () => {
                     </p>
                 </div>
                 <div className="d-flex flex-column btnColumn align-items-center justify-content-center col-sm-12 col-md-6">
-                    <Button className="m-2 p-2" onClick={() => navigate("sign-in")}>
+                    {/* <Button className="m-2 p-2" onClick={() => navigate("sign-in")}>
                         Sign In
-                    </Button>
+                    </Button> */}
                     <Button className="m-2 p-2" onClick={() => authService.createGoogleSession()}>
                         Sign In With Google
                     </Button>
-                    <Button className="m-2 p-2" onClick={() => navigate("sign-up")}>
+                    {/* <Button className="m-2 p-2" onClick={() => navigate("sign-up")}>
                         Sign Up
-                    </Button>
+                    </Button> */}
                 </div>
             </div>
         </Container>

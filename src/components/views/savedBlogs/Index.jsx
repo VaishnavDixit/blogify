@@ -28,7 +28,7 @@ const Index = () => {
 
     const handleOnClickPost = (slug) => {
         console.log(slug);
-        navigate(`/dashboard/view/${slug}`);
+        navigate(`/view/${slug}`);
     };
 
     return (

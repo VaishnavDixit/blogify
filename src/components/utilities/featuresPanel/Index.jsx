@@ -32,7 +32,7 @@ const FeaturesPanel = () => {
         handleClickTag(tag, navigate);
     };
     const onClickShowAll = () => {
-        navigate("/dashboard/allTags");
+        navigate("/allTags");
     };
 
     return (

@@ -33,11 +33,11 @@ const Post = ({
     const navigate = useNavigate();
 
     const handleOnClickPost = () => {
-        navigate(`/dashboard/view/${$id}`);
+        navigate(`/view/${$id}`);
     };
 
     const handleOnClickName = () => {
-        navigate(`/dashboard/profile/${publisher && publisher.name}`, {
+        navigate(`/profile/${publisher && publisher.name}`, {
             state: {userId: publisher?.$id},
         });
     };

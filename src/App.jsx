@@ -17,17 +17,16 @@ const LoadingFallback = React.lazy(() => import("./components/pages/loadingFallb
 const queryClient = new QueryClient();
 function App() {
     return (
-		
         <QueryClientProvider client={queryClient}>
             <SnackbarProvider dense={true} autoHideDuration={2000}>
                 <BrowserRouter>
-                    <Suspense fallback={<LoadingFallback/>}>
+                    <Suspense fallback={<LoadingFallback />}>
                         <Routes>
                             <Route index element={<LandingPage />} />
                             <Route path="/sign-in" element={<SignInPage />} />
                             <Route path="/sign-up" element={<SignUpPage />} />
-                            <Route path="/dashboard/*" element={<DefaultLayout />} />
-                            <Route path={"*"} element={<>ERR: INVALID URL (:/)</>} />
+                            <Route path="/dashboard" element={<DefaultLayout />} />
+                            <Route path="*" element={<>ERR: INVALID URL (:/)</>} />
                         </Routes>
                     </Suspense>
                 </BrowserRouter>

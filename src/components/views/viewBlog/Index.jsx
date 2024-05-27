@@ -36,7 +36,7 @@ const Index = () => {
     const navigate = useNavigate();
     const user = localStorage.getItem("userData");
     const handleOnClickName = () => {
-        navigate(`/dashboard/profile/${userInfo && userInfo.name}`, {
+        navigate(`/profile/${userInfo && userInfo.name}`, {
             state: {userId: userInfo?.$id},
         });
     };
@@ -85,7 +85,7 @@ const Index = () => {
         console.log(currentPost);
         mutateAsync(params?.slug);
 
-        navigate("/dashboard/my-blogs");
+        navigate("/my-blogs");
     };
 
     return (

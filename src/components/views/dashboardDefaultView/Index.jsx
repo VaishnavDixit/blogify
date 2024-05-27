@@ -27,12 +27,6 @@ const Index = () => {
                     <Col md={4} className="d-none d-md-inline-block pe-4 leftCol">
                         <Container fluid>
                             <Row>
-                                <Col sm={12} className="mb-4">
-                                    <div className="searchBar ps-2 py-2 d-flex align-itens-center justify-content-start border rounded-pill  py-1">
-                                        <Search />
-                                        <input type="text" className="me-3" />
-                                    </div>
-                                </Col>
                                 <Col sm={12} className="mb-3">
                                     <FeaturesPanel />
                                 </Col>

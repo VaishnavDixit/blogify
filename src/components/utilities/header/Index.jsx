@@ -61,7 +61,7 @@ const Header = () => {
             </h2>
             {/* <span>{JSON.stringify(personalInfo)}</span> */}
             <Button
-                onClick={() => navigate("/dashboard/create-blog")}
+                onClick={() => navigate("/create-blog")}
                 className="me-3 rounded-pill"
                 variant="webdarkblue"
             >
@@ -85,7 +85,7 @@ const Header = () => {
                         {
                             name: "Profile",
                             func: () =>
-                                navigate(`/dashboard/profile/${personalInfo?.name}`, {
+                                navigate(`/profile/${personalInfo?.name}`, {
                                     state: {userId: curUser?.$id},
                                 }),
                             // navigate("/dashboard/create-blog", {
@@ -95,12 +95,12 @@ const Header = () => {
                         },
                         {
                             name: "My Blogs",
-                            func: () => navigate("/dashboard/my-blogs"),
+                            func: () => navigate("/my-blogs"),
                             icon: <SummarizeOutlined className="mb-1 me-1" />,
                         },
                         {
                             name: "Saved Blogs",
-                            func: () => navigate("/dashboard/saved-blogs"),
+                            func: () => navigate("/saved-blogs"),
                             icon: <BookmarksOutlined className="mb-1 me-1" />,
                         },
                         {name: "Sign Out", func: signOut, icon: <Logout className="mb-1 me-1" />},

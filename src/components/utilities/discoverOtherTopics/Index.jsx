@@ -15,7 +15,7 @@ const DiscoverOtherTopics = () => {
     const handleOnClickPost = (id) => {
         queryClient.invalidateQueries("getPosts");
         queryClient.invalidateQueries("getTags");
-        navigate(`/dashboard/view/${id}`);
+        navigate(`/view/${id}`);
     };
 
     useEffect(() => {

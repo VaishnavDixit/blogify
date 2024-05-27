@@ -12,18 +12,17 @@ import "./style.scss";
 import {useGetCurrentUser, useGetUserData} from "../../../queries/auth.js";
 import {useGetTags} from "../../../queries/tags.js";
 import BlankPFP from "../../../assets/blankProfilePicture.png";
+import moment from "moment";
 
 const Index = () => {
     const location = useLocation();
-    const [userPersonalInfo, setUserPersonalInfo] = useState({});
     const [toFollow, setToFollow] = useState(false);
     const [posts, setPosts] = useState([]);
     const [totalLikes, setTotalLikes] = useState(0);
     const navigate = useNavigate();
-    const handleOnClickPost = (id) => navigate(`/dashboard/view/${id}`);
+    const handleOnClickPost = (id) => navigate(`/view/${id}`);
     const {data: userData} = useGetUserData(location.state && location.state.userId);
     const {data: loggedInUser} = useGetCurrentUser();
-    // const {data: tags} = useGetTags();
 
     useEffect(() => {
         (async () => {
@@ -33,7 +32,6 @@ const Index = () => {
                 const providerAccessToken = session && session?.providerAccessToken;
                 const personalInfo = await authService.fetchGoogleUserData(providerAccessToken);
                 console.log(personalInfo);
-                setUserPersonalInfo(personalInfo);
                 const loggedInUserInfoAuth = await authService.getCurrentUser();
                 const loggedInUserId = loggedInUserInfoAuth.$id;
 
@@ -45,7 +43,10 @@ const Index = () => {
                 // } else setToFollow(false);
 
                 service
-                    .getPosts([Query.equal("publisher", viewUserInfo && viewUserInfo?.$id)])
+                    .getPosts([
+                        Query.equal("publisher", viewUserInfo && viewUserInfo?.$id),
+                        Query.orderDesc("$createdAt"),
+                    ])
                     .then((value) => {
                         console.log(value);
                         setPosts(value?.documents);
@@ -64,7 +65,7 @@ const Index = () => {
             setTotalLikes(sum);
         }
     }, [posts]);
-console.log(userData)
+    console.log(userData);
     return (
         <Container className="profile mt-4">
             <Row>
@@ -73,17 +74,20 @@ console.log(userData)
                     sm={12}
                     md={5}
                     className="dataShow my-4 d-flex flex-column align-items-center"
-                > 
+                >
                     <img src={userData?.profilePicture || BlankPFP} className="rounded-circle" />
                     <div className="text ps-3 my-3">
                         <h4>{userData?.name}</h4>
                         <p className="mb-0 font1-thin">
-                            1.2k followers, {totalLikes} like{totalLikes == 1 ? "" : "s"}
+                            {loggedInUser?.$createdAt
+                                ? `member since ${dateFormat(loggedInUser?.$createdAt)}`
+                                : null}
                         </p>
                     </div>
                     <h5 className="font1-bold text-center mb-3 mt-4">Tags Followed</h5>
                     <div className="d-flex flex-wrap justify-content-center">
-                        {userData && userData?.tagsFollowed && 
+                        {userData &&
+                            userData?.tagsFollowed &&
                             userData?.tagsFollowed?.map((tag, index) => (
                                 <div
                                     key={index + 1}
@@ -107,9 +111,8 @@ console.log(userData)
                             userData?.myArticles.map(
                                 ({
                                     title,
-                                    content,
                                     featuredImage,
-									description,
+                                    description,
                                     publisher,
                                     $id,
                                     $createdAt,
@@ -128,7 +131,9 @@ console.log(userData)
                                             <div
                                                 onClick={() => handleOnClickPost($id)}
                                                 className="font2-regular line-wrap2 contentSection mb-0 me-3"
-                                            >{description}</div>
+                                            >
+                                                {description}
+                                            </div>
                                             <div className="info mt-2 pb-2 d-flex justify-content-between align-items-start">
                                                 <p className="mb-0 text-truncate">
                                                     <span className=" font1-regular">

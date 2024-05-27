@@ -26,7 +26,7 @@ export const dateFormat = (date) =>
     });
 
 export const handleClickTag = async (tag, navigate) => {
-    navigate(`/dashboard/tag/${tag?.name}`, {
+    navigate(`/tag/${tag?.name}`, {
         state: {id: tag?.$id},
     });
 };
