@@ -33,6 +33,7 @@ const Index = () => {
 
     return (
         <>
+            <Header />
             <SubHeader text={`Saved Blogs`} />
             <Container className="savedArticles">
                 {isLoadingSavedBlogs ? (

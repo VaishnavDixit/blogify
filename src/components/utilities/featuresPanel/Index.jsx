@@ -28,7 +28,7 @@ const FeaturesPanel = () => {
 
     const {data: tags, isLoading: isLoadingTags} = useGetTags(120);
     const navigate = useNavigate();
-    const onClickTag = (tag, navigate) => {
+    const onClickTag = (tag) => {
         handleClickTag(tag, navigate);
     };
     const onClickShowAll = () => {
@@ -49,7 +49,7 @@ const FeaturesPanel = () => {
                             key={index + 1}
                             variant="outline-primary"
                             className="me-2 mb-2 pb-1 rounded-pill font1-thin"
-                            onClick={() => onClickTag(tag, navigate)}
+                            onClick={() => onClickTag(tag)}
                         >
                             {tag.name}
                         </Button>

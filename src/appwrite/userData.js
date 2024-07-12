@@ -20,6 +20,7 @@ export class UserDataService {
             const userData = await authService.getCurrentUser();
             if (userData) {
                 const id = userData.$id;
+				console.log(id)
                 const {providerAccessToken} = await authService.getSession();
                 const userPersonalInfo = await authService.fetchGoogleUserData(providerAccessToken);
                 const user = await this.databases.listDocuments(
@@ -27,7 +28,8 @@ export class UserDataService {
                     conf.appwriteCollectionUsersId,
                     [Query.equal("email", userData.email)]
                 );
-                if (!user || !user.length) {
+				console.log(user)
+                if (!user || !user.documents.length) {
                     console.log("adding user to the table. with id=", id);
                     return await this.databases.createDocument(
                         conf.appwriteDatabaseId,

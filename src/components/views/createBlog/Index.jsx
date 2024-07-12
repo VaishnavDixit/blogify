@@ -15,6 +15,7 @@ import {useLocation} from "react-router-dom";
 import {useGetPost} from "../../../queries/blogs.js";
 import {useGetTags} from "../../../queries/tags.js";
 import {TagsListLoader} from "../../utilities/loadingScreens/Index.jsx";
+import Header from "../../utilities/header/Index.jsx";
 
 const Index = () => {
     const navigate = useNavigate();
@@ -169,6 +170,7 @@ const Index = () => {
     };
     return (
         <>
+            <Header />
             <SubHeader text={"Create a blog"} />
             <Container className="createBlogPage">
                 <form onSubmit={handleSubmit(location.state?.id ? submitBlogUpdated : submitBlog)}>

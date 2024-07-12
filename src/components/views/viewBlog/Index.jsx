@@ -20,10 +20,11 @@ import Dropdown from "../../utilities/dropdown/Index.jsx";
 import {ViewBlogLoader} from "../../utilities/loadingScreens/Index.jsx";
 import SubHeader from "../../utilities/subHeader/Index.jsx";
 import "./style.scss";
-import BlankPFP from '../../../assets/blankProfilePicture.png'
+import BlankPFP from "../../../assets/blankProfilePicture.png";
 
 import {useDeleteBlog, useGetPost, useGetPosts} from "../../../queries/blogs.js";
 import {useGetCurrentUser} from "../../../queries/auth.js";
+import Header from "../../utilities/header/Index.jsx";
 
 const Index = () => {
     const params = useParams();
@@ -90,6 +91,7 @@ const Index = () => {
 
     return (
         <>
+            <Header />
             <SubHeader backButton text={""} />
             <Container className="viewBlogPage">
                 {isLoading ? (
@@ -107,7 +109,7 @@ const Index = () => {
                             <p className="mb-0 text-truncate " onClick={handleOnClickName}>
                                 <img
                                     className="profilePicture me-2"
-                                    src={currentPost?.publisher?.profilePicture||BlankPFP}
+                                    src={currentPost?.publisher?.profilePicture || BlankPFP}
                                 />
                                 <span className="hover-underline font1-regular">
                                     {currentPost && currentPost?.publisher?.name}
@@ -180,10 +182,12 @@ const Index = () => {
                                 ))
                             )}
                         </div>
-                        <div
-                            className="mt-2 content"
-                            dangerouslySetInnerHTML={{__html: currentPost?.content}}
-                        ></div>
+                        <div>
+                            <div
+                                className="mt-2 content"
+                                dangerouslySetInnerHTML={{__html: currentPost?.content}}
+                            />
+                        </div>
                     </Row>
                 )}
             </Container>

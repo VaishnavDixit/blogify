@@ -13,6 +13,7 @@ import SubHeader from "../../utilities/subHeader/Index.jsx";
 
 import "./style.scss";
 import service from "../../../appwrite/config.js";
+import Header from "../../utilities/header/Index.jsx";
 
 const Index = () => {
     console.log("page reload");
@@ -52,11 +53,12 @@ const Index = () => {
 
     return (
         <>
+		<Header/>
             <Container>
                 <Row>
-                    <Col md={4} className="d-none d-md-inline-block pe-0 mt-5 leftCol">
+                    <Col md={4} className="d-none d-md-inline-block pe-0 mt-4 leftCol">
                         <Container fluid>
-                            {JSON.stringify(isFollowed)}
+                            {/* {JSON.stringify(isFollowed)} */}
                             <Row>
                                 <Col sm={12} className="mb-4">
                                     <DiscoverOtherTopics />
@@ -65,7 +67,7 @@ const Index = () => {
                                     <FeaturesPanel />
                                 </Col>
                             </Row>
-                            {JSON.stringify(isFollowed)}
+                            {/* {JSON.stringify(isFollowed)} */}
                         </Container>
                     </Col>
                     <Col md={8} sm={12} xs={12} className="mt-3">

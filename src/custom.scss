@@ -56,8 +56,8 @@ $theme-colors: map-merge(
 
 // Font styles
 %basicFontCSS {
-    font-style: normal;
-    font-optical-sizing: auto;
+    // font-style: normal;
+    // font-optical-sizing: auto;
 }
 
 %font1 {
@@ -72,7 +72,7 @@ $theme-colors: map-merge(
 
 * {
     @extend %font1;
-    font-weight: 300;
+    // font-weight: 300;
 }
 
 button {
@@ -86,7 +86,7 @@ button {
 
 .font2-regular {
     @extend %font2;
-    font-weight: 400;
+    // font-weight: 400;
 }
 
 .font2-bold {

@@ -10,18 +10,17 @@ import Skeleton from "react-loading-skeleton";
 
 import "./style.scss";
 import SubHeader from "../../utilities/subHeader/Index.jsx";
-import { BlogsListLoader } from "../../utilities/loadingScreens/Index.jsx";
+import {BlogsListLoader} from "../../utilities/loadingScreens/Index.jsx";
 import Post from "../../utilities/post/Index.jsx";
+import Header from "../../utilities/header/Index.jsx";
 const Index = () => {
     const {data: posts, isLoading} = useGetPosts();
     const {data: curUser, isLoading: isLoadingGetCurUser} = useGetCurrentUser();
 
     return (
         <>
-            <SubHeader
-                text={`All Tags`}
-                backButton={false}
-            />
+            <Header />
+            <SubHeader text={`All Tags`} backButton={false} />
             <Container>
                 <Row>
                     <Col md={4} className="d-none d-md-inline-block pe-2 leftCol">

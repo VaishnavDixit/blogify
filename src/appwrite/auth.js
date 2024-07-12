@@ -32,12 +32,16 @@ export class AuthService {
     };
     createGoogleSession = async () => {
         try {
-            this.account.createOAuth2Session("google", "http://localhost:5173/", 'http://localhost:5173/abd');
+            this.account.createOAuth2Session(
+                "google",
+                "http://localhost:5173/",
+                "http://localhost:5173/abd"
+            );
         } catch (err) {
             console.log(err);
         }
     };
-	
+
     login = async ({email, password}) => {
         try {
             return await this.account.createEmailSession(email, password);
@@ -63,7 +67,7 @@ export class AuthService {
             return null;
         }
     };
-	
+
     getSession = async () => {
         try {
             return await this.account.getSession("current");
@@ -81,7 +85,7 @@ export class AuthService {
                     "Authorization": `Bearer ${providerAccessToken}`,
                 },
             });
-			console.log(response)
+            console.log(response);
             // Handle the response and extract user data
             const userData = response.data;
             return userData;

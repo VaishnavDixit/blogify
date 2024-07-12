@@ -10,13 +10,12 @@ const Index = () => {
         authService
             .getCurrentUser()
             .then((res) => {
-                console.log(res);
                 localStorage.setItem("userData", JSON.stringify(res));
                 localStorage.setItem("status", "true");
                 if (res) {
                     userDataService.createUser().then((res) => {
                         console.log(res);
-                        navigate("/");
+                        navigate("/dashboard");
                     });
                 }
             })

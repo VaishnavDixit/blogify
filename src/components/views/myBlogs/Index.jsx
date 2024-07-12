@@ -13,6 +13,7 @@ import SubHeader from "../../utilities/subHeader/Index.jsx";
 import Skeleton from "react-loading-skeleton";
 
 import "./style.scss";
+import Header from "../../utilities/header/Index.jsx";
 const Index = () => {
     const [userId, setUserId] = useState("");
     const navigate = useNavigate();
@@ -40,6 +41,7 @@ const Index = () => {
 
     return (
         <>
+		<Header/>
             <SubHeader text={`My Blogs ${isLoading ? "deleting..." : ""}`} />
             <Container className="myBlogs">
                 {isLoadingMyBlogs ? (
