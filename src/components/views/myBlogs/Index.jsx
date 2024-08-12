@@ -41,7 +41,7 @@ const Index = () => {
 
     return (
         <>
-		<Header/>
+            <Header />
             <SubHeader text={`My Blogs ${isLoading ? "deleting..." : ""}`} />
             <Container className="myBlogs">
                 {isLoadingMyBlogs ? (
@@ -52,7 +52,7 @@ const Index = () => {
                     myBlogs &&
                     myBlogs?.documents?.map((post, index) => (
                         <div
-                            key={index}
+                            key={index + 1}
                             className=" myBlog d-flex border-bottom align-items-start justify-content-start py-4 pb-3"
                         >
                             <h3 className="index font1-thin me-4">{index + 1}.</h3>
@@ -75,11 +75,11 @@ const Index = () => {
                                     <span className="d-flex">
                                         <Favorite className="likeIcon me-1" />
                                         <span className="me-2">
-                                            {(post && post?.likedBy.length) || 0}
+                                            {(post && post?.likedBy?.length) || 0}
                                         </span>
                                         <Bookmark className="saveIcon me-1" />
                                         <span className="me-2">
-                                            {(post && post?.savedBy.length) || 0}
+                                            {(post && post?.savedBy?.length) || 0}
                                         </span>
                                         <Dropdown
                                             displayButton={

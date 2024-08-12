@@ -1,20 +1,17 @@
-import {Bookmark, Favorite} from "@mui/icons-material";
-import {Container} from "@mui/material";
-import {Query} from "appwrite";
-import React, {useEffect, useState} from "react";
-import {Col, Row} from "react-bootstrap";
-import {useLocation, useNavigate} from "react-router-dom";
+import { Bookmark, Favorite } from "@mui/icons-material";
+import { Container } from "@mui/material";
+import { Query } from "appwrite";
+import React, { useEffect, useState } from "react";
+import { Col, Row } from "react-bootstrap";
+import { useLocation, useNavigate } from "react-router-dom";
 import authService from "../../../appwrite/auth.js";
 import service from "../../../appwrite/config.js";
-import userDataService from "../../../appwrite/userData.js";
-import {dateFormat, handleClickTag} from "../../../utilityFunctions/utilities.js";
-import "./style.scss";
-import {useGetCurrentUser, useGetUserData} from "../../../queries/auth.js";
-import {useGetTags} from "../../../queries/tags.js";
 import BlankPFP from "../../../assets/blankProfilePicture.png";
-import moment from "moment";
+import { useGetCurrentUser, useGetUserData } from "../../../queries/auth.js";
+import { dateFormat, handleClickTag } from "../../../utilityFunctions/utilities.js";
 import Header from "../../utilities/header/Index.jsx";
 import SubHeader from "../../utilities/subHeader/Index.jsx";
+import "./style.scss";
 
 const Index = () => {
     const location = useLocation();
@@ -67,11 +64,14 @@ const Index = () => {
             setTotalLikes(sum);
         }
     }, [posts]);
-	
+
+    const onFollowClick = () => {};
+
     return (
         <>
             <Header />
             <SubHeader text={"Profile"} backButton />
+            {/* <ShowData data={loggedInUser} /> */}
             <Container className="profile mt-4">
                 <Row>
                     <Col
@@ -108,7 +108,7 @@ const Index = () => {
                         </div>
                     </Col>
                     <Col xs={12} sm={12} md={7} className="">
-                        {userData?.myArticles && userData?.myArticles.length ? (
+                        {userData?.myArticles && userData?.myArticles?.length ? (
                             <h2 className=" blogsBy font1-thin mb-0 mt-3">
                                 Blogs by {userData && userData?.name}
                             </h2>
@@ -117,18 +117,24 @@ const Index = () => {
                             {userData?.$id &&
                                 userData?.myArticles &&
                                 userData?.myArticles.map(
-                                    ({
-                                        title,
-                                        featuredImage,
-                                        description,
-                                        publisher,
-                                        $id,
-                                        $createdAt,
-                                        tags,
-                                        savedBy,
-                                        likedBy,
-                                    }) => (
-                                        <div className="py-3 d-flex justify-content-between post">
+                                    (
+                                        {
+                                            title,
+                                            featuredImage,
+                                            description,
+                                            publisher,
+                                            $id,
+                                            $createdAt,
+                                            tags,
+                                            savedBy,
+                                            likedBy,
+                                        },
+                                        index
+                                    ) => (
+                                        <div
+                                            key={index + 1}
+                                            className="py-3 d-flex justify-content-between post"
+                                        >
                                             <div className="textContent">
                                                 <h3
                                                     className="font1-bolder line-wrap3 pointer"

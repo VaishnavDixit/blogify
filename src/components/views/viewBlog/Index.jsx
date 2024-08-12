@@ -36,15 +36,18 @@ const Index = () => {
     const [image, setImage] = useState("");
     const navigate = useNavigate();
     const user = localStorage.getItem("userData");
+
     const handleOnClickName = () => {
-        navigate(`/profile/${userInfo && userInfo.name}`, {
-            state: {userId: userInfo?.$id},
+        console.log(user);
+        navigate(`/profile/${user && JSON.parse(user).name}`, {
+            state: {userId: JSON.parse(user)?.$id},
         });
     };
     const {data: currentPost, refetch: refetchPost, isLoading} = useGetPost(params?.slug);
     const {data: currentUserAuth} = useGetCurrentUser();
     const {refetch: refetchGetPosts} = useGetPosts();
     const {mutateAsync, isSuccess} = useDeleteBlog(refetchGetPosts);
+
     useEffect(() => {
         setImage(currentPost?.featuredImage);
         currentPost &&
@@ -55,7 +58,7 @@ const Index = () => {
             currentPost.likedBy?.map((likingUser) => {
                 if (likingUser.$id == currentUserAuth.$id) setLiked(true);
             });
-        setLikeCount(currentPost && currentPost?.likedBy.length);
+        setLikeCount(currentPost && currentPost?.likedBy?.length);
     }, [currentUserAuth, currentPost]);
 
     useEffect(() => {
@@ -98,6 +101,8 @@ const Index = () => {
                     <ViewBlogLoader />
                 ) : (
                     <Row className="pt-3">
+                        {/* <pre>{JSON.stringify(currentPost, null, 2)}</pre> */}
+                        {/* <pre>{JSON.stringify(userInfo, null, 2)}</pre> */}
                         <h2 className="font1-bolder mt-3">{currentPost?.title}</h2>
                         {currentPost?.description && (
                             <div className="my-3">{currentPost?.description}</div>

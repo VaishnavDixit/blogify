@@ -86,7 +86,7 @@ const Index = () => {
 
     const handleClickTag = (tagId) => {
         setSelectedTags((prev) =>
-            prev && prev.length && prev.findIndex((i) => i == tagId) != -1
+            prev && prev?.length && prev.findIndex((i) => i == tagId) != -1
                 ? [...prev.filter((t) => t != tagId)]
                 : [...prev, tagId]
         );
@@ -143,7 +143,7 @@ const Index = () => {
         var arr = finalImage.split(","),
             mime = arr[0].match(/:(.*?);/)[1],
             bstr = atob(arr[1]),
-            n = bstr.length,
+            n = bstr?.length,
             u8arr = new Uint8Array(n);
         while (n--) {
             u8arr[n] = bstr.charCodeAt(n);
@@ -197,7 +197,7 @@ const Index = () => {
                                         className="me-2 my-1 py-1 rounded-pill"
                                         variant={
                                             selectedTags &&
-                                            selectedTags.length &&
+                                            selectedTags?.length &&
                                             selectedTags.findIndex((i) => i == tag.$id) != -1
                                                 ? "primary"
                                                 : "outline-primary"

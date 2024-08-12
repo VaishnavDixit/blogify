@@ -1,11 +1,9 @@
 /*
 	file related to logging in/ out of appwrite. 
 */
-import conf from "../conf/conf.js";
-import {Client, Account, ID} from "appwrite";
-import userDataService from "./userData.js";
-import {current} from "@reduxjs/toolkit";
+import { Account, Client, ID } from "appwrite";
 import axios from "axios";
+import conf from "../conf/conf.js";
 
 export class AuthService {
     client;

@@ -11,19 +11,14 @@ import Dropdown from "../../utilities/dropdown/Index.jsx";
 import SubHeader from "../../utilities/subHeader/Index.jsx";
 import "./style.scss";
 import {Query} from "appwrite";
+import Header from "../../utilities/header/Index.jsx";
 const Index = () => {
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem("userData"));
     const {data: savedBlogs, isLoading: isLoadingSavedBlogs} = useGetPosts([]);
 
     const handleDeleteBlog = async (slug) => {
-        // service.deletePost(slug).then((res) => {
-        //     console.log(res);
-        //     console.log("deletion done");
-        //     service.getPosts([Query.equal("userId", userId)]).then((value) => {
-        //         console.log(value.documents);
-        //     });
-        // });
+        
     };
 
     const handleOnClickPost = (slug) => {
