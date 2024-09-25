@@ -97,8 +97,8 @@ const Index = () => {
                                         </h3>
                                         <div className="d-flex flex-column flex-md-row align-items-center">
                                             <p className="font1-thin tagInfo mb-0">
-                                                12k followers, {tagInfo && tagInfo.articles?.length}{" "}
-                                                blogs
+                                                {tagInfo && tagInfo.articles?.length}{" "}
+                                                blog{tagInfo.articles?.length!=1 && 's'}
                                             </p>
                                             <Button
                                                 className="rounded-pill px-4 followBtn ms-3 pb-1"

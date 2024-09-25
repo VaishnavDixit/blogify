@@ -1,5 +1,5 @@
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
-import "bootstrap/dist/js/bootstrap.bundle";
+// import "bootstrap/dist/js/bootstrap.bundle";
 import {SnackbarProvider} from "notistack";
 import React, {Suspense} from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
@@ -8,7 +8,7 @@ import routes from "../routes.jsx";
 
 const LandingPage = React.lazy(() => import("./components/pages/auth/introduction/Index.jsx"));
 const DefaultLayout = React.lazy(() => import("./components/pages/layout/Index.jsx"));
-const LoadingFallback = React.lazy(() => import("./components/pages/loadingFallback/Index.jsx"));
+import LoadingFallback from "./components/pages/loadingFallback/Index.jsx";
 import DashBoardDefaultLayout from "./components/views/dashboardDefaultView/Index.jsx";
 
 const queryClient = new QueryClient();
