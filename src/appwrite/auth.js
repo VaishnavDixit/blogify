@@ -1,7 +1,7 @@
 /*
 	file related to logging in/ out of appwrite. 
 */
-import { Account, Client, ID } from "appwrite";
+import {Account, Client, ID} from "appwrite";
 import axios from "axios";
 import conf from "../conf/conf.js";
 

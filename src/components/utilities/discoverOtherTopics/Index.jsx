@@ -6,6 +6,8 @@ import {useNavigate} from "react-router";
 import Skeleton from "react-loading-skeleton";
 import {TrendingPageLoader} from "../loadingScreens/Index";
 import {useQueryClient} from "@tanstack/react-query";
+import BlankPFP from "../../../assets/blankProfilePicture.png";
+
 const DiscoverOtherTopics = () => {
     const queryClient = useQueryClient();
     const {data: posts, isLoading} = useGetPosts();
@@ -35,6 +37,7 @@ const DiscoverOtherTopics = () => {
 
     return (
         <div className="discoverOthersStyle py-2">
+            {/* <pre>{JSON.stringify(trending, null, 2)}</pre> */}
             <h4 className="font1-regular text-center mb-3">Trending 🔥</h4>
             {isLoading ? (
                 <TrendingPageLoader />
@@ -48,10 +51,17 @@ const DiscoverOtherTopics = () => {
                     >
                         <h4 className="title font1-bolder line-wrap3 mb-2">{title}</h4>
                         <div className="d-flex publisher line-wrap3 justify-content-start align-items-center">
-                            <img className="rounded-circle" src="https://picsum.photos/200/300" />
-                            <p className="mb-0 ms-2 name text-truncate">
-                                {publisher && publisher.name}
-                            </p>
+                            <img
+                                className="rounded-circle"
+                                src={publisher?.profilePicture || BlankPFP}
+                            />
+                            <div className="d-flex">
+                                <div>
+                                    <p className="mb-0 ms-2 name text-truncate">
+                                        {publisher && publisher.name}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 ))

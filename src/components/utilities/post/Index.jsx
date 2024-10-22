@@ -52,6 +52,8 @@ const Post = ({
 
     return (
         <Col sm={12} xs={12} className="px-0">
+            {/* <pre>{JSON.stringify(publisher, null, 2)}</pre> */}
+
             <div className="py-4 d-flex justify-content-between post">
                 <div className="textContent">
                     <h3 className="font1-bolder line-wrap3 pointer" onClick={handleOnClickPost}>
@@ -79,13 +81,13 @@ const Post = ({
                         <p className="mb-0 font1-thin text-truncate ">
                             <img
                                 className="profilePicture rounded-circle"
-                                src={publisher?.profilePicture || BlankPFP}
+                                src={(publisher && publisher?.profilePicture) || BlankPFP}
                             />
                             <span
                                 className="font1-thin hover-underline ps-2"
                                 onClick={handleOnClickName}
                             >
-                                {publisher && publisher.name}
+                                {publisher && publisher?.name}
                             </span>
                             <Lens className="mx-1 mb-1" style={{fontSize: ".3em"}} />
                             <span className=" font1-thin">{dateFormat($createdAt)}</span>
@@ -102,7 +104,7 @@ const Post = ({
                                     className="d-inline pointer"
                                 />
                             )}
-                            <Dropdown
+                            {/* <Dropdown
                                 displayButton={
                                     <MoreHorizRounded
                                         className="menuIcon"
@@ -115,7 +117,7 @@ const Post = ({
                                     {name: "Report", func: () => alert("reported!")},
                                     {name: "Test", func: () => alert("test 123 ;)!")},
                                 ]}
-                            />
+                            /> */}
                         </div>
                     </div>
                 </div>

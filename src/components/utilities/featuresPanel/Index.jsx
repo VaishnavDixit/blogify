@@ -26,7 +26,7 @@ import {useQueryClient} from "@tanstack/react-query";
 const FeaturesPanel = () => {
     const queryClient = useQueryClient();
 
-    const {data: tags, isLoading: isLoadingTags} = useGetTags(120);
+    const {data: tags, isLoading: isLoadingTags} = useGetTags(4);
     const navigate = useNavigate();
     const onClickTag = (tag) => {
         handleClickTag(tag, navigate);

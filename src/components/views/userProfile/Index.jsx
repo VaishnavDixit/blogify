@@ -1,14 +1,14 @@
-import { Bookmark, Favorite } from "@mui/icons-material";
-import { Container } from "@mui/material";
-import { Query } from "appwrite";
-import React, { useEffect, useState } from "react";
-import { Col, Row } from "react-bootstrap";
-import { useLocation, useNavigate } from "react-router-dom";
+import {Bookmark, Favorite} from "@mui/icons-material";
+import {Container} from "@mui/material";
+import {Query} from "appwrite";
+import React, {useEffect, useState} from "react";
+import {Col, Row} from "react-bootstrap";
+import {useLocation, useNavigate} from "react-router-dom";
 import authService from "../../../appwrite/auth.js";
 import service from "../../../appwrite/config.js";
 import BlankPFP from "../../../assets/blankProfilePicture.png";
-import { useGetCurrentUser, useGetUserData } from "../../../queries/auth.js";
-import { dateFormat, handleClickTag } from "../../../utilityFunctions/utilities.js";
+import {useGetCurrentUser, useGetUserData} from "../../../queries/auth.js";
+import {dateFormat, handleClickTag} from "../../../utilityFunctions/utilities.js";
 import Header from "../../utilities/header/Index.jsx";
 import SubHeader from "../../utilities/subHeader/Index.jsx";
 import "./style.scss";
@@ -65,8 +65,6 @@ const Index = () => {
         }
     }, [posts]);
 
-    const onFollowClick = () => {};
-
     return (
         <>
             <Header />
@@ -107,16 +105,17 @@ const Index = () => {
                                 ))}
                         </div>
                     </Col>
+                    <pre>{JSON.stringify(userData, null, 2)}</pre>
                     <Col xs={12} sm={12} md={7} className="">
-                        {userData?.myArticles && userData?.myArticles?.length ? (
+                        {userData?.myBlogs && userData?.myBlogs?.length ? (
                             <h2 className=" blogsBy font1-thin mb-0 mt-3">
                                 Blogs by {userData && userData?.name}
                             </h2>
                         ) : null}
                         <div className="blogs pt-4 pe-2">
                             {userData?.$id &&
-                                userData?.myArticles &&
-                                userData?.myArticles.map(
+                                userData?.myBlogs &&
+                                userData?.myBlogs.map(
                                     (
                                         {
                                             title,
@@ -183,7 +182,7 @@ const Index = () => {
                 <p>email: {userData?.email}</p>
                 <p>followers: {(userData?.followers && userData?.followers.length) || 0}</p>
                 <p>following: {(userData?.following && userData?.following.length) || 0}</p>
-                <p>Saved Blogs: {JSON.stringify(userData?.savedArticles)}</p>
+                <p>Saved Blogs: {JSON.stringify(userData?.savedBlogs)}</p>
                 <button>follow</button> */}
             </Container>
         </>

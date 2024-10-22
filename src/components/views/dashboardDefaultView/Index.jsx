@@ -24,7 +24,7 @@ const Index = () => {
             />
             <Container>
                 <Row className="gx-5">
-                    <Col md={5} className="d-none d-md-inline-block pe-4 leftCol">
+                    <Col md={4} className="d-none d-md-inline-block pe-4 leftCol">
                         <Container fluid>
                             <Row>
                                 <Col sm={12} className="mb-3">
@@ -36,7 +36,7 @@ const Index = () => {
                             </Row>
                         </Container>
                     </Col>
-                    <Col md={7} sm={12} xs={12} className="ps-4">
+                    <Col md={8} sm={12} xs={12} className="ps-4">
                         {isLoading ? (
                             <>
                                 <BlogsListLoader />
@@ -45,6 +45,7 @@ const Index = () => {
                             </>
                         ) : (
                             <div className="postsStyle ps-md-0 ps-sm-0 container-fluid">
+								{/* <pre>{JSON.stringify(posts, null, 2)}</pre> */}
                                 <Row>
                                     {posts &&
                                         posts?.documents &&

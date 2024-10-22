@@ -53,7 +53,7 @@ const Index = () => {
 
     return (
         <>
-		<Header/>
+            <Header />
             <Container>
                 <Row>
                     <Col md={4} className="d-none d-md-inline-block pe-0 mt-4 leftCol">
@@ -97,8 +97,8 @@ const Index = () => {
                                         </h3>
                                         <div className="d-flex flex-column flex-md-row align-items-center">
                                             <p className="font1-thin tagInfo mb-0">
-                                                {tagInfo && tagInfo.articles?.length}{" "}
-                                                blog{tagInfo.articles?.length!=1 && 's'}
+                                                {tagInfo && tagInfo.blogs?.length} blog
+                                                {tagInfo.blogs?.length != 1 && "s"}
                                             </p>
                                             <Button
                                                 className="rounded-pill px-4 followBtn ms-3 pb-1"
@@ -112,7 +112,7 @@ const Index = () => {
                                 </Row>
                                 <Row className="postsContent">
                                     {tagInfo &&
-                                        tagInfo.articles.map((post, index) => (
+                                        tagInfo.blogs.map((post, index) => (
                                             <Post key={index + 1} post={post} />
                                         ))}
                                 </Row>

@@ -49,14 +49,15 @@ const Index = () => {
     const {mutateAsync, isSuccess} = useDeleteBlog(refetchGetPosts);
 
     useEffect(() => {
+        console.log(currentPost);
         setImage(currentPost?.featuredImage);
         currentPost &&
-            currentPost.savedBy?.map(({$id}) => {
-                if ($id == currentUserAuth.$id) setSaved(true);
+            currentPost.savedBy?.map((savingUserId) => {
+                if (savingUserId === currentUserAuth.$id) setSaved(true);
             });
         currentPost &&
-            currentPost.likedBy?.map((likingUser) => {
-                if (likingUser.$id == currentUserAuth.$id) setLiked(true);
+            currentPost.likedBy?.map((likingUserId) => {
+                if (likingUserId === currentUserAuth.$id) setLiked(true);
             });
         setLikeCount(currentPost && currentPost?.likedBy?.length);
     }, [currentUserAuth, currentPost]);
@@ -84,7 +85,7 @@ const Index = () => {
             snackbar("success", !liked ? "Like added" : "Like removed");
         }
     };
-
+    console.log(currentPost);
     const handleDeleteBlog = () => {
         console.log(currentPost);
         mutateAsync(params?.slug);
@@ -101,7 +102,8 @@ const Index = () => {
                     <ViewBlogLoader />
                 ) : (
                     <Row className="pt-3">
-                        {/* <pre>{JSON.stringify(currentPost, null, 2)}</pre> */}
+                        {/* <pre>liked: {JSON.stringify(liked, null, 2)}</pre> */}
+                        <pre>currentPost: {JSON.stringify(currentPost, null, 2)}</pre>
                         {/* <pre>{JSON.stringify(userInfo, null, 2)}</pre> */}
                         <h2 className="font1-bolder mt-3">{currentPost?.title}</h2>
                         {currentPost?.description && (
@@ -117,7 +119,7 @@ const Index = () => {
                                     src={currentPost?.publisher?.profilePicture || BlankPFP}
                                 />
                                 <span className="hover-underline font1-regular">
-                                    {currentPost && currentPost?.publisher?.name}
+                                    {currentPost?.publisher && currentPost?.publisher?.name}
                                 </span>
                                 <Lens className="mx-1 mb-1" style={{fontSize: ".3em"}} />
                                 <span className="font1-regular">

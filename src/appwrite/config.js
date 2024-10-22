@@ -107,14 +107,12 @@ export class Service {
         }
     };
 
-
-
     //get file preview remaining (not an async function)
     getImgPreview = (fileId) => {
         return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
     };
 
-    getTags = async (count=0) => {
+    getTags = async (count = 1000000000) => {
         try {
             return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
@@ -138,7 +136,7 @@ export class Service {
         }
     };
 
-	followTag = async (userId, tagId, toFollow) => {
+    followTag = async (userId, tagId, toFollow) => {
         try {
             const userInfo = await this.databases.getDocument(
                 conf.appwriteDatabaseId,
@@ -153,7 +151,11 @@ export class Service {
                     {
                         "tagsFollowed": toFollow
                             ? [...(userInfo?.tagsFollowed.map((i) => i.$id) || []), tagId]
-                            : [...userInfo?.tagsFollowed.map((i) => i.$id).filter((id) => id != tagId)],
+                            : [
+                                  ...userInfo?.tagsFollowed
+                                      .map((i) => i.$id)
+                                      .filter((id) => id != tagId),
+                              ],
                     }
                 );
             } else throw "err";

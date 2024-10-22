@@ -27,7 +27,7 @@ const Index = () => {
     const {data: tags, isLoading: isLoadingTags} = useGetTags();
     useEffect(() => {
         console.log(toEditData);
-        if (!toEditData) return;
+        if (!toEditData || toEditData == undefined) return;
         console.log(service.getImgPreview(toEditData?.featuredImage));
         setSelectedTags(location?.state?.id ? toEditData?.tags?.map((item) => item.name) : []);
         setContent(location?.state?.id ? toEditData?.content : []);
@@ -120,7 +120,7 @@ const Index = () => {
                     description,
                     featuredImage: id,
                     content,
-                    publisher,
+                    publisher: publisher,
                     tags: selectedTags,
                 })
                 .then((res) => {
@@ -170,6 +170,7 @@ const Index = () => {
     };
     return (
         <>
+            {/* <pre>{JSON.stringify(location, null, 2)}</pre> */}
             <Header />
             <SubHeader text={"Create a blog"} />
             <Container className="createBlogPage">

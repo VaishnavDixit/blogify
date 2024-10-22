@@ -1,10 +1,10 @@
 import {useQuery} from "@tanstack/react-query";
 import service from "../appwrite/config";
 
-export const useGetTags = (count = 0) =>
+export const useGetTags = (count = 1000000000) =>
     useQuery({
         queryKey: ["getTags"],
-        queryFn: () => service.getTags(count).then((res) => res),
+        queryFn: () => service?.getTags(count || 1000000000).then((res) => res),
     });
 
 export const useGetTag = (id) =>

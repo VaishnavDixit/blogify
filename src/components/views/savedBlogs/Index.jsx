@@ -17,9 +17,7 @@ const Index = () => {
     const user = JSON.parse(localStorage.getItem("userData"));
     const {data: savedBlogs, isLoading: isLoadingSavedBlogs} = useGetPosts([]);
 
-    const handleDeleteBlog = async (slug) => {
-        
-    };
+    const handleDeleteBlog = async (slug) => {};
 
     const handleOnClickPost = (slug) => {
         console.log(slug);
@@ -30,7 +28,7 @@ const Index = () => {
         <>
             <Header />
             <SubHeader text={`Saved Blogs`} />
-            <Container className="savedArticles">
+            <Container className="savedBlogs">
                 {isLoadingSavedBlogs ? (
                     <div className="d-flex justify-content-center mt-4">{<LoaderIcon />}</div>
                 ) : (
