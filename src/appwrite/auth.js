@@ -32,7 +32,7 @@ export class AuthService {
         try {
             this.account.createOAuth2Session(
                 "google",
-                "https://blogify1234.netlify.app/",
+                "https://blogify1234.netlify.app",
                 "https://blogify1234.netlify.app/error"
             );
         } catch (err) {
