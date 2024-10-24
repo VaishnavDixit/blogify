@@ -93,8 +93,8 @@ const Index = () => {
                         <h5 className="font1-bold text-center mb-3 mt-4">Tags Followed</h5>
                         <div className="d-flex flex-wrap justify-content-center">
                             {userData &&
-                                userData?.tagsFollowed &&
-                                userData?.tagsFollowed?.map((tag, index) => (
+                                userData?.followedTags &&
+                                userData?.followedTags?.map((tag, index) => (
                                     <div
                                         key={index + 1}
                                         className=" tag px-3 pt-1 me-2 mb-2 rounded-pill font1-regular"
@@ -105,7 +105,7 @@ const Index = () => {
                                 ))}
                         </div>
                     </Col>
-                    <pre>{JSON.stringify(userData, null, 2)}</pre>
+                    {/* <pre>{JSON.stringify(userData, null, 2)}</pre> */}
                     <Col xs={12} sm={12} md={7} className="">
                         {userData?.myBlogs && userData?.myBlogs?.length ? (
                             <h2 className=" blogsBy font1-thin mb-0 mt-3">

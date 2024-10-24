@@ -149,10 +149,10 @@ export class Service {
                     conf.appwriteCollectionUsersId,
                     userId,
                     {
-                        "tagsFollowed": toFollow
-                            ? [...(userInfo?.tagsFollowed.map((i) => i.$id) || []), tagId]
+                        "followedTags": toFollow
+                            ? [...(userInfo?.followedTags.map((i) => i.$id) || []), tagId]
                             : [
-                                  ...userInfo?.tagsFollowed
+                                  ...userInfo?.followedTags
                                       .map((i) => i.$id)
                                       .filter((id) => id != tagId),
                               ],

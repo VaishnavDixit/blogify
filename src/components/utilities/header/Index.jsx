@@ -1,37 +1,41 @@
-import {
-    BookmarksOutlined,
-    Logout,
-    Person2Outlined,
-    PersonSharp,
-    SummarizeOutlined,
-} from "@mui/icons-material";
+import { BookmarksOutlined, Logout, Person2Outlined, SummarizeOutlined } from "@mui/icons-material";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, {useEffect, useState} from "react";
-import {Button} from "react-bootstrap";
-import {useDispatch} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import authService from "../../../appwrite/auth.js";
-import {logout} from "../../../store/authSlice.js";
+import BlankPFP from "../../../assets/blankProfilePicture.png";
+import { useGetUserData } from "../../../queries/auth.js";
+import { logout } from "../../../store/authSlice.js";
 import Dropdown from "../dropdown/Index.jsx";
 import "./style.scss";
-import BlankPFP from "../../../assets/blankProfilePicture.png";
 
 const Header = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const curUser = JSON.parse(localStorage.getItem("userData"));
 
-    const [name, setName] = useState("");
-    const [personalInfo, setPersonalInfo] = useState({});
+    const {data: userInfo, refetchUserData} = useGetUserData(curUser && curUser?.$id);
+
+    const [personalInfo, setPersonalInfo] = useState(null);
     useEffect(() => {
-        (async () => {
-            const {providerAccessToken} = await authService.getSession();
-            console.log(providerAccessToken);
-            const userPersonalInfo = await authService.fetchGoogleUserData(providerAccessToken);
-            console.log(userPersonalInfo);
-            setPersonalInfo(userPersonalInfo);
-        })();
-    }, []);
+        const fetchUserInfo = async () => {
+            try {
+                const {providerAccessToken} = await authService.getSession();
+                console.log(providerAccessToken);
+                const userPersonalInfo = await authService.fetchGoogleUserData(providerAccessToken);
+                console.log(userPersonalInfo);
+                setPersonalInfo(userPersonalInfo);
+            } catch (error) {
+                console.error("Error fetching user info:", error);
+            }
+        };
+
+        if (!personalInfo) {
+            fetchUserInfo();
+        }
+    }, [personalInfo]);
     const signOut = async () => {
         try {
             console.log("sign out started");
@@ -59,7 +63,8 @@ const Header = () => {
             >
                 Blogify
             </h2>
-            {/* <span>{JSON.stringify(personalInfo)}</span> */}
+            {/* <pre>{JSON.stringify(personalInfo, null, 2)}</pre>
+            <pre>{JSON.stringify(userInfo, null, 2)}</pre> */}
             <Button
                 onClick={() => navigate("/create-blog")}
                 className="me-3 rounded-pill"
@@ -67,19 +72,23 @@ const Header = () => {
             >
                 Create Blog
             </Button>
-            {personalInfo && (
+            {userInfo && (
                 <Dropdown
                     displayButton={
                         <img
                             type="button"
                             variant="webviolet"
-                            className="rounded-circle accountLogo pointer"
+                            className="rounded-circle accountLogo pointer lazy"
                             id="dropdownMenuButton1"
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
-                            src={personalInfo?.picture || BlankPFP}
+                            src={
+                                personalInfo && personalInfo.picture
+                                    ? personalInfo.picture
+                                    : BlankPFP
+                            }
                             alt="pfp"
-                        ></img>
+                        />
                     }
                     options={[
                         {

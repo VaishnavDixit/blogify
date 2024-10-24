@@ -43,13 +43,20 @@ const Index = () => {
             state: {userId: JSON.parse(user)?.$id},
         });
     };
-    const {data: currentPost, refetch: refetchPost, isLoading} = useGetPost(params?.slug);
-    const {data: currentUserAuth} = useGetCurrentUser();
+    const {
+        data: currentPost,
+        refetch: refetchPost,
+        isLoading,
+        isFetched: isFetchedGetPost,
+    } = useGetPost(params?.slug);
+    const {data: currentUserAuth, isFetched: isFetchedGetCurrentUser} = useGetCurrentUser();
     const {refetch: refetchGetPosts} = useGetPosts();
     const {mutateAsync, isSuccess} = useDeleteBlog(refetchGetPosts);
 
     useEffect(() => {
         console.log(currentPost);
+        console.log(currentUserAuth);
+        if (!isFetchedGetCurrentUser || !isFetchedGetPost) return;
         setImage(currentPost?.featuredImage);
         currentPost &&
             currentPost.savedBy?.map((savingUserId) => {
@@ -60,7 +67,7 @@ const Index = () => {
                 if (likingUserId === currentUserAuth.$id) setLiked(true);
             });
         setLikeCount(currentPost && currentPost?.likedBy?.length);
-    }, [currentUserAuth, currentPost]);
+    }, [currentUserAuth, currentPost, isFetchedGetCurrentUser, isFetchedGetPost]);
 
     useEffect(() => {
         refetchPost();
@@ -103,7 +110,7 @@ const Index = () => {
                 ) : (
                     <Row className="pt-3">
                         {/* <pre>liked: {JSON.stringify(liked, null, 2)}</pre> */}
-                        <pre>currentPost: {JSON.stringify(currentPost, null, 2)}</pre>
+                        {/* <pre>currentPost: {JSON.stringify(currentPost, null, 2)}</pre> */}
                         {/* <pre>{JSON.stringify(userInfo, null, 2)}</pre> */}
                         <h2 className="font1-bolder mt-3">{currentPost?.title}</h2>
                         {currentPost?.description && (

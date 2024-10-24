@@ -35,7 +35,7 @@ const Index = () => {
 
     useEffect(() => {
         console.log(userInfo);
-        if (userInfo?.tagsFollowed?.findIndex(({$id}) => $id == location?.state?.id) != -1)
+        if (userInfo?.followedTags?.findIndex(({$id}) => $id == location?.state?.id) != -1)
             setIsFollowed(true);
         else setIsFollowed(false);
     }, [userInfo]);
