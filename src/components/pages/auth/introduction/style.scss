@@ -2,15 +2,18 @@
 .introductionPage {
     padding: 35vh 1rem 1rem 1rem;
     .title {
-        font-size: 7em;
+        font-size: min(10vw, 7em);
     }
     .desc {
         font-size: 1.2em;
     }
     .btnColumn {
         Button {
+            img {
+                width: 30px;
+                height: 30px;
+            }
             width: 75%;
-            background-color: $webblue;
         }
     }
 }

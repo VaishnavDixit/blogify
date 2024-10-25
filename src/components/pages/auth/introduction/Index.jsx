@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import authService from "../../../../appwrite/auth.js";
 import userDataService from "../../../../appwrite/userData.js";
 import "./style.scss";
+import GoogleLogo from "../../../../assets/googleLogo.png";
 const Index = () => {
     const navigate = useNavigate();
     useEffect(() => {
@@ -34,7 +35,12 @@ const Index = () => {
                     {/* <Button className="m-2 p-2" onClick={() => navigate("sign-in")}>
                         Sign In
                     </Button> */}
-                    <Button className="m-2 p-2" onClick={() => authService.createGoogleSession()}>
+                    <Button
+                        variant="outline-primary"
+                        className="m-2 p-2"
+                        onClick={() => authService.createGoogleSession()}
+                    >
+                        <img src={GoogleLogo} className="me-1"/>
                         Sign In With Google
                     </Button>
                     {/* <Button className="m-2 p-2" onClick={() => navigate("sign-up")}>
