@@ -30,11 +30,15 @@ export class AuthService {
     };
     createGoogleSession = async () => {
         // try {
-            this.account.createOAuth2Session(
-                "google",
-                "https://blogify1234.netlify.app",
-                "https://blogify1234.netlify.app/error"
-            );
+        console.log("Client config:", this.client.config);
+        console.log("Client endpoint:", this.client.config.endpoint);
+        console.log("Success URL:", "https://blogify1234.netlify.app");
+        console.log("Failure URL:", "https://blogify1234.netlify.app/error");
+        this.account.createOAuth2Session(
+            "google",
+            "https://blogify1234.netlify.app",
+            "https://blogify1234.netlify.app/error"
+        );
         // } catch (err) {
         //     console.log(err);
         // }
