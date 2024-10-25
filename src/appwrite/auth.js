@@ -29,15 +29,15 @@ export class AuthService {
         }
     };
     createGoogleSession = async () => {
-        try {
+        // try {
             this.account.createOAuth2Session(
                 "google",
                 "https://blogify1234.netlify.app",
                 "https://blogify1234.netlify.app/error"
             );
-        } catch (err) {
-            console.log(err);
-        }
+        // } catch (err) {
+        //     console.log(err);
+        // }
     };
 
     login = async ({email, password}) => {
