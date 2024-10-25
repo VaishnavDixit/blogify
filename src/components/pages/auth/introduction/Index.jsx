@@ -36,11 +36,11 @@ const Index = () => {
                         Sign In
                     </Button> */}
                     <Button
-                        variant="outline-primary"
+                        variant="outline-primary rounded-pill"
                         className="m-2 p-2"
                         onClick={() => authService.createGoogleSession()}
                     >
-                        <img src={GoogleLogo} className="me-1"/>
+                        <img src={GoogleLogo} className="me-2"/>
                         Sign In With Google
                     </Button>
                     {/* <Button className="m-2 p-2" onClick={() => navigate("sign-up")}>
