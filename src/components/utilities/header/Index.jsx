@@ -23,9 +23,7 @@ const Header = () => {
         const fetchUserInfo = async () => {
             try {
                 const {providerAccessToken} = await authService.getSession();
-                console.log(providerAccessToken);
                 const userPersonalInfo = await authService.fetchGoogleUserData(providerAccessToken);
-                console.log(userPersonalInfo);
                 setPersonalInfo(userPersonalInfo);
             } catch (error) {
                 console.error("Error fetching user info:", error);
@@ -38,13 +36,9 @@ const Header = () => {
     }, [personalInfo]);
     const signOut = async () => {
         try {
-            console.log("sign out started");
             const session = await authService.logout();
-            console.log(session);
-            console.log("session founding...!");
             navigate("/");
             if (session) {
-                console.log("session found!");
                 localStorage.setItem("status", "");
                 localStorage.setItem("userData", "");
                 dispatch(logout());

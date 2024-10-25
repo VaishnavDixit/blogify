@@ -30,7 +30,6 @@ export class UserDataService {
                 );
                 console.log(user);
                 if (!user || !user.documents.length) {
-                    console.log("adding user to the table. with id=", id);
                     return await this.databases.createDocument(
                         conf.appwriteDatabaseId,
                         conf.appwriteCollectionUsersId,
@@ -68,7 +67,6 @@ export class UserDataService {
                 conf.appwriteCollectionUsersId,
                 userId
             );
-            console.log(userId, blogId, toSave, userData);
             return await this.databases.updateDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionUsersId,

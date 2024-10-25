@@ -26,9 +26,7 @@ const Index = () => {
     const {data: toEditData, isLoadingData} = useGetPost(location?.state?.id || "");
     const {data: tags, isLoading: isLoadingTags} = useGetTags();
     useEffect(() => {
-        console.log(toEditData);
         if (!toEditData || toEditData == undefined) return;
-        console.log(service.getImgPreview(toEditData?.featuredImage));
         setSelectedTags(location?.state?.id ? toEditData?.tags?.map((item) => item.name) : []);
         setContent(location?.state?.id ? toEditData?.content : []);
         setFinalImage(

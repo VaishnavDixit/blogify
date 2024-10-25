@@ -17,11 +17,10 @@ export class AuthService {
     }
 
     createAccount = async ({email, password, name}) => {
-        console.log({email, password, name});
         try {
             const userAccount = await this.account.create(ID.unique(), email, password, name);
             if (userAccount) {
-                console.log("successfullt signed up");
+                console.log("successfully signed up");
                 return await this.login({email, password});
             } else return userAccount;
         } catch (error) {
@@ -29,19 +28,15 @@ export class AuthService {
         }
     };
     createGoogleSession = async () => {
-        // try {
-        console.log("Client config:", this.client.config);
-        console.log("Client endpoint:", this.client.config.endpoint);
-        console.log("Success URL:", "https://blogify1234.netlify.app");
-        console.log("Failure URL:", "https://blogify1234.netlify.app/error");
-        this.account.createOAuth2Session(
-            "google",
-            "https://blogify1234.netlify.app",
-            "https://blogify1234.netlify.app/error"
-        );
-        // } catch (err) {
-        //     console.log(err);
-        // }
+        try {
+            this.account.createOAuth2Session(
+                "google",
+                "https://blogify1234.netlify.app",
+                "https://blogify1234.netlify.app/error"
+            );
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     login = async ({email, password}) => {

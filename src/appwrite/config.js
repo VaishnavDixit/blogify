@@ -9,14 +9,12 @@ export class Service {
         this.client = new Client()
             .setEndpoint('https://cloud.appwrite.io/v1') // Your API Endpoint
             .setProject(conf.appwriteProjectId);
-        console.log(conf);
         this.databases = new Databases(this.client);
         this.bucket = new Storage(this.client);
     }
 
     createPost = async (slug, {title, content, featuredImage, tags, publisher, description}) => {
         //featured Image is an ID. actual image is stored in bucket aka storage
-        console.log({title, slug, featuredImage, content, publisher, tags});
         try {
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
@@ -44,7 +42,6 @@ export class Service {
 
     deletePost = async (slug) => {
         try {
-            console.log(slug);
             await this.databases.deleteDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionBlogsId,
@@ -74,8 +71,6 @@ export class Service {
     //has query in this
     getPosts = async (queries = []) => {
         // we only want active blogs
-        console.log(queries);
-        console.log([...queries, Query.orderDesc("$createdAt")]);
         try {
             return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,

@@ -8,7 +8,6 @@ import "./style.scss";
 const Posts = ({queries}) => {
     console.log(queries);
     const {data: posts, isLoading} = useGetPosts();
-    console.log(posts);
     return (
         <div className="postsStyle ps-md-0 ps-sm-0 container-fluid">
             <Row>
