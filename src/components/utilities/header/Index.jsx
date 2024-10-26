@@ -1,13 +1,19 @@
-import {Add, BookmarksOutlined, HdrPlusOutlined, Logout, Person2Outlined, PlusOne, SummarizeOutlined} from "@mui/icons-material";
+import {
+	Add,
+	BookmarksOutlined,
+	Logout,
+	Person2Outlined,
+	SummarizeOutlined
+} from "@mui/icons-material";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, {useEffect, useState} from "react";
-import {Button} from "react-bootstrap";
-import {useDispatch} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import authService from "../../../appwrite/auth.js";
 import BlankPFP from "../../../assets/blankProfilePicture.png";
-import {useGetUserData} from "../../../queries/auth.js";
-import {logout} from "../../../store/authSlice.js";
+import { useGetUserData } from "../../../queries/auth.js";
+import { logout } from "../../../store/authSlice.js";
 import Dropdown from "../dropdown/Index.jsx";
 import "./style.scss";
 
@@ -71,52 +77,47 @@ const Header = () => {
                 className="me-3 rounded-pill d-sm-none"
                 variant="webdarkblue"
             >
-                <Add/> Blog
+                <Add /> Blog
             </Button>
-            {userInfo && (
-                <Dropdown
-                    displayButton={
-                        <img
-                            type="button"
-                            variant="webviolet"
-                            className="rounded-circle accountLogo pointer lazy"
-                            id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                            src={
-                                personalInfo && personalInfo.picture
-                                    ? personalInfo.picture
-                                    : BlankPFP
-                            }
-                            alt="pfp"
-                        />
-                    }
-                    options={[
-                        {
-                            name: "Profile",
-                            func: () =>
-                                navigate(`/profile/${personalInfo?.name}`, {
-                                    state: {userId: curUser?.$id},
-                                }),
-                            // navigate("/dashboard/create-blog", {
-                            // 	//         state: {id: id},
-                            // 	//     });
-                            icon: <Person2Outlined className="mb-1 me-1" />,
-                        },
-                        {
-                            name: "My Blogs",
-                            func: () => navigate("/my-blogs"),
-                            icon: <SummarizeOutlined className="mb-1 me-1" />,
-                        },
-                        {
-                            name: "Saved Blogs",
-                            func: () => navigate("/saved-blogs"),
-                            icon: <BookmarksOutlined className="mb-1 me-1" />,
-                        },
-                        {name: "Sign Out", func: signOut, icon: <Logout className="mb-1 me-1" />},
-                    ]}
-                />
-            )}
+
+            <Dropdown
+                displayButton={
+                    <img
+                        type="button"
+                        variant="webviolet"
+                        className="rounded-circle accountLogo pointer lazy"
+                        id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        src={personalInfo && personalInfo.picture ? personalInfo.picture : BlankPFP}
+                        alt="pfp"
+                    />
+                }
+                options={[
+                    {
+                        name: "Profile",
+                        func: () =>
+                            navigate(`/profile/${personalInfo?.name}`, {
+                                state: {userId: curUser?.$id},
+                            }),
+                        // navigate("/dashboard/create-blog", {
+                        // 	//         state: {id: id},
+                        // 	//     });
+                        icon: <Person2Outlined className="mb-1 me-1" />,
+                    },
+                    {
+                        name: "My Blogs",
+                        func: () => navigate("/my-blogs"),
+                        icon: <SummarizeOutlined className="mb-1 me-1" />,
+                    },
+                    {
+                        name: "Saved Blogs",
+                        func: () => navigate("/saved-blogs"),
+                        icon: <BookmarksOutlined className="mb-1 me-1" />,
+                    },
+                    {name: "Sign Out", func: signOut, icon: <Logout className="mb-1 me-1" />},
+                ]}
+            />
         </div>
     );
 };

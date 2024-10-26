@@ -1,23 +1,19 @@
 import {
-    BookmarkBorderSharp,
-    BookmarkRemoveSharp,
-    Lens,
-    MoreHorizRounded,
-    Person,
+	BookmarkBorderSharp,
+	BookmarkRemoveSharp,
+	Lens
 } from "@mui/icons-material";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
-import React, {useEffect, useState} from "react";
-import {Col} from "react-bootstrap";
-import {useNavigate} from "react-router-dom";
-import authService from "../../../appwrite/auth.js";
+import React, { useEffect, useState } from "react";
+import { Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import service from "../../../appwrite/config.js";
-import userDataService from "../../../appwrite/userData.js";
-import Dropdown from "../dropdown/Index.jsx";
-import "./style.scss";
-import {dateFormat, handleClickTag, snackbar} from "../../../utilityFunctions/utilities.js";
-import {useGetCurrentUser} from "../../../queries/auth.js";
 import BlankPFP from "../../../assets/blankProfilePicture.png";
+import { useGetCurrentUser } from "../../../queries/auth.js";
+import { useSaveUnsaveBlog } from "../../../queries/blogs.js";
+import { dateFormat, handleClickTag, snackbar } from "../../../utilityFunctions/utilities.js";
+import "./style.scss";
 const Post = ({
     post: {title, content, description, featuredImage, publisher, $id, $createdAt, tags, savedBy},
 }) => {
@@ -29,6 +25,11 @@ const Post = ({
             if ($id == curUser?.$id) setSaved(true);
         });
     }, [curUser]);
+    const {
+        mutateAsync: handleSaveBlogMutateAsync,
+        isSuccess: isSuccessSaveUnsaveBlog,
+        status: saveStatus,
+    } = useSaveUnsaveBlog();
 
     const navigate = useNavigate();
 
@@ -43,11 +44,11 @@ const Post = ({
     };
 
     const handleSaveBlog = async () => {
-        const res = await userDataService.bookmarkBlog(curUser && curUser?.$id, $id, !saved);
-        if (res) {
-            snackbar("success", !saved ? "Added to bookmarks" : "removed from bookmarks");
-            setSaved((p) => !p);
-        }
+        if (saveStatus == "pending") return;
+        handleSaveBlogMutateAsync({blogId: $id, toSave: !saved}).then((res) => {
+            setSaved((prev) => !prev);
+            snackbar("success", saved ? "Removed from bookmarks!" : "Added to bookamarks 🏷️!");
+        });
     };
 
     return (
@@ -96,12 +97,16 @@ const Post = ({
                             {saved ? (
                                 <BookmarkRemoveSharp
                                     onClick={handleSaveBlog}
-                                    className="d-block pointer"
+                                    className={`d-inline pointer ${
+                                        saveStatus == "pending" ? "disabledText" : ""
+                                    }`}
                                 />
                             ) : (
                                 <BookmarkBorderSharp
                                     onClick={handleSaveBlog}
-                                    className="d-inline pointer"
+                                    className={`d-inline pointer ${
+                                        saveStatus == "pending" ? "disabledText" : ""
+                                    }`}
                                 />
                             )}
                             {/* <Dropdown

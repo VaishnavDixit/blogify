@@ -15,9 +15,8 @@ import "./style.scss";
 
 const Index = () => {
     const location = useLocation();
-    const [toFollow, setToFollow] = useState(false);
+    // const [toFollow, setToFollow] = useState(false);
     const [posts, setPosts] = useState([]);
-    const [totalLikes, setTotalLikes] = useState(0);
     const navigate = useNavigate();
     const handleOnClickPost = (id) => navigate(`/view/${id}`);
     const {data: userData} = useGetUserData(location.state && location.state.userId);
@@ -61,7 +60,6 @@ const Index = () => {
         if (posts) {
             let sum = 0;
             posts.map((post) => (sum += post.likedBy?.length ?? "-"));
-            setTotalLikes(sum);
         }
     }, [posts]);
 

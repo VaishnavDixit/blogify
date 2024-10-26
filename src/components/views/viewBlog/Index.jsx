@@ -1,29 +1,32 @@
 import {
-    BookmarkBorderSharp,
-    BookmarkRemoveSharp,
-    Favorite,
-    FavoriteBorderSharp,
-    Lens,
-    MoreHorizRounded,
-    Person,
+	BookmarkBorderSharp,
+	BookmarkRemoveSharp,
+	Favorite,
+	FavoriteBorderSharp,
+	Lens,
+	MoreHorizRounded
 } from "@mui/icons-material";
-import React, {useEffect, useState} from "react";
-import {Container, Row} from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Container, Row } from "react-bootstrap";
 import "react-image-crop/src/ReactCrop.scss";
 import Skeleton from "react-loading-skeleton";
-import {useNavigate, useParams} from "react-router-dom";
-import authService from "../../../appwrite/auth.js";
+import { useNavigate, useParams } from "react-router-dom";
 import service from "../../../appwrite/config.js";
-import userDataService from "../../../appwrite/userData.js";
-import {dateFormat, handleClickTag, snackbar} from "../../../utilityFunctions/utilities.js";
+import BlankPFP from "../../../assets/blankProfilePicture.png";
+import { dateFormat, handleClickTag, snackbar } from "../../../utilityFunctions/utilities.js";
 import Dropdown from "../../utilities/dropdown/Index.jsx";
-import {ViewBlogLoader} from "../../utilities/loadingScreens/Index.jsx";
+import { ViewBlogLoader } from "../../utilities/loadingScreens/Index.jsx";
 import SubHeader from "../../utilities/subHeader/Index.jsx";
 import "./style.scss";
-import BlankPFP from "../../../assets/blankProfilePicture.png";
 
-import {useDeleteBlog, useGetPost, useGetPosts} from "../../../queries/blogs.js";
-import {useGetCurrentUser} from "../../../queries/auth.js";
+import { useGetCurrentUser } from "../../../queries/auth.js";
+import {
+	useDeleteBlog,
+	useGetPost,
+	useGetPosts,
+	useLikeUnlikeBlog,
+	useSaveUnsaveBlog,
+} from "../../../queries/blogs.js";
 import Header from "../../utilities/header/Index.jsx";
 
 const Index = () => {
@@ -52,6 +55,17 @@ const Index = () => {
     const {data: currentUserAuth, isFetched: isFetchedGetCurrentUser} = useGetCurrentUser();
     const {refetch: refetchGetPosts} = useGetPosts();
     const {mutateAsync, isSuccess} = useDeleteBlog(refetchGetPosts);
+    const {
+        mutateAsync: handleLikeBlogMutateAsync,
+        isSuccess: isSuccessLikeUnlikeBlog,
+        status: likeStatus,
+    } = useLikeUnlikeBlog();
+
+    const {
+        mutateAsync: handleSaveBlogMutateAsync,
+        isSuccess: isSuccessSaveUnsaveBlog,
+        status: saveStatus,
+    } = useSaveUnsaveBlog();
 
     useEffect(() => {
         console.log(currentPost);
@@ -74,25 +88,22 @@ const Index = () => {
     }, [liked]);
 
     const handleSaveBlog = async () => {
-        const res = await userDataService.bookmarkBlog(
-            currentUserAuth?.$id,
-            currentPost?.$id,
-            saved ? false : true
-        );
-        if (res) {
-            setSaved((p) => !p);
-            snackbar("success", !saved ? "Added to bookmarks" : "removed from bookmarks");
-        }
+		console.log('ss')
+        if (saveStatus == "pending") return;
+        handleSaveBlogMutateAsync({blogId: params?.slug, toSave: !saved}).then((res) => {
+            setSaved((prev) => !prev);
+            snackbar("success", saved ? "Removed from bookmarks!" : "Added to bookamarks 🏷️!");
+        });
     };
 
     const handleLikePost = async () => {
-        const res = await userDataService.likeBlog(params?.slug, currentUserAuth?.$id, !liked);
-        if (res) {
-            setLiked((p) => !p);
-            snackbar("success", !liked ? "Like added" : "Like removed");
-        }
+        if (likeStatus == "pending") return;
+        handleLikeBlogMutateAsync({blogId: params?.slug, toLike: !liked}).then((res) => {
+            setLiked((prev) => !prev);
+            snackbar("success", liked ? "Liked removed!" : "Liked 👍🏼 added!");
+        });
     };
-    console.log(currentPost);
+
     const handleDeleteBlog = () => {
         console.log(currentPost);
         mutateAsync(params?.slug);
@@ -135,10 +146,17 @@ const Index = () => {
                             </p>
                             <div className="d-flex justify-content-end align-items-center">
                                 {liked ? (
-                                    <Favorite className="likeIcon" onClick={handleLikePost} />
+                                    <Favorite
+                                        className={`likeIcon ${
+                                            likeStatus == "pending" ? "disabledText" : ""
+                                        }`}
+                                        onClick={handleLikePost}
+                                    />
                                 ) : (
                                     <FavoriteBorderSharp
-                                        className="likeIcon"
+                                        className={`likeIcon ${
+                                            likeStatus == "pending" ? "disabledText" : ""
+                                        }`}
                                         onClick={handleLikePost}
                                     />
                                 )}
@@ -146,12 +164,16 @@ const Index = () => {
                                 {saved ? (
                                     <BookmarkRemoveSharp
                                         onClick={handleSaveBlog}
-                                        className="d-inline pointer"
+                                        className={`d-inline pointer ${
+                                            saveStatus == "pending" ? "disabledText" : ""
+                                        }`}
                                     />
                                 ) : (
                                     <BookmarkBorderSharp
                                         onClick={handleSaveBlog}
-                                        className="d-inline pointer"
+                                        className={`d-inline pointer ${
+                                            saveStatus == "pending" ? "disabledText" : ""
+                                        }`}
                                     />
                                 )}
                                 <Dropdown

@@ -37,7 +37,7 @@ export class UserDataService {
                         {
                             name: userData?.name,
                             email: userData?.email,
-                            profilePicture: userPersonalInfo?.picture,
+                            picture: userPersonalInfo?.picture,
                         }
                     );
                 }
@@ -60,17 +60,18 @@ export class UserDataService {
         }
     };
 
-    bookmarkBlog = async (userId, blogId, toSave) => {
+    bookmarkBlog = async (blogId, toSave) => {
         try {
+            const userDataAuth = await authService.getCurrentUser();
             const userData = await this.databases.getDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionUsersId,
-                userId
+                userDataAuth?.$id
             );
             return await this.databases.updateDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionUsersId,
-                userId,
+                userData?.$id,
                 {
                     "savedBlogs": toSave
                         ? [...userData.savedBlogs.map((i) => i.$id), blogId]
@@ -82,22 +83,24 @@ export class UserDataService {
         }
     };
 
-    likeBlog = async (blogId, userId, toLike) => {
+    likeBlog = async (blogId, toLike) => {
         try {
             const blogInfo = await this.databases.getDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionBlogsId,
                 blogId
             );
-            if (blogInfo) {
+            const userData = await authService.getCurrentUser();
+            if (blogInfo && userData) {
                 return await this.databases.updateDocument(
                     conf.appwriteDatabaseId,
                     conf.appwriteCollectionBlogsId,
                     blogId,
                     {
+                        // "likedBy": userData?.$id
                         "likedBy": toLike
-                            ? [...(blogInfo?.likedBy || []), userId]
-                            : [...(blogInfo?.likedBy?.filter((i) => i != userId) || [])],
+                            ? [...(blogInfo?.likedBy || []), userData?.$id]
+                            : [...(blogInfo?.likedBy?.filter((i) => i != userData?.$id) || [])],
                     }
                 );
             } else throw "err";

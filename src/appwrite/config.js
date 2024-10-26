@@ -7,7 +7,7 @@ export class Service {
     bucket; // storage
     constructor() {
         this.client = new Client()
-            .setEndpoint('https://cloud.appwrite.io/v1') // Your API Endpoint
+            .setEndpoint("https://cloud.appwrite.io/v1") // Your API Endpoint
             .setProject(conf.appwriteProjectId);
         this.databases = new Databases(this.client);
         this.bucket = new Storage(this.client);
