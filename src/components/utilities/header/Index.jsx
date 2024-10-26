@@ -1,13 +1,13 @@
-import { BookmarksOutlined, Logout, Person2Outlined, SummarizeOutlined } from "@mui/icons-material";
+import {Add, BookmarksOutlined, HdrPlusOutlined, Logout, Person2Outlined, PlusOne, SummarizeOutlined} from "@mui/icons-material";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Button} from "react-bootstrap";
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
 import authService from "../../../appwrite/auth.js";
 import BlankPFP from "../../../assets/blankProfilePicture.png";
-import { useGetUserData } from "../../../queries/auth.js";
-import { logout } from "../../../store/authSlice.js";
+import {useGetUserData} from "../../../queries/auth.js";
+import {logout} from "../../../store/authSlice.js";
 import Dropdown from "../dropdown/Index.jsx";
 import "./style.scss";
 
@@ -49,7 +49,7 @@ const Header = () => {
     };
 
     return (
-        <div className="headerStyle d-flex align-items-center justify-content-between pe-3 ps-2 py-2">
+        <div className="headerStyle d-flex align-items-center justify-content-between ">
             <img src="/blogify-logo-white.svg" width={45} className="m-2" />
             <h2
                 className="mainIcon font1-thin mb-0 me-auto pointer"
@@ -61,10 +61,17 @@ const Header = () => {
             <pre>{JSON.stringify(userInfo, null, 2)}</pre> */}
             <Button
                 onClick={() => navigate("/create-blog")}
-                className="me-3 rounded-pill"
+                className="me-3 rounded-pill d-none d-sm-block"
                 variant="webdarkblue"
             >
                 Create Blog
+            </Button>
+            <Button
+                onClick={() => navigate("/create-blog")}
+                className="me-3 rounded-pill d-sm-none"
+                variant="webdarkblue"
+            >
+                <Add/> Blog
             </Button>
             {userInfo && (
                 <Dropdown
