@@ -1,6 +1,10 @@
 @import "../../../custom.scss";
 
 .dropdown {
+    z-index: 900;
+    .dropdown-menu {
+        z-index: 1050; /* This is the default Bootstrap z-index for dropdowns */
+    }
     ul {
         transition: 0.1s ease;
         li {

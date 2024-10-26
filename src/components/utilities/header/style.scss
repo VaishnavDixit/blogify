@@ -7,41 +7,13 @@
     z-index: 800;
     background: linear-gradient(to right, $webdarkblue, $weblightblue_t);
     backdrop-filter: blur(6px);
-    margin: 0; /* Reset margins */
-    // .curve {
-    //     position: absolute;
-    //     top: 0;
-    //     bottom: 0;
-    //     left: 0;
-    //     border-top-right-radius: 65px;
-    // }
-    // .curve1 {
-    //     width: 15%;
-    //     z-index: 12;
-    //     background: #002fa8;
-    // }
-    // .curve2 {
-    //     width: 19%;
-    //     z-index: 11;
-    //     background: #1b57f1;
-    // }
-    // .curve3 {
-    //     width: 21%;
-    //     z-index: 10;
-    //     background: #4cc9f0;
-    // }
-    // .curve4 {
-    //     width: 24%;
-    //     z-index: 9;
-    //     background: #b8eeff;
-    // }
+    margin: 0;
 
     h2 {
         z-index: 13;
         color: white;
         // font-size: 2em;
-		font-size: min(10vw, 2em);
-
+        font-size: min(10vw, 2em);
     }
     Button {
         font-size: 1em;
@@ -51,5 +23,7 @@
         height: 39px;
         padding: 0;
         background: none;
+		position: relative;
+        z-index: 1000;
     }
 }
