@@ -49,7 +49,7 @@ const Header = () => {
     };
 
     return (
-        <div className="headerStyle d-flex align-items-center justify-content-between ">
+        <div className="headerStyle d-flex align-items-center justify-content-between p-2">
             <img src="/blogify-logo-white.svg" width={45} className="m-2" />
             <h2
                 className="mainIcon font1-thin mb-0 me-auto pointer"

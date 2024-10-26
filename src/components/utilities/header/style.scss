@@ -4,7 +4,7 @@
 }
 .headerStyle {
     width: 100%;
-    // z-index: 800;
+    z-index: 800;
     background: linear-gradient(to right, $webdarkblue, $weblightblue_t);
     backdrop-filter: blur(6px);
     margin: 0; /* Reset margins */
