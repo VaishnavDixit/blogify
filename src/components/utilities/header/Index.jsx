@@ -70,14 +70,14 @@ const Header = () => {
                 className="me-3 rounded-pill d-none d-sm-block"
                 variant="webdarkblue"
             >
-                Create Blog
+                Create Blog 📝
             </Button>
             <Button
                 onClick={() => navigate("/create-blog")}
                 className="me-3 rounded-pill d-sm-none"
                 variant="webdarkblue"
             >
-                <Add /> Blog
+                ➕ Blog
             </Button>
 
             <Dropdown
