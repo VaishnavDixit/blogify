@@ -11,7 +11,7 @@ const Index = () => {
         authService
             .getCurrentUser()
             .then((res) => {
-				alert(JSON.stringify(res));
+				// alert(JSON.stringify(res));
                 localStorage.setItem("userData", JSON.stringify(res));
                 localStorage.setItem("status", "true");
                 if (res) {
