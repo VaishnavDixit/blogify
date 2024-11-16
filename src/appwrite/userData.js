@@ -20,7 +20,7 @@ export class UserDataService {
             const userData = await authService.getCurrentUser();
             if (userData) {
                 const id = userData.$id;
-                console.log(id);
+				console.log('.getCurrentUser() fetched, id:', id)
                 const {providerAccessToken} = await authService.getSession();
                 const userPersonalInfo = await authService.fetchGoogleUserData(providerAccessToken);
                 const user = await this.databases.listDocuments(
@@ -30,6 +30,7 @@ export class UserDataService {
                 );
                 console.log(user);
                 if (!user || !user.documents.length) {
+					console.log('creating user... in local')
                     return await this.databases.createDocument(
                         conf.appwriteDatabaseId,
                         conf.appwriteCollectionUsersId,

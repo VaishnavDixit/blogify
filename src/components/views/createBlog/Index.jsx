@@ -26,6 +26,7 @@ const Index = () => {
     const {data: toEditData, isLoadingData} = useGetPost(location?.state?.id || "");
     const {data: tags, isLoading: isLoadingTags} = useGetTags();
     useEffect(() => {
+		console.log('uesEff')
         if (!toEditData || toEditData == undefined) return;
         setSelectedTags(location?.state?.id ? toEditData?.tags?.map((item) => item.name) : []);
         setContent(location?.state?.id ? toEditData?.content : []);

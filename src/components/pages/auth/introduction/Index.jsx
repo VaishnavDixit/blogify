@@ -6,16 +6,20 @@ import userDataService from "../../../../appwrite/userData.js";
 import "./style.scss";
 import GoogleLogo from "../../../../assets/googleLogo.png";
 const Index = () => {
+	// debugger;
     const navigate = useNavigate();
     useEffect(() => {
+		console.log('introduction UE')
         authService
-            .getCurrentUser()
-            .then((res) => {
-				// alert(JSON.stringify(res));
+		.getCurrentUser()
+		.then((res) => {
+				console.log('cur user fetched')
+                // alert(JSON.stringify(res));
                 localStorage.setItem("userData", JSON.stringify(res));
                 localStorage.setItem("status", "true");
                 if (res) {
-                    userDataService.createUser().then((res) => {
+                    userDataService.createUser().then(() => {
+						console.log('.createUser() success')
                         navigate("/dashboard");
                     });
                 }
@@ -41,7 +45,7 @@ const Index = () => {
                         className="m-2 p-2"
                         onClick={() => authService.createGoogleSession()}
                     >
-                        <img src={GoogleLogo} className="me-2"/>
+                        <img src={GoogleLogo} className="me-2" />
                         Sign In With Google
                     </Button>
                     {/* <Button className="m-2 p-2" onClick={() => navigate("sign-up")}>

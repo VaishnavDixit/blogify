@@ -31,8 +31,8 @@ export class AuthService {
         try {
             this.account.createOAuth2Session(
                 "google",
-                "https://blogify1234.netlify.app",
-                "https://blogify1234.netlify.app/error"
+                "http://localhost:5173/",
+                "http://localhost:5173/error"
             );
         } catch (err) {
             console.log(err);
@@ -48,41 +48,28 @@ export class AuthService {
     };
 
     logout = async () => {
-        try {
-            console.log("logging out... from end point");
-            return await this.account.deleteSessions();
-        } catch (error) {
-            console.log("err logging out");
-        }
+        return await this.account.deleteSessions();
     };
 
     getCurrentUser = async () => {
-        try {
-            return await this.account.get();
-        } catch (error) {
-            console.log("error while gettting current user :/");
-            return null;
-        }
+        return await this.account.get();
     };
 
     getSession = async () => {
-        try {
-            return await this.account.getSession("current");
-        } catch (error) {
-            console.log("error while gettting current user session");
-            return null;
-        }
+        return await this.account.getSession("current");
+        
     };
 
     fetchGoogleUserData = async (providerAccessToken) => {
         try {
             // Make a GET request to Google API to fetch user data
+			console.log('inside fetchGoogleUserData')
             const response = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
                 headers: {
                     "Authorization": `Bearer ${providerAccessToken}`,
                 },
             });
-            console.log(response);
+            console.log('response:', response);
             // Handle the response and extract user data
             const userData = response.data;
             return userData;
