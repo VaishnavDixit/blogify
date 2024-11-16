@@ -9,7 +9,7 @@ const Index = () => {
 	// debugger;
     const navigate = useNavigate();
     useEffect(() => {
-		console.log('introduction UE')
+		console.log(window.location.host, 'introduction UE')
         authService
 		.getCurrentUser()
 		.then((res) => {

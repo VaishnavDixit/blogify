@@ -31,8 +31,8 @@ export class AuthService {
         try {
             this.account.createOAuth2Session(
                 "google",
-                "http://localhost:5173/",
-                "http://localhost:5173/error"
+				`http://${window.location.host}/`,
+				`http://${window.location.host}/error`,
             );
         } catch (err) {
             console.log(err);
